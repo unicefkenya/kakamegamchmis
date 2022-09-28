@@ -1,0 +1,407 @@
+﻿@using Newtonsoft.Json
+@model MCHMIS.ViewModels.PostNatalViewModel
+
+@{
+    ViewData["Title"] = "POST NATAL EVALUATION";
+}
+
+@Html.Partial("_Menu")
+<div class="row delivery-data">
+    <form asp-action="PostNatal">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="PregnancyId" />
+        <input type="hidden" asp-for="Option" />
+        @if (Model.Option.Equals("edit"))
+        {
+            <input type="hidden" asp-for="PostNatalExaminationId" />
+            <input type="hidden" asp-for="optionId" />
+            <input type="hidden" asp-for="UpdatingClinicVisitId" value="@Model.ClinicVisitId" />
+
+        }
+        <div class="col-md-6">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>MOTHER</h2>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content optiona">
+                    <div class="form-group col-md-6">
+                        <label asp-for="VisitDate" class="control-label"></label>
+                        <div class='input-group date'>
+                            <input asp-for="VisitDate" type="text" class="form-control required no-typing date" autocomplete="off" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                        <span asp-validation-for="VisitDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="ClinicVisitId" class="control-label"></label>
+
+                        <select asp-for="ClinicVisitId" class="form-control" asp-items="ViewBag.ClinicVisitId" ng-model="ClinicVisitId">
+                            <option value="">Select</option>
+                        </select>
+                        <span asp-validation-for="ClinicVisitId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="BloodPressure" class="control-label"></label>
+                        <input asp-for="BloodPressure" class="form-control" />
+                        <span asp-validation-for="BloodPressure" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="SupportStatusId" class="control-label"></label>
+                        @if (Model.PrevSupportStatusId == 266)
+                        {
+                            <select asp-for="SupportStatusId" disabled="disabled" class="form-control" asp-items="ViewBag.SupportStatusId">
+                                <option value="">Select</option>
+                            </select>
+                            <input type="hidden" name="SupportStatusId" value="@Model.PrevSupportStatusId" />
+                        }
+                        else
+                        {
+                            <select asp-for="SupportStatusId" class="form-control" asp-items="ViewBag.SupportStatusId">
+                                <option value="">Select</option>
+                            </select>
+                            <span asp-validation-for="SupportStatusId" class="text-danger"></span>
+                        }
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="FPCounselingId" class="control-label"></label>
+                        <select asp-for="FPCounselingId" class="form-control" asp-items="ViewBag.FPCounselingId">
+                            <option value="">Select</option>
+                        </select>
+                        <span asp-validation-for="FPCounselingId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="FPMethodId" class="control-label"></label>
+                        <select asp-for="FPMethodId" class="form-control" asp-items="ViewBag.FPMethodId">
+                            <option value="">Select</option>
+                        </select>
+                        <span asp-validation-for="FPMethodId" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>BABY</h2>
+                    <a asp-action="PostNatal" asp-route-id="@Model.PregnancyId" asp-route-option="newbaby" class="btn btn-default pull-right">
+                        Add New Baby Data
+                    </a>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    @if (Model.Option.Equals("newbaby"))
+                    {
+                        <input asp-for="Option" type="hidden" />
+                        <div class="form-group col-md-6">
+                            <label asp-for="PostNatalExaminationId" class="control-label"></label>
+                            <select asp-for="PostNatalExaminationId" class="form-control" asp-items="ViewBag.PostNatalExaminationId"></select>
+                            <span asp-validation-for="PostNatalExaminationId" class="text-danger"></span>
+                        </div>
+                    }
+                    <div class="form-group col-md-6">
+                        <label asp-for="ChildId" class="control-label"></label>
+                        <select asp-for="ChildId" class="form-control required" asp-items="ViewBag.ChildId"></select>
+                        <span asp-validation-for="ChildId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="BabyGeneralCondition" class="control-label"></label>
+                        <input asp-for="BabyGeneralCondition" class="form-control" />
+                        <span asp-validation-for="BabyGeneralCondition" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="FeedingMethodId" class="control-label"></label>
+                        <select asp-for="FeedingMethodId" class="form-control required" asp-items="ViewBag.FeedingMethodId">
+                            <option value="">Select</option>
+                        </select>
+                        <span asp-validation-for="FeedingMethodId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6" ng-if="ClinicVisitId!=17">
+                        <label asp-for="ImmunizationStartedId" class="control-label"></label>
+                        <select asp-for="ImmunizationStartedId" class="form-control" asp-items="ViewBag.ImmunizationStartedId">
+                            <option value="">Select</option>
+                        </select>
+                        <span asp-validation-for="ImmunizationStartedId" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group col-md-6" ng-if="ClinicVisitId!=17">
+                        <label asp-for="ARTProphylaxisGivenId" class="control-label"></label>
+                        <select asp-for="ARTProphylaxisGivenId" class="form-control" asp-items="ViewBag.ARTProphylaxisGivenId">
+                            <option value="">Select</option>
+                        </select>
+                        <span asp-validation-for="ARTProphylaxisGivenId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6" ng-if="ClinicVisitId!=17">
+                        <label asp-for="CPInitiatedId" class="control-label"></label>
+                        <select asp-for="CPInitiatedId" class="form-control" asp-items="ViewBag.CPInitiatedId">
+                            <option value="">Select</option>
+                        </select>
+                        <span asp-validation-for="CPInitiatedId" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group col-md-6" ng-if="ClinicVisitId>10">
+                        <label asp-for="KeyMilestoneIds" class="control-label"></label>
+                        <select multiple="multiple" asp-for="KeyMilestoneIds" class="form-control multiple">
+                            <option ng-repeat="item in keyMilestones| filter: {ClinicVisitId: ClinicVisitId||'-1'}" value="{{item.Id}}">
+                                {{item.Name}}
+                            </option>
+                        </select>
+                        <span asp-validation-for="KeyMilestoneIds" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6" ng-if="ClinicVisitId!=17">
+                        <label asp-for="NextVisit" class="control-label"></label>
+                        <div class='input-group date-future'>
+                            <input asp-for="NextVisit" type="text" class="form-control required no-typing" autocomplete="off" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            @if (Model.StatusId == 1 || Model.Option.Equals("edit"))
+            {
+                <button type="submit" class="btn btn-success pull-right">
+                    <i class="glyphicon glyphicon-ok-sign"></i>   @(Model.Option.Equals("edit") ? "Update" : "Save")
+                </button>
+            }
+
+            <input asp-for="ClinicVisitId" type="hidden" />
+            <a asp-action="Index" class="btn btn-danger glyphicon glyphicon-step-backward pull-left"> Back</a>
+        </div>
+    </form>
+</div>
+<div class="col-md-12 margin-top-25">
+    <hr />
+    <h2 class="lbl-title">PREVIOUS POST NATAL EXAMINATIONS</h2>
+</div>
+<div class="scrollable">
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.PostNatalExamination.VisitDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PostNatalExamination.ClinicVisitId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PostNatalExamination.BloodPressure)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PostNatalExamination.FPCounselingId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PostNatalExamination.FPMethodId)
+                </th>
+                <th>
+                    Baby
+                </th>
+                <th>
+                    General Condition
+                </th>
+                <th>
+                    Feeding Method
+                </th>
+                <th>
+                    Immunization Started
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PostNatalExaminationDetail.ARTProphylaxisGivenId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PostNatalExaminationDetail.CPInitiatedId)
+                </th>
+                <th>
+                    Milestones
+                </th>
+                <th class="fit">
+                    Requires Fingerprint<br /> Verification
+                </th>
+                <th class="fit">
+                    @Html.DisplayNameFor(model => model.PostNatalExamination.MotherClinicVisit.Verified)
+                </th>
+                @if (Model.StatusId == 1)
+                {
+                    <th class="fit">Edit</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.PostNatalExaminations)
+            {
+                if (item.Details.Any())
+                {
+                    var count = 0;
+                    foreach (var i in item.Details)
+                    {
+                        var milestones = Model.PostNatalMilestones.Where(x => x.PostNatalExaminationDetailId == i.Id);
+                        <tr class="@item.MotherClinicVisit?.RequiresFingerPrint @item.MotherClinicVisit?.Verified">
+                            @if (count == 0)
+                            {
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.VisitDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ClinicVisit.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.BloodPressure)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.FPCounseling.Code)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.FPMethod.Code)
+                                </td>
+
+                            }
+                            else
+                            {
+
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            }
+                            <td class="fit">
+                                @Html.DisplayFor(modelItem => i.Child.DisplayName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => i.BabyGeneralCondition)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => i.FeedingMethod.Code)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => i.ImmunizationStarted.Code)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => i.ARTProphylaxisGiven.Code)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => i.CPInitiated.Code)
+                            </td>
+                            <td>
+                                <ul>
+                                    @foreach (var s in Model.PostNatalMilestones.Where(x => x.PostNatalExaminationDetailId == i.Id))
+                                    {
+                                        <li>
+                                            @Html.DisplayFor(model => s.KeyMilestone.Name)
+                                        </li>
+;
+                                    }
+                                </ul>
+                            </td>
+                            <td class="text-center">
+                                @(item.MotherClinicVisit!=null && item.MotherClinicVisit.RequiresFingerPrint ? "Yes" : "No")
+                            </td>
+                            <td class="text-center">
+                                @(item.MotherClinicVisit!=null && item.MotherClinicVisit.Verified ? "Yes" : "No")
+                                @if (item.MotherClinicVisit!=null && item.MotherClinicVisit.RequiresFingerPrint && !item.MotherClinicVisit.Verified)
+                                {
+                                    <a asp-action="FingerPrint" class="fa fa-pencil" asp-route-id="@item.MotherClinicVisitId"></a>
+                                }
+                                else if (item.ClinicVisitId == 17 && (!milestones.Select(z => z.KeyMilestoneId).Contains(19) || !Model.BirthCertificateObatined))
+                                {
+                                    <a asp-action="PostNatal" class="fa fa-pencil"
+                                       asp-route-id="@item.PregnancyId"
+                                       asp-route-postNatalExaminationId="@i.PostNatalExaminationId"
+                                       asp-route-option="edit"
+                                       asp-route-optionId="@i.ChildId"></a>
+                                }
+                            </td>
+                            @if (Model.StatusId == 1)
+                            {
+                                <td>
+                                    <a asp-action="PostNatal" class="fa fa-pencil"
+                                       asp-route-id="@item.PregnancyId"
+                                       asp-route-postNatalExaminationId="@i.PostNatalExaminationId"
+                                       asp-route-option="edit"
+                                       asp-route-optionId="@i.ChildId"></a>
+                                </td>
+                            }
+                        </tr>
+                        count++;
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.VisitDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ClinicVisit.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.BloodPressure)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FPCounseling.Code)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FPMethod.Code)
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            @Html.Raw(item.Notes)
+                        </td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    
+                  
+                }
+
+
+
+            }
+</table>
+</div>
+@section scripts
+{
+    <script type="text/javascript" src="~/js/bootstrap-multiselect.js"></script>
+    <link rel="stylesheet" href="~/css/bootstrap-multiselect.css" type="text/css" />
+    <script>
+        $(document).ready(function() {
+            var scope = angular.element(document.querySelector('body')).scope();
+            scope.$apply(function(filter) {
+                scope.keyMilestones = @Html.Raw(JsonConvert.SerializeObject(Model.KeyMilestones));
+                if ('@Model.ClinicVisitId' !== '') {
+                    scope.ClinicVisitId = '@Model.ClinicVisitId';
+                }
+
+            });
+            setTimeout(function() {
+                    if ('@Model.ClinicVisitId' !=='') {
+                        $('#ClinicVisitId').val('@Model.ClinicVisitId');
+                    }
+
+                },
+                100);
+            $('#ClinicVisitId').on('change',
+                function() {
+                    $('.multiple').multiselect('destroy').multiselect();
+                });
+            $("#KeyMilestoneIds").val(@Html.Raw(JsonConvert.SerializeObject(Model.KeyMilestoneIds)));
+            $('.multiple').multiselect();
+            if ('@Model.Option' === 'newbaby') {
+                $('.optiona input,.optiona select').prop('disabled', 'disabled');
+            }
+
+        });
+    </script>
+}

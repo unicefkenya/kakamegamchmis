@@ -1,0 +1,262 @@
+﻿@model MCHMIS.ViewModels.ComplaintDetailsViewModel
+@{
+    ViewData["Title"] = "Details";
+}
+<div class="row edit-complaints">
+
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Complaint Details</h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content sectiona">
+                <div class="form-horizontal">
+                    <table class="table table-bordered action-complaint-details">
+
+                        <tr>
+                            <td>
+                                @Html.DisplayNameFor(model => model.Complaint.ComplaintDate):
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => model.Complaint.ComplaintDate)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.DisplayNameFor(model => model.Complaint.CategoryId):
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => model.Complaint.Category.Code)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.DisplayNameFor(model => model.Complaint.ComplaintTypeId):
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => model.Complaint.ComplaintType.Name)
+                                @Html.DisplayFor(model => model.Complaint.OtherComplaintType)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.DisplayNameFor(model => model.Complaint.Description):
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => model.Complaint.Description)
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td width="200">
+                                @Html.DisplayNameFor(model => model.Complaint.IsComplainantAnonymousId):
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => model.Complaint.IsComplainantAnonymous.Code)
+                            </td>
+                        </tr>
+                        @if (!Model.Complaint.IsComplainantAnonymous.Code.Equals("No"))
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayNameFor(model => model.Complaint.IsComplainantBeneficiaryId):
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(model => model.Complaint.IsComplainantBeneficiary.Code)
+                                </td>
+                            </tr>
+                            if (Model.Complaint.IsComplainantBeneficiary != null)
+                            {
+                                if (!Model.Complaint.IsComplainantBeneficiary.Code.Equals("Yes"))
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayNameFor(model => model.Complaint.UniqueId):
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(model => model.Complaint.UniqueId)
+                                        </td>
+                                    </tr>
+                                }
+                            }
+
+                            <tr>
+                                <td>
+                                    @Html.DisplayNameFor(model => model.Complaint.Name):
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(model => model.Complaint.Name)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    @Html.DisplayNameFor(model => model.Complaint.IdNumber):
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(model => model.Complaint.IdNumber)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    @Html.DisplayNameFor(model => model.Complaint.Phone):
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(model => model.Complaint.Phone)
+                                </td>
+                            </tr>
+                        }
+
+                        <tr>
+                            <td>
+                                @Html.DisplayNameFor(model => model.Complaint.HealthFacilityId):
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => model.Complaint.HealthFacility.Name)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.DisplayNameFor(model => model.Complaint.Village.WardId):
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => model.Complaint.Village.Ward.Name)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.DisplayNameFor(model => model.Complaint.Village):
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => model.Complaint.Village.Name)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.DisplayNameFor(model => model.Complaint.StatusId):
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => model.Complaint.Status.Name)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.DisplayNameFor(model => model.Complaint.Form):
+                            </td>
+                            <td>
+                                @if (!string.IsNullOrEmpty(Model.Complaint.Form))
+                                {
+                                    <a href="~/uploads/complaints/@Model.Complaint.Form" target="_blank">
+                                        <i class="fa fa-file-pdf-o"></i>
+                                    </a>
+                                }
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="action-cont" class="col-md-6 col-sm-12 col-xs-12">
+
+        <form asp-action="Action">
+            <input type="hidden" name="Id" value="@Model.Complaint.Id" />
+            <div class="x_panel">
+                @if (Model.Complaint.StatusId < 4)
+                {
+                    <div class="x_title">
+                        <h2>ACTION</h2>
+                        <div class="radio-cont">
+                            <input type="radio" checked="checked" name="Action" ng-model="action" value="FollowUp" @(Model.Complaint.StatusId > 2 ? "disabled='disabled'" : "") />
+                            <span>
+                                Follow Up
+                            </span>
+                        </div>
+                        @*@if ((userprofiles.Contains(88) && Model.ComplaintType.ComplaintCategoryId == 1 || userprofiles.Contains(73) && Model.ComplaintType.ComplaintCategoryId == 2) && Model.ComplaintStatusId != 4)
+                            { }*@
+                        <div class="radio-cont">
+                            <input type="radio" name="Action" ng-model="action" value="Resolve" @(Model.Complaint.StatusId == 3 ? "disabled='disabled'" : "") /><span>Resolve</span>
+                        </div>
+                        <div class="radio-cont">
+                            <input type="radio" name="Action" ng-model="action" value="Close" @(Model.Complaint.StatusId != 3 ? "disabled='disabled'" : "") /><span>Close</span>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                }
+
+                <div class="x_content sectionb">
+                    <div class="row">
+                        @if (Model.Complaint.StatusId < 4)
+                        {
+                            <div class="form-group" ng-show="action!=='none'">
+                                <label ng-show="action=='FollowUp'" class="control-label col-md-12">Follow up Notes</label>
+                                <label ng-show="action=='Resolve'" class="control-label col-md-12">Final Resolution Note</label>
+                                <label ng-show="action=='Close'" class="control-label col-md-12">Note</label>
+                                <div class="col-md-12">
+                                    <textarea asp-for="Notes" class="form-control"></textarea>
+                                    <span asp-validation-for="Notes" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group" ng-show="action!=='none'">
+                                <div class="col-md-12 margin-top-25 margin-bottom-10">
+                                    <button type="submit" class="btn btn-success pull-right">
+                                        <i class="glyphicon glyphicon-ok-sign"></i> Save
+                                    </button>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div class="form-groups">
+                        <h2>Notes</h2>
+                        <hr />
+                        <table class="table table-bordered">
+                            <tr>
+                                <th>Description</th>
+                                <th>Category</th>
+                                <th>Date</th>
+                                <th>User</th>
+                            </tr>
+                            @foreach (var item in Model.ComplaintNotes)
+                            {
+                                <tr>
+                                    <td>@Html.DisplayFor(modelItem => item.Description)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Category.Code)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.DateCreated)</td>
+                                    <td>@item.CreatedBy.FullName</td>
+                                </tr>
+                            }
+                            @if (!Model.ComplaintNotes.Any())
+                            {
+                                <tr>
+                                    <td colspan="5">
+                                        <span class="text-danger">No data found.</span>
+                                    </td>
+                                </tr>
+                            }
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="col-md-12">
+    <a asp-action="Index" class="btn btn-default glyphicon glyphicon-step-backward"> Back</a>
+</div>
+
+@section scripts{
+    @*
+        <link rel="stylesheet" href="~/css/prettyPhoto.css" type="text/css" media="screen" charset="utf-8" />
+        <script src="~/js/jquery.prettyPhoto.js" type="text/javascript" charset="utf-8"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                var scope = angular.element(document.querySelector('body')).scope();
+                scope.$apply(function (filter) {
+                    scope.action = 'none';
+                });
+                $("a[rel^='prettyPhoto']").prettyPhoto();
+            });
+        </script>
+    *@
+}

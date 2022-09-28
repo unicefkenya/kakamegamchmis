@@ -1,0 +1,15 @@
+﻿@using Newtonsoft.Json
+ <script type="text/javascript">
+     $(document).ready(function () {
+         var scope = angular.element(document.querySelector('body')).scope();
+         scope.$apply(function (filter) {
+             scope.wards = @Html.Raw(JsonConvert.SerializeObject(Model.Wards));
+             scope.SubCountyId ='@Model.SubCountyId';
+             scope.WardId = '@Model.WardId';
+             setTimeout(function() {
+                 $('#WardId').val('@Model.WardId');
+                 $('.select-searchable,.filter-list').select2();
+             },100);
+         });
+     });
+ </script>

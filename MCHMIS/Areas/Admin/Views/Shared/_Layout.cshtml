@@ -1,0 +1,152 @@
+﻿@using Microsoft.AspNetCore.Http
+
+<!DOCTYPE html>
+<html lang="en" ng-app="clientApp">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - MCHMIS</title>
+
+    @*
+    <environment include="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
+    </environment>*@
+    <link rel="stylesheet" href="~/admin/vendors/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/admin/vendors/font-awesome/css/font-awesome.min.css" />
+
+    <link rel="stylesheet" href="~/admin/vendors/bootstrap-daterangepicker/daterangepicker.css" />
+    <link rel="stylesheet" href="~/admin/build/css/custom.css" />
+    <link rel="stylesheet" href="~/css/customSelect.css" />
+
+    <link rel="stylesheet" href="~/css/buttons.dataTables.css" />
+    <link rel="stylesheet" href="~/css/dataTables.bootstrap.min.css" />
+
+    <link rel="stylesheet" href="~/css/select2.min.css" />
+    <link rel="stylesheet" href="~/css/custom.css?v=3" />
+    <script src="~/js/modernizr-2.8.3.js"></script>
+    <link rel="stylesheet" href="~/css/bootstrap-datetimepicker.min.css" />
+    <link rel="shortcut icon" href="~/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="~/images/favicon.ico" type="image/x-icon">
+    <style>
+        .ajax-loader {
+            display: block;
+        }
+    </style>
+</head>
+
+<body class="nav-sm" ng-controller="clientCtrl">
+    <div class="ajax-loader"><img src="~/images/ajax-loader.gif" /></div>
+    <div class="container body">
+        <div class="main_container">
+            @Html.Partial("_SideBar")
+            @Html.Partial("_TopNav")
+            <!-- page content -->
+            <div class="right_col" role="main">
+
+                <div class="clearfix"></div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>@ViewBag.Title</h2>
+                                @RenderSection("buttons", false)
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                @RenderBody()
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer class="copy">
+                <div class="container">
+                    <div class="row">
+                        
+                        <div class="col-md-12">
+                            <img class="supportedby" src="~/images/unicef-logo.png" />
+                            <p>&copy; @DateTime.Now.Year All Rights Reserved</p>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <div class="modal fade" id="popup" tabindex="-1" role="dialog" aria-labelledby=""> </div>
+    <!-- jQuery -->
+    <script src="~/admin/vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="~/admin/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <!-- Custom Theme Scripts -->
+    <script src="~/admin/build/js/custom.js"></script>
+    <script src="~/admin/vendors/moment/min/moment.min.js"></script>
+    <!-- bootstrap-datetimepicker -->
+    <script src="~/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="~/js/angular.min.js"></script>
+    <script src="~/js/angular-sanitize.min.js"></script>
+    <script src="~/js/customSelect.js"></script>
+    <script src="~/js/jquery.table2excel.min.js"></script>
+    <script src="~/js/jquery.dataTables.min.js"></script>
+    <script src="~/js/datatables/dataTables.bootstrap.min.js"></script>
+    <script src="~/js/datatables/dataTables.buttons.min.js"></script>
+    <script src="~/js/datatables/jszip/jszip.min.js"></script>
+    <script src="~/js/datatables/pdfmake/pdfmake.min.js"></script>
+    <script src="~/js/datatables/pdfmake/vfs_fonts.js"></script>
+    <script src="~/js/datatables/buttons.html5.js"></script>
+
+    <script src="~/js/date.format.js"></script>
+    <script src="~/js/datatables/header.image.js"></script>
+    <script src="~/js/select2.min.js"></script>
+    <script src="~/js/main.js?v=1"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script>
+        jQuery.extend(jQuery.validator.messages, {
+            required: "* Required",
+            remote: "Please fix this field.",
+            email: "Please enter a valid email address.",
+            url: "Please enter a valid URL.",
+            date: "Please enter a valid date.",
+            dateISO: "Please enter a valid date (ISO).",
+            number: "Please enter a valid number.",
+            digits: "Please enter only digits.",
+            creditcard: "Please enter a valid credit card number.",
+            equalTo: "Please enter the same value again.",
+            accept: "Please enter a value with a valid extension.",
+            maxlength: jQuery.validator.format("Please enter no more than {0} characters."),
+            minlength: jQuery.validator.format("Please enter at least {0} characters."),
+            rangelength: jQuery.validator.format("Please enter a value between {0} and {1} characters long."),
+            range: jQuery.validator.format("Please enter a value between {0} and {1}."),
+            max: jQuery.validator.format("Please enter a value less than or equal to {0}."),
+            min: jQuery.validator.format("Please enter a value greater than or equal to {0}.")
+        });
+    </script>
+    @RenderSection("scripts", required: false)
+    @{
+    string areaName = ViewContext.RouteData.Values["area"].ToString();
+    string controllerName = ViewContext.RouteData.Values["Controller"].ToString();
+    string actionName = ViewContext.RouteData.Values["Action"].ToString();
+    }
+    <script>
+        $(window).load(function () {
+            $('.ajax-loader').fadeOut();
+            if ('@areaName' === 'reports') {
+                $('.arear-@areaName.ToLower()').addClass('active');
+
+                $('.lnk-@actionName.ToLower()').addClass('active');
+            } else {
+                $('@ViewBag.active').addClass('current-page');
+
+                $('.@controllerName.ToLower()').addClass('active');
+                $('.@actionName.ToLower()').addClass('active');
+            }
+
+        })
+    </script>
+    <input type="hidden" id="lblViewBagTitle" value="@ViewBag.Title" />
+    @Html.Partial("_Notification")
+    @Html.Partial("_RootURL")
+</body>
+</html>

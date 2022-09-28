@@ -1,0 +1,71 @@
+﻿@model IEnumerable<MCHMIS.ViewModels.FRSummaryViewModel>
+
+@{
+    ViewData["Title"] = "Fund Request Summary";
+}
+@section buttons
+    {
+    <a class="btn btn-primary" asp-route-id="@ViewBag.Id" asp-action="Details">View Details</a>
+}
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Facility)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SubCounty)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ward)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Beneficiaries)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Amount)
+            </th>
+            <th class="fit">View</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Facility)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SubCounty)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ward)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Beneficiaries)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td class="text-center">
+                    <a asp-action="Details" class="fa fa-eye" asp-route-id="@item.Id" asp-route-HealthFacilityId="@item.HealthFacilityId"> </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="3">
+                <strong>Total</strong>
+            </td>
+            <td>
+                <strong>@Model.Sum(i => i.Beneficiaries).ToString("##,###")</strong>
+            </td>
+            <td>
+                <strong>@(Model.Sum(i => i.Amount).ToString("##,###"))</strong>
+            </td>
+            <td></td>
+        </tr>
+    </tfoot>
+</table>
+<a asp-action="Index" class="btn btn-danger glyphicon glyphicon-step-backward pull-left"> Back</a>

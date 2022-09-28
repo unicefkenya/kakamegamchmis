@@ -1,0 +1,114 @@
+﻿@model MCHMIS.ViewModels.DashboardViewModel
+@{
+    ViewData["Title"] = "Dashboard";
+}
+<partial name="_Menu" />
+<div class="row dashboard-row">
+    <div class="col-md-12">
+        <div class="x_panel">
+
+            <div class="row x_title">
+                <div class="col-md-6">
+                    <h3>Updates</h3>
+                </div>
+                <div class="col-md-6">
+                </div>
+            </div>
+            <div class="x_content">
+                <div class="row">
+                    <div class="animated flipInY col-md-3">
+                        <a href="~/admin/changes?statusId=1" class="tile-stats bg-danger">
+                            <div class="icon">
+                                <i class="fa fa-envelope-open-o"></i>
+                            </div>
+                            <div class="count">@Model.PendingUpdates</div>
+                            <h3>Pending</h3>
+                        </a>
+                    </div>
+                    <div class="animated flipInY col-md-3">
+                        <a href="~/admin/changes?statusId=2" class="tile-stats bg-warning">
+                            <div class="icon">
+                                <i class="fa fa-plus-square"></i>
+                            </div>
+                            <div class="count">@Model.ActionedUpdates</div>
+                            <h3>Actioned</h3>
+                        </a>
+                    </div>
+                    <div class="animated flipInY col-md-3">
+                        <a href="~/admin/changes?statusId=4" class="tile-stats bg-danger">
+                            <div class="icon">
+                                <i class="fa fa-times"></i>
+                            </div>
+                            <div class="count">@Model.RejectedUpdates</div>
+                            <h3>Rejected</h3>
+                        </a>
+                    </div>
+                    <div class="animated flipInY col-md-3">
+                        <a href="~/admin/changes?statusId=4" class="tile-stats bg-info">
+                            <div class="icon">
+                                <i class="fa fa-thumbs-up"></i>
+                            </div>
+                            <div class="count">@Model.ApprovedUpdates</div>
+                            <h3>Approved</h3>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="x_panel">
+
+            <div class="row x_title">
+                <div class="col-md-6">
+                    <h3>Complaints</h3>
+                </div>
+                <div class="col-md-6">
+                </div>
+            </div>
+            <div class="x_content">
+                <div class="row">
+                    <div class="animated flipInY col-md-3">
+                        <a href="~/admin/complaints?statusId=1" class="tile-stats bg-danger">
+                            <div class="icon">
+                                <i class="fa fa-envelope-open-o"></i>
+                            </div>
+                            <div class="count">@Model.OpenComplaints</div>
+                            <h3>Open</h3>
+                        </a>
+                    </div>
+                    <div class="animated flipInY col-md-3">
+                        <a href="~/admin/complaints?statusId=2" class="tile-stats bg-warning">
+                            <div class="icon">
+                                <i class="fa fa-plus-square"></i>
+                            </div>
+                            <div class="count">@Model.PendingUpdates</div>
+                            <h3>Actioned</h3>
+                        </a>
+                    </div>
+
+                    <div class="animated flipInY col-md-3">
+                        <a href="~/admin/complaints?statusId=3" class="tile-stats bg-info">
+                            <div class="icon">
+                                <i class="fa fa-thumbs-up"></i>
+                            </div>
+                            <div class="count">@Model.ApprovedUpdates</div>
+                            <h3>Resolved</h3>
+                        </a>
+                    </div>
+                    <div class="animated flipInY col-md-3">
+                        <a href="~/admin/complaints?statusId=4" class="tile-stats bg-success" style="background-color: #036103">
+                            <div class="icon">
+                                <i class="fa fa-check-square-o"></i>
+                            </div>
+                            <div class="count">@Model.ClosedComplaints</div>
+                            <h3>Closed</h3>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>

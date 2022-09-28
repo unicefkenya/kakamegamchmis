@@ -1,0 +1,64 @@
+﻿@model MCHMIS.ViewModels.FRApprovalSummaryViewModel
+@{
+    ViewBag.Title = Model.Option.Equals("reconciliation") ? "Reconciliation Approvals?" : "Approve Payroll?";
+
+    Layout = "~/Views/Shared/_LayoutPopup.cshtml";
+}
+
+@using (Html.BeginForm("ActionSave", "Payrolls", FormMethod.Post, new { @class = "form-vertical", role = "form" }))
+
+{
+
+    <div class="form-vertical">
+        <div class="col-md-6">
+            <div class="col-md-12">
+                <strong>No of Beneficiaries: </strong>
+                @Html.DisplayFor(modelItem => Model.Beneficiaries)
+            </div>
+            <div class="col-md-12">
+                <strong>No of Facilities: </strong>
+                @Html.DisplayFor(modelItem => Model.Facilities)
+            </div>
+            <div class="col-md-12">
+                <strong>Amount: </strong>
+                @Model.Amount.ToString("##,###")
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="col-md-12">
+                <strong>Date Created: </strong>@Html.DisplayFor(modelItem => Model.Payroll.DateCreated)
+            </div>
+            <div class="col-md-12">
+                <strong>Created by: </strong> @Html.DisplayFor(modelItem => Model.Payroll.CreatedBy.Name)
+            </div>
+        </div>
+        <hr />
+        @if (Model.Option.Equals("reconciliation"))
+        {
+            <div class="col-md-12">
+                <p class="text-danger">This will close the current payment cycle and create a new payment cycle.</p>
+            </div>
+        }
+        else
+        {
+            <div class="col-md-12">
+                <p class="text-danger text-center">This will disburse payments to the beneficiaries. Make sure the MPESA account has at least Ksh. @Model.Amount.ToString("##,###")</p>
+            </div>
+        }
+        <div class="form-group col-md-12 ">
+            <label asp-for="Notes" class="control-label"></label>
+            <span class="field-validation-valid notes-error text-danger">*This field is required.</span>
+            <textarea asp-for="Notes" class="form-control approval-notes" />
+        </div>
+        <div class="form-group col-md-12 padding-top">
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-success pull-right btn-approve">
+                <i class="glyphicon glyphicon-ok-sign"></i> Approve
+            </button>
+            <input type="hidden" name="StatusId" id="action" />
+        </div>
+        @Html.HiddenFor(m => m.Option)
+        @Html.HiddenFor(m => m.Id)
+    </div>
+
+}

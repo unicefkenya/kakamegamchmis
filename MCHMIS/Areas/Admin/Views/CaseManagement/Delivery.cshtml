@@ -1,0 +1,397 @@
+﻿@model MCHMIS.ViewModels.DeliveryViewModel
+
+@{
+    ViewData["Title"] = "Pregnancy Data";
+}
+
+@Html.Partial("_Menu")
+<div class="row delivery-data">
+    <form asp-action="Delivery">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input asp-for="PregnancyId" type="hidden" />
+        <input asp-for="IsUpdating" type="hidden" />
+        <input asp-for="Option" type="hidden" />
+        <input asp-for="OptionId" type="hidden" />
+        <input asp-for="DeliveryId" type="hidden" />
+        <div class="col-md-6">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>MOTHER</h2>
+                    <a asp-action="Delivery" class="fa fa-pencil" asp-route-id="@Model.PregnancyId" asp-route-option="mother" asp-route-optionId="@Model.DeliveryId"></a>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content optiona">
+
+                    <div class="form-group col-md-6">
+                        <label asp-for="PregnancyOutcomeId" class="control-label"></label>
+                        <select asp-for="PregnancyOutcomeId" class="form-control" asp-items="ViewBag.PregnancyOutcomeId" ng-model="PregnancyOutcomeId">
+                            <option value="">Select</option>
+                        </select>
+                        <span asp-validation-for="PregnancyOutcomeId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="PregnancyDuration" class="control-label"></label>
+                        <input asp-for="PregnancyDuration" class="form-control" min="1" max="42" />
+                        <span asp-validation-for="PregnancyDuration" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label asp-for="SupportStatusId" class="control-label"></label>
+                        @if (Model.PrevSupportStatusId == 266)
+                        {
+                        <select asp-for="SupportStatusId" disabled="disabled" class="form-control" asp-items="ViewBag.SupportStatusId">
+                            <option value="">Select</option>
+                        </select>
+                        <input type="hidden" name="SupportStatusId" value="@Model.PrevSupportStatusId" />
+                        }
+                        else
+                        {
+                        <select asp-for="SupportStatusId" class="form-control" asp-items="ViewBag.SupportStatusId">
+                            <option value="">Select</option>
+                        </select>
+                        <span asp-validation-for="SupportStatusId" class="text-danger"></span>
+                        }
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="DeliveryModeId" class="control-label"></label>
+                        <select asp-for="DeliveryModeId" class="form-control" asp-items="ViewBag.DeliveryModeId">
+                            <option value="">Select</option>
+                        </select>
+                        <span asp-validation-for="DeliveryModeId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="DeliveryDate" class="control-label" ng-show="PregnancyOutcomeId!=323 && PregnancyOutcomeId!=324"></label>
+                        <label class="control-label" ng-show="PregnancyOutcomeId==323">Date of Abortion</label>
+                        <label class="control-label" ng-show="PregnancyOutcomeId==324">Date of Miscarriage</label>
+                        <div class='input-group date'>
+                            <input asp-for="DeliveryDate" type="text" class="form-control required no-typing " autocomplete="off" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                        <span asp-validation-for="DeliveryDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="BloodLossId" class="control-label"></label>
+                        <select asp-for="BloodLossId" class="form-control" asp-items="ViewBag.BloodLossId">
+                            <option value="">Select</option>
+                        </select>
+                        <span asp-validation-for="BloodLossId" class="text-danger"></span>
+                    </div>
+                    @*<div class="form-group col-md-6">
+                        <label asp-for="PreEclampsiaId" class="control-label"></label>
+                        <select asp-for="PreEclampsiaId" class="form-control" asp-items="ViewBag.PreEclampsiaId">
+                            <option value="">Select</option>
+                        </select>
+                        <span asp-validation-for="PreEclampsiaId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="EclampsiaId" class="control-label"></label>
+                        <select asp-for="EclampsiaId" class="form-control" asp-items="ViewBag.EclampsiaId">
+                            <option value="">Select</option>
+                        </select>
+                        <span asp-validation-for="EclampsiaId" class="text-danger"></span>
+                    </div>*@
+                    <div class="form-group col-md-6">
+                        <label asp-for="ObstructedLabourId" class="control-label"></label>
+                        <select asp-for="ObstructedLabourId" class="form-control" asp-items="ViewBag.ObstructedLabourId">
+                            <option value="">Select</option>
+                        </select>
+                        <span asp-validation-for="ObstructedLabourId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="MotherCondition" class="control-label"></label>
+                        <input asp-for="MotherCondition" class="form-control" />
+                        <span asp-validation-for="MotherCondition" class="text-danger"></span>
+                    </div>
+                    @*<div class="form-group col-md-6">
+                        <label asp-for="ApgarScore" class="control-label"></label>
+                        <input asp-for="ApgarScore" class="form-control" />
+                        <span asp-validation-for="ApgarScore" class="text-danger"></span>
+                    </div>*@
+                    <div class="form-group col-md-6">
+                        <label asp-for="RescuscitationDoneId" class="control-label"></label>
+                        <select asp-for="RescuscitationDoneId" class="form-control" asp-items="ViewBag.RescuscitationDoneId">
+                            <option value="">Select</option>
+                        </select>
+                        <span asp-validation-for="RescuscitationDoneId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="MeconiumStainedLiquorId" class="control-label"></label>
+                        <select asp-for="MeconiumStainedLiquorId" class="form-control" asp-items="ViewBag.MeconiumStainedLiquorId">
+                            <option value="">Select</option>
+                        </select>
+                        <span asp-validation-for="MeconiumStainedLiquorId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="MotherDrugsAdministeredIds" class="control-label"></label>
+                        <select multiple="multiple" asp-for="MotherDrugsAdministeredIds" class="form-control multiple" asp-items="ViewBag.MotherDrugsAdministeredId"></select>
+                        <span asp-validation-for="MotherDrugsAdministeredIds" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="NextVisit" class="control-label"></label>
+                        <div class='input-group date-future'>
+                            <input asp-for="NextVisit" type="text" class="form-control required no-typing" autocomplete="off" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                    @if (Model.DeliveryId != null && Model.IsBeneficiary)
+                    {
+                    <div class="form-group col-md-6">
+                        <label>&nbsp;</label>
+                        <div class="checkbox-cont">
+                            <span style="float: left;padding-bottom: 6px"><strong>Fingerprint Verified?</strong> @(Model.IsVerified ? "Yes" : "No")</span>
+                            <a asp-action="FingerPrint" class="fa fa-pencil pull-right" asp-route-id="@ViewBag.MotherVisitId"></a>
+                        </div>
+                    </div>
+                    }
+                    @if (Model.Option.Equals("mother"))
+                    {
+                    <input asp-for="CreatedById" type="hidden" />
+                    <input asp-for="DateCreated" type="hidden" />
+                    <button type="submit" class="btn btn-success pull-right margin-top-25">
+                        <i class="glyphicon glyphicon-ok-sign"></i> Update
+                    </button>
+                    }
+                    @if (!string.IsNullOrEmpty(Model.Notes))
+                    {
+                    <div class="form-group col-md-6">
+                        <label>&nbsp;</label>
+                        <div class="checkbox-cont">
+                            <p>@Model.Notes</p>
+                        </div>
+                    </div>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>BABY</h2>
+                    @if (Model.StatusId == 1)
+                    {
+                    <a asp-action="Delivery" class="fa fa-pencil" asp-route-id="@Model.PregnancyId" asp-route-option="baby" asp-route-optionId="@Model.ChildId"></a>
+                    }
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content optionb">
+
+                    <div class="form-group col-md-6">
+                        <label asp-for="BabyDrugsAdministeredIds" class="control-label"></label>
+                        <select multiple="multiple" asp-for="BabyDrugsAdministeredIds" class="form-control multiple" asp-items="ViewBag.BabyDrugsAdministeredId"></select>
+                        <span asp-validation-for="MotherDrugsAdministeredIds" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="BirthWeight" class="control-label"></label>
+                        <input asp-for="BirthWeight" min="0" max="6" class="form-control required numeric" />
+                        <span asp-validation-for="BirthWeight" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="BirthLength" class="control-label"></label>
+                        <input type="number" asp-for="BirthLength" min="30" max="60" class="form-control numeric" />
+                        <span asp-validation-for="BirthLength" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="HeadCircumference" class="control-label"></label>
+                        <input asp-for="HeadCircumference" class="form-control required" />
+                        <span asp-validation-for="HeadCircumference" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="OtherBirthCharacteristics" class="control-label"></label>
+                        <input asp-for="OtherBirthCharacteristics" class="form-control required" />
+                        <span asp-validation-for="OtherBirthCharacteristics" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="BirthOrder" class="control-label"></label>
+                        <input asp-for="BirthOrder" class="form-control required" />
+                        <span asp-validation-for="BirthOrder" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="DateFirstSeen" class="control-label"></label>
+                        <div class='input-group date'>
+                            <input asp-for="DateFirstSeen" type="text" class="form-control required no-typing" autocomplete="off" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                        <span asp-validation-for="DateFirstSeen" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="DeliveryPlaceId" class="control-label"></label>
+                        <select asp-for="DeliveryPlaceId" class="form-control required" asp-items="ViewBag.DeliveryPlaceId" ng-model="DeliveryPlaceId">
+                            <option value="">Select</option>
+                        </select>
+                        <span asp-validation-for="DeliveryPlaceId" class="text-danger"></span>
+                    </div>
+                    <div id="deliveryHealthFacilityCont" class="form-group col-md-6 " ng-show="DeliveryPlaceId==258">
+                        <label asp-for="DeliveryHealthFacilityId" class="control-label"></label>
+                        <select asp-for="DeliveryHealthFacilityId" class="form-control width-100 filter-list" asp-items="ViewBag.DeliveryHealthFacilityId" ng-model="DeliveryHealthFacilityId">
+                            <option value="">Select</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6" ng-show="DeliveryHealthFacilityId==26">
+                        <label asp-for="OtherDeliveryHealthFacility" class="control-label"></label>
+                        <input asp-for="OtherDeliveryHealthFacility" class="form-control" />
+                        <span asp-validation-for="OtherDeliveryHealthFacility" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6" ng-show="DeliveryPlaceId==260">
+                        <label asp-for="OtherDeliveryPlace" class="control-label"></label>
+                        <input asp-for="OtherDeliveryPlace" class="form-control required" />
+                        <span asp-validation-for="OtherDeliveryPlace" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label asp-for="DeliveryAssistantId" class="control-label"></label>
+                        <select asp-for="DeliveryAssistantId" class="form-control required" asp-items="ViewBag.DeliveryAssistantId" ng-model="DeliveryAssistantId">
+                            <option value="">Select</option>
+                        </select>
+
+                        <span asp-validation-for="DeliveryAssistantId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6" ng-show="DeliveryAssistantId==265">
+                        <label asp-for="OtherDeliveryAssistant" class="control-label"></label>
+                        <input asp-for="OtherDeliveryAssistant" class="form-control" />
+                        <span asp-validation-for="OtherDeliveryAssistant" class="text-danger"></span>
+                    </div>
+                    @if (Model.Immunized != null)
+                    {
+                    <div class="form-group col-md-6">
+                        <label>&nbsp;</label>
+                        <div class="checkbox-cont">
+                            <p> <strong>Immunized? </strong>@Model.Immunized.Code</p>
+                        </div>
+                    </div>
+                    }
+                    @if (Model.Option.Equals("baby"))
+                    {
+                    if (Model.OptionId.Equals("0"))
+                    {
+                    <button type="submit" class="btn btn-success pull-right margin-top-25">
+                        <i class="glyphicon glyphicon-ok-sign"></i> Save
+                    </button>
+                    }
+                    else
+                    {
+                    <input asp-for="ChildId" type="hidden" />
+                    <button type="submit" class="btn btn-success pull-right margin-top-25">
+                        <i class="glyphicon glyphicon-ok-sign"></i> Update
+                    </button>
+                    }
+
+                    }
+                </div>
+            </div>
+        </div>
+
+        @if (Model.Children != null)
+        {
+        <div class="col-md-6">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Babies</h2>
+                    @if (Model.StatusId == 1)
+                    {
+                    <a asp-action="Delivery" class="btn btn-success pull-right" asp-route-id="@Model.PregnancyId" asp-route-option="baby" asp-route-optionId="0">
+                        Add New
+                    </a>
+                    }
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content optionb">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Birth Order
+                                </th>
+                                <th>
+                                    Birth Weight
+                                </th>
+                                <th>
+                                    Birth Length
+                                </th>
+                                @if (Model.StatusId == 1)
+                                {
+                                <th class="fit">Edit</th>
+                                }
+                            </tr>
+                            @foreach (var item in Model.Children)
+                            {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.BirthOrder)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.BirthWeight)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.BirthLength)
+                                </td>
+                                @if (Model.StatusId == 1)
+                                {
+                                <td class="text-center">
+                                    <a asp-action="Delivery" class="fa fa-pencil" asp-route-id="@Model.PregnancyId" asp-route-option="baby" asp-route-optionId="@item.Id"></a>
+                                </td>
+                                }
+                            </tr>
+                            }
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        }
+        <div class="col-md-12">
+            <hr />
+            <a asp-action="Index" class="btn btn-danger glyphicon glyphicon-step-backward pull-left"> Back</a>
+            @if (string.IsNullOrEmpty(Model.DeliveryId) && Model.StatusId == 1)
+            {
+            <button type="submit" class="btn btn-success pull-right">
+                <i class="glyphicon glyphicon-ok-sign"></i> Save
+            </button>
+            }
+        </div>
+    </form>
+</div>
+
+@section scripts
+    {
+<script type="text/javascript" src="~/js/bootstrap-multiselect.js"></script>
+<link rel="stylesheet" href="~/css/bootstrap-multiselect.css" type="text/css" />
+<script>
+    $(document).ready(function () {
+        $('.multiple').multiselect();
+        var scope = angular.element(document.querySelector('body')).scope();
+        scope.$apply(function (filter) {
+            scope.DeliveryPlaceId = '@Model.DeliveryPlaceId';
+            scope.PregnancyOutcomeId = '@Model.PregnancyOutcomeId';
+            scope.DeliveryAssistantId = '@Model.DeliveryAssistantId';
+            scope.DeliveryHealthFacilityId = '@Model.DeliveryHealthFacilityId';
+        });
+
+        if ('@Model.Option' === 'mother') {
+            $('.optionb input,.optionb select').prop('disabled', 'disabled');
+        }
+        else if ('@Model.Option' === 'baby') {
+            $('.optiona input,.optiona select').prop('disabled', 'disabled');
+        }
+        else if ('@Model.DeliveryId' !== '') {
+            $('input,select').prop('disabled', 'disabled');
+        }
+        $('#PregnancyOutcomeId').on('change',
+            function () {
+
+                if ($(this).val() === '323' || $(this).val() === '324') {
+                    $('.optionb .form-control').prop('disabled', 'disabled');
+                } else {
+                    $('.optionb .form-control').prop("disabled", false);
+                }
+
+            });
+
+    });
+</script>
+}

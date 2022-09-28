@@ -1,0 +1,54 @@
+﻿@using MCHMIS.Areas.Reports.ViewModels
+@using X.PagedList.Mvc.Core
+@model MCHMIS.Areas.Reports.ViewModels.CaseManagementListViewModel
+
+@if (Model.ExitedSummaries != null)
+{
+    <table id="table-only" class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ExitedSummary.Facility)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Summary.Beneficiaries)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.ExitedSummaries)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Facility)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Beneficiaries)
+                    </td>
+                </tr>
+            }
+            @if (!Model.ExitedSummaries.Any())
+            {
+                <tr>
+                    <td colspan="3" class="dataTables_empty">
+                        No data found.
+                    </td>
+                </tr>
+            }
+        </tbody>
+        @if (Model.ExitedSummaries.Any())
+        {
+            <tfoot>
+                <tr>
+                    <td>
+                        <strong>Total</strong>
+                    </td>
+                    <td>
+                        <strong>@Model.ExitedSummaries.Sum(i => i.Beneficiaries).ToString("##,###")</strong>
+                    </td>
+                </tr>
+            </tfoot>
+        }
+    </table>
+
+}

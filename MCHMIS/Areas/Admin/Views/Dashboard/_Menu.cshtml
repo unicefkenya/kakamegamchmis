@@ -1,0 +1,39 @@
+﻿@using System.Linq.Expressions
+@{
+    string caseManagementId = "0";
+}
+<ul class="nav nav-tabs">
+
+    <li class="create update">
+        <a asp-action="Update">
+            <i class="fa fa-users"></i> REGISTRATION
+        </a>
+    </li>
+
+    <li class="delivery">
+        <a asp-action="Delivery">
+            <i class="fa fa-check-square"></i> COMMUNITY VALIDATION
+        </a>
+    </li>
+    <li class="childhealthmonitoring">
+        <a asp-action="ChildHealthMonitoring">
+            <i class="fa fa-file-text-o"></i> ENROLMENT
+        </a>
+    </li>
+    <li class="postnatal">
+        <a asp-action="PostNatal">
+            <i class="fa fa-money"></i> PAYMENTS
+        </a>
+    </li>
+    <li class="familyplanning">
+        <a asp-action="FamilyPlanning">
+            <i class="fa fa-book"></i> CASE MANAGEMENT
+        </a>
+    </li>
+
+    <li class="familyplanning">
+        <a asp-action="FamilyPlanning">
+            <i class="fa fa-book"></i> COMPLAINTS
+        </a>
+    </li>
+</ul>

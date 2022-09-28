@@ -1,0 +1,133 @@
+﻿@using X.PagedList.Mvc.Core
+@model MCHMIS.ViewModels.ListUserViewModel
+@{
+    ViewBag.Title = "Users";
+    ViewBag.AddClass = "no-button-margin";
+
+}
+@section buttons
+    {
+    <a asp-action="Create">Create New</a>
+}
+<form asp-action="Index" class="form-paginated">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group col-md-2">
+        <label asp-for="Role" class="control-label"></label>
+        <select asp-for="Role" class="form-control" asp-items="ViewBag.Role">
+            <option value="">Select</option>
+        </select>
+        <span asp-validation-for="Role" class="text-danger"></span>
+    </div>
+    <div class="form-group col-md-2">
+        <label asp-for="Name" class="control-label"></label>
+        <input asp-for="Name" class="form-control" />
+    </div>
+    <div class="form-group col-md-3">
+        <label asp-for="Email" class="control-label"></label>
+        <input asp-for="Email" class="form-control" />
+    </div>
+    <div class="form-group col-md-3">
+        <label asp-for="HealthFacilityId" class="control-label"></label>
+        <select asp-for="HealthFacilityId" class="form-control filter-list" asp-items="ViewBag.HealthFacilityId">
+            <option value="">Select</option>
+        </select>
+    </div>
+
+    <div class="col-md-2 pull-left">
+        <button type="submit" class="btn btn-success pull-left btn-filter inline">
+            <i class="glyphicon glyphicon-search"></i> Search
+        </button>
+        <button type="button" class="btn btn-default btn-reset pull-left btn-filter inline">
+            <i class="fa fa-eraser"></i> Clear
+        </button>
+    </div>
+    <input type="hidden" name="Page" id="pagination-page" value="1" />
+</form>
+<hr />
+<table class="table detailed  table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Role</th>
+            <th>
+                @Html.DisplayNameFor(model => model.User.HealthFacilityId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User.MiddleName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User.Surname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User.UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User.PhoneNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User.IdNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User.Email)
+            </th>
+            <th>Is Active</th>
+            <th class="fit">Edit</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Users)
+        {
+            var userRoles = Model.Roles.Where(i => i.UserId == item.Id);
+            <tr>
+                <td>
+                    @userRoles.FirstOrDefault()?.Role
+                    @if (item.SubCounty != null)
+                    {
+                        <span> - @item.SubCounty.Name Sub County</span>
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HealthFacility.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MiddleName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Surname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhoneNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @if (item.LockoutEnd == null || DateTime.UtcNow.Subtract(((DateTimeOffset)item.LockoutEnd).UtcDateTime).Days > 0)
+                    {
+                        <input type="checkbox" checked="checked" disabled="disabled" />
+                    }
+                    else
+                    {
+                        <input type="checkbox" disabled="disabled" />
+                    }
+                </td>
+                <td class="text-center">
+                    @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "fa fa-pencil" })
+                </td>
+            </tr>
+
+        }
+    </tbody>
+</table>
+@Html.PagedListPager(Model.Users, page => Url.Action("Index", new { page }))

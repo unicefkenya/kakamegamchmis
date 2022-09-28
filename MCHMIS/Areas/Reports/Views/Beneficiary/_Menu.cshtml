@@ -1,0 +1,26 @@
+﻿@using System.Linq.Expressions
+
+<ul class="nav nav-tabs">
+
+    <li class="lnk-statement">
+        <a asp-action="Statement" asp-route-id="@ViewBag.Id">
+            <i class="fa fa-user"></i>1. Beneficiary Details
+        </a>
+    </li>
+    <li class="lnk-changes">
+        <a asp-action="Changes" asp-route-id="@ViewBag.Id">
+            <i class="fa fa-refresh"></i> 2. Changes Details
+        </a>
+    </li>
+    <li class="lnk-complaints">
+        <a asp-action="Complaints" asp-route-id="@ViewBag.Id">
+            <i class="fa fa-book"></i> 3. Complaints Details
+        </a>
+    </li>
+    <li class="lnk-payments">
+        <a asp-action="Payments" asp-route-id="@ViewBag.Id">
+            <i class="fa fa-money"></i> 4. Payments Details
+        </a>
+    </li>
+</ul>
+<p>&nbsp;</p>

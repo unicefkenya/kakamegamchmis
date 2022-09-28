@@ -1,0 +1,51 @@
+﻿@model MCHMIS.ViewModels.CutoffsViewModel
+
+@{
+    ViewData["Title"] = "HTM cut off points ";
+}
+@section buttons{
+    <a class="btn btn-primary" asp-action="Create">Edit</a>
+}
+
+
+<table id="table-filter" class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.LocationCutoff.SubCounty)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LocationCutoff.Ward)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LocationCutoff.SubLocation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LocationCutoff.Value)
+            </th>
+            <th class="fit">Edit</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.LocationCutoffs)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SubCounty)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ward)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SubLocation)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Value)
+                </td>
+                <td class="text-center">
+                    <a asp-action="Edit" class="fa fa-pencil lnk-modal" asp-route-id="@item.Id"></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

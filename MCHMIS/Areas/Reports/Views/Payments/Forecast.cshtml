@@ -1,0 +1,53 @@
+﻿@using MCHMIS.Areas.Reports.ViewModels
+@using X.PagedList.Mvc.Core
+@model MCHMIS.Areas.Reports.ViewModels.PaymentsViewModel
+
+@if (Model.ForecastSummary != null)
+{
+    <table id="table-filter-sort" class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Forecast.FinancialYear)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Forecast.Amount)
+                </th>
+                <th class="fit">Open</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.ForecastSummary)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FinancialYear)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Amount)
+                    </td>
+                    <td class="text-center">
+                        <a asp-action="Forecast" class="fa fa-eye" asp-route-id="@item.FinancialYear"></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+        @if (Model.ForecastSummary.Any())
+        {
+            <tfoot>
+                <tr>
+                    <td>
+                        <strong>Total</strong>
+                    </td>
+                    <td>
+                        <strong>@Model.ForecastSummary.Sum(i => i.Amount).ToString("##,###")</strong>
+                    </td>
+                </tr>
+            </tfoot>
+        }
+    </table>
+
+}
+@section scripts{
+    <partial name="_Scripts" />
+}

@@ -1,0 +1,32 @@
+﻿@model IEnumerable<MCHMIS.Models.InstallationSetup>
+
+@{
+    ViewData["Title"] = "Installation Setup";
+}
+@section buttons
+    {
+    <a class="btn btn-primary" asp-action="create">Add</a>
+}
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.HealthFacilityId)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HealthFacility.Name)
+                </td>
+                <td class="fit">
+                    <a asp-action="Edit" class="fa fa-pencil" asp-route-id="@item.Id"></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

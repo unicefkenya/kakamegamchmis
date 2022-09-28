@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Logout"
+    x:Class="MCHMIS.Mobile.Pages.LogoutPage">
+    <ContentPage.Resources>
+        <StyleSheet Source="Styles.css" />
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <ScrollView>
+            <FlexLayout StyleClass="body " Wrap="Wrap" x:Name="Form">
+                <StackLayout  CompressedLayout.IsHeadless="True" StyleClass="logo-holder" VerticalOptions="FillAndExpand">
+                    <Image StyleClass="logo" Source="logo.png" />
+                    <Label  Text="Log Out"></Label>
+                    <Label  StyleClass="SubTitleDesc"  Text="To login again. You will be required to supply National ID and PIN"></Label>
+                </StackLayout>
+                <StackLayout CompressedLayout.IsHeadless="True" x:Name="LoginForm" StyleClass="container,LargePadding,LargeSpacing" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" >
+                    <Label StyleClass="third"></Label>
+                    <Button Text="Log out Now!" Command="{Binding LogOutCommand}" StyleClass="BgSauMaroon, White, third "  />
+                    <Label StyleClass="third"></Label>
+                </StackLayout>
+            </FlexLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

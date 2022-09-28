@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+Title="Login"
+NavigationPage.HasNavigationBar="False"
+             NavigationPage.HasBackButton="False"
+x:Class="MCHMIS.Mobile.Pages.LoginPage">
+    <ContentPage.Resources>
+        <StyleSheet Source="Styles.css" />
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <ScrollView>
+            <FlexLayout StyleClass="body " Wrap="Wrap" x:Name="Form">
+                <StackLayout StyleClass="logo-holder" CompressedLayout.IsHeadless="true" VerticalOptions="FillAndExpand">
+                    <StackLayout    StyleClass="Indicator" CompressedLayout.IsHeadless="true"  VerticalOptions="Center" IsVisible="{Binding IsBusy}" Orientation="Horizontal" HorizontalOptions="Center">
+                        <ActivityIndicator StyleClass="quarter" IsRunning="{Binding IsBusy}"></ActivityIndicator>
+                        <Label   Text="{Binding Message}" VerticalOptions="Center" StyleClass="ActivityIndicator, three-quarter"  HorizontalOptions="Center" />
+                    </StackLayout>
+                    <Image StyleClass="logo" Source="logo.png" />
+                   
+                    <Label  Text="Log in"></Label>
+                    <Label   Text="Sign in with your National ID No. "></Label>
+                </StackLayout>
+                <StackLayout x:Name="LoginForm" CompressedLayout.IsHeadless="true" StyleClass="container,LargePadding,LargeSpacing">
+                    <Label Text="National ID No:" StyleClass="full"></Label>
+                    <Entry Keyboard="Telephone"  IsSpellCheckEnabled="False"  IsTextPredictionEnabled="False" x:Name="NationalId" StyleClass="full" Text="{Binding NationalId}" />
+                    <Label Text="PIN:" StyleClass="full"></Label>
+                    <Entry Keyboard="Numeric"  x:Name="Pin" StyleClass="full" Text="{Binding Pin}"  IsPassword="True" />
+                    <Button Text="Login"       Command="{Binding LoginCommand}"  StyleClass="BgKenyaGreen, third, White"></Button>
+                    <Label StyleClass="third"></Label>
+                    <Button   Text="Recover PIN"   Command="{Binding RecoverPinCommand}" StyleClass="BgKenyaGray,third, White" />
+                    <Label HorizontalTextAlignment="Center"
+                           FontSize="Large"   StyleClass="AppVersion"
+                           Text="{Binding AppVersion}"></Label>
+                   
+                </StackLayout>
+            </FlexLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

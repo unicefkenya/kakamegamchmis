@@ -1,0 +1,916 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <UserSecretsId>aspnet-MCHMIS-A7E02E1B-6701-4187-8E03-248B7A8B896D</UserSecretsId>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Areas\Export\Data\**" />
+    <Compile Remove="Areas\Export\Models\**" />
+    <Compile Remove="Migrations\**" />
+    <Compile Remove="Models\Services\**" />
+    <Compile Remove="wwwroot\admin\**" />
+    <Compile Remove="wwwroot\css\**" />
+    <Compile Remove="wwwroot\DatabaseBackups\**" />
+    <Compile Remove="wwwroot\js\**" />
+    <Content Remove="Areas\Export\Data\**" />
+    <Content Remove="Areas\Export\Models\**" />
+    <Content Remove="Migrations\**" />
+    <Content Remove="Models\Services\**" />
+    <Content Remove="wwwroot\admin\**" />
+    <Content Remove="wwwroot\css\**" />
+    <Content Remove="wwwroot\DatabaseBackups\**" />
+    <Content Remove="wwwroot\js\**" />
+    <EmbeddedResource Remove="Areas\Export\Data\**" />
+    <EmbeddedResource Remove="Areas\Export\Models\**" />
+    <EmbeddedResource Remove="Migrations\**" />
+    <EmbeddedResource Remove="Models\Services\**" />
+    <EmbeddedResource Remove="wwwroot\admin\**" />
+    <EmbeddedResource Remove="wwwroot\css\**" />
+    <EmbeddedResource Remove="wwwroot\DatabaseBackups\**" />
+    <EmbeddedResource Remove="wwwroot\js\**" />
+    <None Remove="Areas\Export\Data\**" />
+    <None Remove="Areas\Export\Models\**" />
+    <None Remove="Migrations\**" />
+    <None Remove="Models\Services\**" />
+    <None Remove="wwwroot\admin\**" />
+    <None Remove="wwwroot\css\**" />
+    <None Remove="wwwroot\DatabaseBackups\**" />
+    <None Remove="wwwroot\js\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Areas\Admin\Controllers\SystemSettingsController---.cs" />
+    <Compile Remove="Controllers\ManageController.cs" />
+    <Compile Remove="Controllers\SMSController2.cs" />
+    <Compile Remove="Data\Migrations\20180703094518_SystemCodeDetailOrderNo.cs" />
+    <Compile Remove="Data\Migrations\20180703094518_SystemCodeDetailOrderNo.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180706141128_GeoMaster.cs" />
+    <Compile Remove="Data\Migrations\20180706141128_GeoMaster.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180709055144_GeoLocations.DatabaseGeneratedOption.None.cs" />
+    <Compile Remove="Data\Migrations\20180709055144_GeoLocations.DatabaseGeneratedOption.None.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180709055903_GeoLocations.DatabaseGeneratedOption.None.cs" />
+    <Compile Remove="Data\Migrations\20180709055903_GeoLocations.DatabaseGeneratedOption.None.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180710123915_LMPToDateTime.cs" />
+    <Compile Remove="Data\Migrations\20180710123915_LMPToDateTime.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180711083717_HouseholdRegIdToString.cs" />
+    <Compile Remove="Data\Migrations\20180711083717_HouseholdRegIdToString.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180716140033_InitCreate.cs" />
+    <Compile Remove="Data\Migrations\20180716140033_InitCreate.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180717091246_InitialCreate.cs" />
+    <Compile Remove="Data\Migrations\20180717091246_InitialCreate.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180720094325_CommunityValidationTables.cs" />
+    <Compile Remove="Data\Migrations\20180720094325_CommunityValidationTables.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180720121838_CommunityValidationTables1.3.cs" />
+    <Compile Remove="Data\Migrations\20180720121838_CommunityValidationTables1.3.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180723063000_Fixes4.4.cs" />
+    <Compile Remove="Data\Migrations\20180723063000_Fixes4.4.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180724135852_Fixes4.0.cs" />
+    <Compile Remove="Data\Migrations\20180724135852_Fixes4.0.Designer.cs" />
+    <Compile Remove="Data\Migrations\20181108053350_FingerPrintVerification.cs" />
+    <Compile Remove="Data\Migrations\20190131061501_HouseholdRegsCreatedById.cs" />
+    <Compile Remove="Data\Migrations\20190131084630_HouseholdRegs.cs" />
+    <Compile Remove="Data\Migrations\20190528100606_CaseManagementChanges.cs" />
+    <Compile Remove="Data\Migrations\20190528100606_CaseManagementChanges.Designer.cs" />
+    <Compile Remove="Extensions\EmailSenderExtensions.cs" />
+    <Compile Remove="Services\DatabaseService.cs" />
+    <Compile Remove="Services\EmailSender.cs" />
+    <Compile Remove="Services\IEmailSender.cs" />
+    <Compile Remove="Static\Static.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Areas\Admin\Views\CaseManagement\PreventiveServices.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Migrations\20181119055454_InitCommit.cs" />
+    <Compile Include="Migrations\20181119055454_InitCommit.Designer.cs" />
+    <Compile Include="Migrations\20200807070451_RegistrationPMTCutOffUsed.cs" />
+    <Compile Include="Migrations\20200807070451_RegistrationPMTCutOffUsed.Designer.cs" />
+    <Compile Include="Migrations\20200924093459_ChangesHealthFacilityId.cs" />
+    <Compile Include="Migrations\20200924093459_ChangesHealthFacilityId.Designer.cs" />
+    <Compile Include="Migrations\20200924101922_ChangesHealthFacilityId2.cs" />
+    <Compile Include="Migrations\20200924101922_ChangesHealthFacilityId2.Designer.cs" />
+    <Compile Include="Migrations\20200924102404_ChangesHealthFacilityId3.cs" />
+    <Compile Include="Migrations\20200924102404_ChangesHealthFacilityId3.Designer.cs" />
+    <Compile Include="Migrations\20210318093110_CVListsViewModelHealthFacilityId.cs" />
+    <Compile Include="Migrations\20210318093110_CVListsViewModelHealthFacilityId.Designer.cs" />
+    <Compile Include="Migrations\20210507031003_CVListDetailsAllowToEnroll.cs" />
+    <Compile Include="Migrations\20210507031003_CVListDetailsAllowToEnroll.Designer.cs" />
+    <Compile Include="Migrations\20210824135253_ClinicVisitIdNotNullable.cs" />
+    <Compile Include="Migrations\20210824135253_ClinicVisitIdNotNullable.Designer.cs" />
+    <Compile Include="Migrations\ApplicationDbContextModelSnapshot.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="wwwroot\css\dashboard.css" />
+    <Content Include="wwwroot\css\custom.css" />
+    <Content Include="wwwroot\css\export.css" />
+    <Content Include="wwwroot\js\maps.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="7.0.1" />
+    <PackageReference Include="ClosedXML" Version="0.93.1" />
+    <PackageReference Include="ClosedXML.Extensions.Mvc" Version="0.2.1" />
+    <PackageReference Include="DinkToPdf" Version="1.0.8" />
+    <PackageReference Include="DinkToPdfIncludesDependencies" Version="1.0.8" />
+    <PackageReference Include="ElmahCore" Version="1.2.4" />
+    <PackageReference Include="ExcelDataReader" Version="3.4.2" />
+    <PackageReference Include="ExcelDataReader.DataSet" Version="3.4.2" />
+    <PackageReference Include="Hangfire" Version="1.7.26" />
+    <PackageReference Include="Hangfire.Core" Version="1.7.26" />
+    <PackageReference Include="Hangfire.SqlServer" Version="1.7.26" />
+    <PackageReference Include="iTextSharp.LGPLv2.Core" Version="1.4.6" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.1.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor" Version="2.1.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.1.4" PrivateAssets="all">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.9" PrivateAssets="All" />
+    <PackageReference Include="Postal.AspNetCore" Version="2.1.5" />
+    <PackageReference Include="RestSharp.NetCore" Version="105.2.3" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="4.5.1" />
+    <PackageReference Include="X.PagedList.Mvc.Core" Version="7.9.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.2" />
+    <DotNetCliToolReference Include="Microsoft.Extensions.SecretManager.Tools" Version="2.0.1" />
+    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Dashboard\Data\" />
+    <Folder Include="Areas\Dashboard\Models\" />
+    <Folder Include="Static\" />
+    <Folder Include="wwwroot\Logs\" />
+    <Folder Include="wwwroot\cert\" />
+    <Folder Include="wwwroot\downloads\" />
+    <Folder Include="wwwroot\uploads\legacy\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Areas\Admin\Views\AuditTrail\Details.cshtml" />
+    <None Include="Areas\Admin\Views\AuditTrail\Index.cshtml" />
+    <None Include="Areas\Admin\Views\Backups\Index.cshtml" />
+    <None Include="Areas\Admin\Views\CaseManagement\ChildHealthMonitoring.cshtml" />
+    <None Include="Areas\Admin\Views\CaseManagement\Create.cshtml" />
+    <None Include="Areas\Admin\Views\CaseManagement\Delivery.cshtml" />
+    <None Include="Areas\Admin\Views\CaseManagement\Details.cshtml" />
+    <None Include="Areas\Admin\Views\CaseManagement\FamilyPlanning.cshtml" />
+    <None Include="Areas\Admin\Views\CaseManagement\FingerPrint.cshtml" />
+    <None Include="Areas\Admin\Views\CaseManagement\Index.cshtml" />
+    <None Include="Areas\Admin\Views\CaseManagement\PMTCTInterventions.cshtml" />
+    <None Include="Areas\Admin\Views\CaseManagement\PostNatal.cshtml" />
+    <None Include="Areas\Admin\Views\CaseManagement\Search.cshtml" />
+    <None Include="Areas\Admin\Views\CaseManagement\Update.cshtml" />
+    <None Include="Areas\Admin\Views\CaseManagement\UpdateAntenatal.cshtml" />
+    <None Include="Areas\Admin\Views\CaseManagement\_Menu.cshtml" />
+    <None Include="Areas\Admin\Views\Changes\Approvals.cshtml" />
+    <None Include="Areas\Admin\Views\Changes\Create.cshtml" />
+    <None Include="Areas\Admin\Views\Changes\Details.cshtml" />
+    <None Include="Areas\Admin\Views\Changes\Edit.cshtml" />
+    <None Include="Areas\Admin\Views\Changes\FingerPrint.cshtml" />
+    <None Include="Areas\Admin\Views\Changes\Import.cshtml" />
+    <None Include="Areas\Admin\Views\Changes\Index.cshtml" />
+    <None Include="Areas\Admin\Views\Changes\IPRSCheck.cshtml" />
+    <None Include="Areas\Admin\Views\Changes\MPesaDetails.cshtml" />
+    <None Include="Areas\Admin\Views\Changes\Search.cshtml" />
+    <None Include="Areas\Admin\Views\Changes\SendForApproval.cshtml" />
+    <None Include="Areas\Admin\Views\Changes\Verification.cshtml" />
+    <None Include="Areas\Admin\Views\ClinicVisits\Create.cshtml" />
+    <None Include="Areas\Admin\Views\ClinicVisits\Edit.cshtml" />
+    <None Include="Areas\Admin\Views\ClinicVisits\Index.cshtml" />
+    <None Include="Areas\Admin\Views\CommunityAreas\Create.cshtml" />
+    <None Include="Areas\Admin\Views\CommunityAreas\Delete.cshtml" />
+    <None Include="Areas\Admin\Views\CommunityAreas\Details.cshtml" />
+    <None Include="Areas\Admin\Views\CommunityAreas\Edit.cshtml" />
+    <None Include="Areas\Admin\Views\CommunityAreas\Index.cshtml" />
+    <None Include="Areas\Admin\Views\CommunityValidation\Action.cshtml" />
+    <None Include="Areas\Admin\Views\CommunityValidation\AddMember.cshtml" />
+    <None Include="Areas\Admin\Views\CommunityValidation\Assign.cshtml" />
+    <None Include="Areas\Admin\Views\CommunityValidation\Captured.cshtml" />
+    <None Include="Areas\Admin\Views\CommunityValidation\Compare.cshtml" />
+    <None Include="Areas\Admin\Views\CommunityValidation\Create.cshtml" />
+    <None Include="Areas\Admin\Views\CommunityValidation\Demographics.cshtml" />
+    <None Include="Areas\Admin\Views\CommunityValidation\Details.cshtml" />
+    <None Include="Areas\Admin\Views\CommunityValidation\Dwelling.cshtml" />
+    <None Include="Areas\Admin\Views\CommunityValidation\Export-with-html-form.cshtml" />
+    <None Include="Areas\Admin\Views\CommunityValidation\Export.cshtml" />
+    <None Include="Areas\Admin\Views\CommunityValidation\GenerateMEForms.cshtml" />
+    <None Include="Areas\Admin\Views\CommunityValidation\Index.cshtml" />
+    <None Include="Areas\Admin\Views\CommunityValidation\Lists.cshtml" />
+    <None Include="Areas\Admin\Views\CommunityValidation\MemberDetails.cshtml" />
+    <None Include="Areas\Admin\Views\CommunityValidation\MonitoringEvaluation.cshtml" />
+    <None Include="Areas\Admin\Views\CommunityValidation\MonitoringEvaluationLists.cshtml" />
+    <None Include="Areas\Admin\Views\CommunityValidation\SendForApproval.cshtml" />
+    <None Include="Areas\Admin\Views\CommunityValidation\Topups.cshtml" />
+    <None Include="Areas\Admin\Views\Complaints\Create.cshtml" />
+    <None Include="Areas\Admin\Views\Complaints\Details.cshtml" />
+    <None Include="Areas\Admin\Views\Complaints\Edit.cshtml" />
+    <None Include="Areas\Admin\Views\Complaints\Index.cshtml" />
+    <None Include="Areas\Admin\Views\ComplaintTypes\Create.cshtml" />
+    <None Include="Areas\Admin\Views\ComplaintTypes\Delete.cshtml" />
+    <None Include="Areas\Admin\Views\ComplaintTypes\Details.cshtml" />
+    <None Include="Areas\Admin\Views\ComplaintTypes\Edit.cshtml" />
+    <None Include="Areas\Admin\Views\ComplaintTypes\Index.cshtml" />
+    <None Include="Areas\Admin\Views\CutOffs\Create.cshtml" />
+    <None Include="Areas\Admin\Views\CutOffs\Edit.cshtml" />
+    <None Include="Areas\Admin\Views\CutOffs\Index.cshtml" />
+    <None Include="Areas\Admin\Views\Dashboard\Index.cshtml" />
+    <None Include="Areas\Admin\Views\Dashboard\_Menu.cshtml" />
+    <None Include="Areas\Admin\Views\DevelopmentMilestones\Create.cshtml" />
+    <None Include="Areas\Admin\Views\DevelopmentMilestones\Delete.cshtml" />
+    <None Include="Areas\Admin\Views\DevelopmentMilestones\Details.cshtml" />
+    <None Include="Areas\Admin\Views\DevelopmentMilestones\Edit.cshtml" />
+    <None Include="Areas\Admin\Views\DevelopmentMilestones\Index.cshtml" />
+    <None Include="Areas\Admin\Views\Enrolment\Action.cshtml" />
+    <None Include="Areas\Admin\Views\Enrolment\Details.cshtml" />
+    <None Include="Areas\Admin\Views\Enrolment\GenerateList.cshtml" />
+    <None Include="Areas\Admin\Views\Enrolment\Import.cshtml" />
+    <None Include="Areas\Admin\Views\Enrolment\Index.cshtml" />
+    <None Include="Areas\Admin\Views\Enrolment\Lists.cshtml" />
+    <None Include="Areas\Admin\Views\Enrolment\MPesaDetails.cshtml" />
+    <None Include="Areas\Admin\Views\Enrolment\SendForApproval.cshtml" />
+    <None Include="Areas\Admin\Views\Enrolment\Summary.cshtml" />
+    <None Include="Areas\Admin\Views\Enumerators\Create.cshtml" />
+    <None Include="Areas\Admin\Views\Enumerators\Delete.cshtml" />
+    <None Include="Areas\Admin\Views\Enumerators\Details.cshtml" />
+    <None Include="Areas\Admin\Views\Enumerators\Edit.cshtml" />
+    <None Include="Areas\Admin\Views\Enumerators\Index.cshtml" />
+    <None Include="Areas\Admin\Views\FundRequests\Action.cshtml" />
+    <None Include="Areas\Admin\Views\FundRequests\Create.cshtml" />
+    <None Include="Areas\Admin\Views\FundRequests\Delete.cshtml" />
+    <None Include="Areas\Admin\Views\FundRequests\Details.cshtml" />
+    <None Include="Areas\Admin\Views\FundRequests\Edit.cshtml" />
+    <None Include="Areas\Admin\Views\FundRequests\Index.cshtml" />
+    <None Include="Areas\Admin\Views\FundRequests\SendForApproval.cshtml" />
+    <None Include="Areas\Admin\Views\FundRequests\Summary.cshtml" />
+    <None Include="Areas\Admin\Views\HealthFacilities\Create.cshtml" />
+    <None Include="Areas\Admin\Views\HealthFacilities\Delete.cshtml" />
+    <None Include="Areas\Admin\Views\HealthFacilities\Details.cshtml" />
+    <None Include="Areas\Admin\Views\HealthFacilities\Edit.cshtml" />
+    <None Include="Areas\Admin\Views\HealthFacilities\Index.cshtml" />
+    <None Include="Areas\Admin\Views\InstallationSetup\Create.cshtml" />
+    <None Include="Areas\Admin\Views\InstallationSetup\Delete.cshtml" />
+    <None Include="Areas\Admin\Views\InstallationSetup\Details.cshtml" />
+    <None Include="Areas\Admin\Views\InstallationSetup\Edit.cshtml" />
+    <None Include="Areas\Admin\Views\InstallationSetup\Index.cshtml" />
+    <None Include="Areas\Admin\Views\KeyMilestones\Create.cshtml" />
+    <None Include="Areas\Admin\Views\KeyMilestones\Delete.cshtml" />
+    <None Include="Areas\Admin\Views\KeyMilestones\Details.cshtml" />
+    <None Include="Areas\Admin\Views\KeyMilestones\Edit.cshtml" />
+    <None Include="Areas\Admin\Views\KeyMilestones\Index.cshtml" />
+    <None Include="Areas\Admin\Views\PaymentCycles\Create.cshtml" />
+    <None Include="Areas\Admin\Views\PaymentCycles\Edit.cshtml" />
+    <None Include="Areas\Admin\Views\PaymentCycles\Index.cshtml" />
+    <None Include="Areas\Admin\Views\PaymentPoints\Create.cshtml" />
+    <None Include="Areas\Admin\Views\PaymentPoints\Delete.cshtml" />
+    <None Include="Areas\Admin\Views\PaymentPoints\Details.cshtml" />
+    <None Include="Areas\Admin\Views\PaymentPoints\Edit.cshtml" />
+    <None Include="Areas\Admin\Views\PaymentPoints\Index.cshtml" />
+    <None Include="Areas\Admin\Views\Payrolls\Action.cshtml" />
+    <None Include="Areas\Admin\Views\Payrolls\Create.cshtml" />
+    <None Include="Areas\Admin\Views\Payrolls\Delete.cshtml" />
+    <None Include="Areas\Admin\Views\Payrolls\Details.cshtml" />
+    <None Include="Areas\Admin\Views\Payrolls\Edit.cshtml" />
+    <None Include="Areas\Admin\Views\Payrolls\Index.cshtml" />
+    <None Include="Areas\Admin\Views\Payrolls\Reconcile.cshtml" />
+    <None Include="Areas\Admin\Views\Payrolls\SendForApproval.cshtml" />
+    <None Include="Areas\Admin\Views\Payrolls\Summary.cshtml" />
+    <None Include="Areas\Admin\Views\PrePayrollChecks\Action.cshtml" />
+    <None Include="Areas\Admin\Views\PrePayrollChecks\Approvals.cshtml" />
+    <None Include="Areas\Admin\Views\PrePayrollChecks\DuplicatesIds.cshtml" />
+    <None Include="Areas\Admin\Views\PrePayrollChecks\DuplicatesPhones.cshtml" />
+    <None Include="Areas\Admin\Views\PrePayrollChecks\Generate.cshtml" />
+    <None Include="Areas\Admin\Views\PrePayrollChecks\Import.cshtml" />
+    <None Include="Areas\Admin\Views\PrePayrollChecks\Index.cshtml" />
+    <None Include="Areas\Admin\Views\PrePayrollChecks\PhoneNumberValidation.cshtml" />
+    <None Include="Areas\Admin\Views\PrePayrollChecks\RecipientChange.cshtml" />
+    <None Include="Areas\Admin\Views\PrePayrollChecks\SendForApproval.cshtml" />
+    <None Include="Areas\Admin\Views\PrePayrollChecks\Summary.cshtml" />
+    <None Include="Areas\Admin\Views\PrePayrollChecks\UnusualAmounts.cshtml" />
+    <None Include="Areas\Admin\Views\PrePayrollChecks\_Menu.cshtml" />
+    <None Include="Areas\Admin\Views\Profiles\Index.cshtml" />
+    <None Include="Areas\Admin\Views\Profile\Index.cshtml" />
+    <None Include="Areas\Admin\Views\Reasons\Create.cshtml" />
+    <None Include="Areas\Admin\Views\Reasons\Delete.cshtml" />
+    <None Include="Areas\Admin\Views\Reasons\Details.cshtml" />
+    <None Include="Areas\Admin\Views\Reasons\Edit.cshtml" />
+    <None Include="Areas\Admin\Views\Reasons\Index.cshtml" />
+    <None Include="Areas\Admin\Views\Registration\AddMember.cshtml" />
+    <None Include="Areas\Admin\Views\Registration\Create.cshtml" />
+    <None Include="Areas\Admin\Views\Registration\Delete.cshtml" />
+    <None Include="Areas\Admin\Views\Registration\Demographics.cshtml" />
+    <None Include="Areas\Admin\Views\Registration\Details.cshtml" />
+    <None Include="Areas\Admin\Views\Registration\Dwelling.cshtml" />
+    <None Include="Areas\Admin\Views\Registration\Edit.cshtml" />
+    <None Include="Areas\Admin\Views\Registration\FingerPrint.cshtml" />
+    <None Include="Areas\Admin\Views\Registration\Index.cshtml" />
+    <None Include="Areas\Admin\Views\Registration\IPRS.cshtml" />
+    <None Include="Areas\Admin\Views\Registration\MemberDetails.cshtml" />
+    <None Include="Areas\Admin\Views\Registration\SendForApproval.cshtml" />
+    <None Include="Areas\Admin\Views\Reports\Create.cshtml" />
+    <None Include="Areas\Admin\Views\Reports\Delete.cshtml" />
+    <None Include="Areas\Admin\Views\Reports\Details.cshtml" />
+    <None Include="Areas\Admin\Views\Reports\Edit.cshtml" />
+    <None Include="Areas\Admin\Views\Reports\Index.cshtml" />
+    <None Include="Areas\Admin\Views\ReportTypes\Create.cshtml" />
+    <None Include="Areas\Admin\Views\ReportTypes\Delete.cshtml" />
+    <None Include="Areas\Admin\Views\ReportTypes\Details.cshtml" />
+    <None Include="Areas\Admin\Views\ReportTypes\Edit.cshtml" />
+    <None Include="Areas\Admin\Views\ReportTypes\Index.cshtml" />
+    <None Include="Areas\Admin\Views\Roles\Create.cshtml" />
+    <None Include="Areas\Admin\Views\Roles\Edit.cshtml" />
+    <None Include="Areas\Admin\Views\Roles\Index.cshtml" />
+    <None Include="Areas\Admin\Views\Shared\Error.cshtml" />
+    <None Include="Areas\Admin\Views\Shared\_GeoScripts.cshtml" />
+    <None Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
+    <None Include="Areas\Admin\Views\Shared\_LoginPartial.cshtml" />
+    <None Include="Areas\Admin\Views\Shared\_TopNav.cshtml" />
+    <None Include="Areas\Admin\Views\Shared\_ValidationScriptsPartial.cshtml" />
+    <None Include="Areas\Admin\Views\SMS\Create.cshtml" />
+    <None Include="Areas\Admin\Views\SMS\Delete.cshtml" />
+    <None Include="Areas\Admin\Views\SMS\Details.cshtml" />
+    <None Include="Areas\Admin\Views\SMS\Edit.cshtml" />
+    <None Include="Areas\Admin\Views\SMS\Index.cshtml" />
+    <None Include="Areas\Admin\Views\Status\Create.cshtml" />
+    <None Include="Areas\Admin\Views\Status\Delete.cshtml" />
+    <None Include="Areas\Admin\Views\Status\Details.cshtml" />
+    <None Include="Areas\Admin\Views\Status\Edit.cshtml" />
+    <None Include="Areas\Admin\Views\Status\Index.cshtml" />
+    <None Include="Areas\Admin\Views\SubCounties\Create.cshtml" />
+    <None Include="Areas\Admin\Views\SubCounties\Delete.cshtml" />
+    <None Include="Areas\Admin\Views\SubCounties\Details.cshtml" />
+    <None Include="Areas\Admin\Views\SubCounties\Edit.cshtml" />
+    <None Include="Areas\Admin\Views\SubCounties\Index.cshtml" />
+    <None Include="Areas\Admin\Views\SystemCodeDetails\Create.cshtml" />
+    <None Include="Areas\Admin\Views\SystemCodeDetails\Edit.cshtml" />
+    <None Include="Areas\Admin\Views\SystemCodeDetails\Index.cshtml" />
+    <None Include="Areas\Admin\Views\SystemCodes\Create.cshtml" />
+    <None Include="Areas\Admin\Views\SystemCodes\Edit.cshtml" />
+    <None Include="Areas\Admin\Views\SystemCodes\Index.cshtml" />
+    <None Include="Areas\Admin\Views\SystemSettings\Create.cshtml" />
+    <None Include="Areas\Admin\Views\SystemSettings\Delete.cshtml" />
+    <None Include="Areas\Admin\Views\SystemSettings\Details.cshtml" />
+    <None Include="Areas\Admin\Views\SystemSettings\Edit.cshtml" />
+    <None Include="Areas\Admin\Views\SystemSettings\Index.cshtml" />
+    <None Include="Areas\Admin\Views\SystemTasks\Create.cshtml" />
+    <None Include="Areas\Admin\Views\SystemTasks\Delete.cshtml" />
+    <None Include="Areas\Admin\Views\SystemTasks\Details.cshtml" />
+    <None Include="Areas\Admin\Views\SystemTasks\Edit.cshtml" />
+    <None Include="Areas\Admin\Views\SystemTasks\Index.cshtml" />
+    <None Include="Areas\Admin\Views\TestMpesa\Index.cshtml" />
+    <None Include="Areas\Admin\Views\Users\Create.cshtml" />
+    <None Include="Areas\Admin\Views\Users\Edit.cshtml" />
+    <None Include="Areas\Admin\Views\Users\Index.cshtml" />
+    <None Include="Areas\Admin\Views\Villages\Create.cshtml" />
+    <None Include="Areas\Admin\Views\Villages\Edit.cshtml" />
+    <None Include="Areas\Admin\Views\Villages\Index.cshtml" />
+    <None Include="Areas\Admin\Views\Wards\Create.cshtml" />
+    <None Include="Areas\Admin\Views\Wards\Delete.cshtml" />
+    <None Include="Areas\Admin\Views\Wards\Details.cshtml" />
+    <None Include="Areas\Admin\Views\Wards\Edit.cshtml" />
+    <None Include="Areas\Admin\Views\Wards\Index.cshtml" />
+    <None Include="Areas\Admin\Views\_ViewImports.cshtml" />
+    <None Include="Areas\Admin\Views\_ViewStart.cshtml" />
+    <None Include="Areas\Dashboard\Views\Trends\Index.cshtml" />
+    <None Include="Areas\Export\Views\CaseManagement\BreastFeeding.cshtml" />
+    <None Include="Areas\Export\Views\CaseManagement\BreastFeedingSummary.cshtml" />
+    <None Include="Areas\Export\Views\CaseManagement\ChildrenDeath.cshtml" />
+    <None Include="Areas\Export\Views\CaseManagement\ChildrenDeathSummary.cshtml" />
+    <None Include="Areas\Export\Views\CaseManagement\Delivery.cshtml" />
+    <None Include="Areas\Export\Views\CaseManagement\DeliveryOtherFacilities.cshtml" />
+    <None Include="Areas\Export\Views\CaseManagement\DeliveryOtherFacilitiesSummary.cshtml" />
+    <None Include="Areas\Export\Views\CaseManagement\DeliverySummary.cshtml" />
+    <None Include="Areas\Export\Views\CaseManagement\Exited.cshtml" />
+    <None Include="Areas\Export\Views\CaseManagement\ExitedSummary.cshtml" />
+    <None Include="Areas\Export\Views\CaseManagement\FamilyPlanning.cshtml" />
+    <None Include="Areas\Export\Views\CaseManagement\FamilyPlanningSummary.cshtml" />
+    <None Include="Areas\Export\Views\CaseManagement\HomeDelivery.cshtml" />
+    <None Include="Areas\Export\Views\CaseManagement\HomeDeliverySummary.cshtml" />
+    <None Include="Areas\Export\Views\CaseManagement\ClinicVisits.cshtml" />
+    <None Include="Areas\Export\Views\CaseManagement\MaternalDeath.cshtml" />
+    <None Include="Areas\Export\Views\CaseManagement\MaternalDeathSummary.cshtml" />
+    <None Include="Areas\Export\Views\CaseManagement\NoBirthNotification.cshtml" />
+    <None Include="Areas\Export\Views\CaseManagement\NoBirthNotificationSummary.cshtml" />
+    <None Include="Areas\Export\Views\CaseManagement\Repeat.cshtml" />
+    <None Include="Areas\Export\Views\CaseManagement\RepeatSummary.cshtml" />
+    <None Include="Areas\Export\Views\CaseManagement\VisitsSummary.cshtml" />
+    <None Include="Areas\Legacy\Views\Mothers\Create.cshtml" />
+    <None Include="Areas\Legacy\Views\Mothers\Delete.cshtml" />
+    <None Include="Areas\Legacy\Views\Mothers\Details.cshtml" />
+    <None Include="Areas\Legacy\Views\Mothers\Index.cshtml" />
+    <None Include="Areas\Legacy\Views\_ViewImports.cshtml" />
+    <None Include="Areas\Legacy\Views\_ViewStart.cshtml" />
+    <None Include="Areas\Reports\Views\Beneficiary\AboveMinimumPeriod.cshtml" />
+    <None Include="Areas\Reports\Views\Beneficiary\AboveMinimumPeriodSummary.cshtml" />
+    <None Include="Areas\Reports\Views\Beneficiary\Changes.cshtml" />
+    <None Include="Areas\Reports\Views\Beneficiary\CommunityValidation.cshtml" />
+    <None Include="Areas\Reports\Views\Beneficiary\CommunityValidationSummary.cshtml" />
+    <None Include="Areas\Reports\Views\Beneficiary\Complaints.cshtml" />
+    <None Include="Areas\Reports\Views\Beneficiary\Enrolled.cshtml" />
+    <None Include="Areas\Reports\Views\Beneficiary\EnrolledSummary.cshtml" />
+    <None Include="Areas\Reports\Views\Beneficiary\Index.cshtml" />
+    <None Include="Areas\Reports\Views\Beneficiary\Mismatch.cshtml" />
+    <None Include="Areas\Reports\Views\Beneficiary\MismatchSummary.cshtml" />
+    <None Include="Areas\Reports\Views\Beneficiary\MovedOut.cshtml" />
+    <None Include="Areas\Reports\Views\Beneficiary\MovedOutSummary.cshtml" />
+    <None Include="Areas\Reports\Views\Beneficiary\NoIdentification.cshtml" />
+    <None Include="Areas\Reports\Views\Beneficiary\NoIdentificationSummary.cshtml" />
+    <None Include="Areas\Reports\Views\Beneficiary\Nominees.cshtml" />
+    <None Include="Areas\Reports\Views\Beneficiary\NomineesSummary.cshtml" />
+    <None Include="Areas\Reports\Views\Beneficiary\Nonresident.cshtml" />
+    <None Include="Areas\Reports\Views\Beneficiary\NonresidentSummary.cshtml" />
+    <None Include="Areas\Reports\Views\Beneficiary\NotEnrolled.cshtml" />
+    <None Include="Areas\Reports\Views\Beneficiary\NotEnrolledSummary.cshtml" />
+    <None Include="Areas\Reports\Views\Beneficiary\Payments.cshtml" />
+    <None Include="Areas\Reports\Views\Beneficiary\RegisteredSummary.cshtml" />
+    <None Include="Areas\Reports\Views\Beneficiary\Search.cshtml" />
+    <None Include="Areas\Reports\Views\Beneficiary\Statement.cshtml" />
+    <None Include="Areas\Reports\Views\Beneficiary\UnderAge.cshtml" />
+    <None Include="Areas\Reports\Views\Beneficiary\UnderAgeSummary.cshtml" />
+    <None Include="Areas\Reports\Views\Beneficiary\Variance.cshtml" />
+    <None Include="Areas\Reports\Views\Beneficiary\VarianceSummary.cshtml" />
+    <None Include="Areas\Reports\Views\Beneficiary\WithoutIds.cshtml" />
+    <None Include="Areas\Reports\Views\Beneficiary\WithoutIdsSummary.cshtml" />
+    <None Include="Areas\Reports\Views\Beneficiary\_Menu.cshtml" />
+    <None Include="Areas\Reports\Views\CaseManagement\BreastFeeding.cshtml" />
+    <None Include="Areas\Reports\Views\CaseManagement\BreastFeedingSummary.cshtml" />
+    <None Include="Areas\Reports\Views\CaseManagement\ChildrenDeath.cshtml" />
+    <None Include="Areas\Reports\Views\CaseManagement\ChildrenDeathSummary.cshtml" />
+    <None Include="Areas\Reports\Views\CaseManagement\Delivery.cshtml" />
+    <None Include="Areas\Reports\Views\CaseManagement\DeliveryOtherFacilities.cshtml" />
+    <None Include="Areas\Reports\Views\CaseManagement\DeliveryOtherFacilitiesSummary.cshtml" />
+    <None Include="Areas\Reports\Views\CaseManagement\DeliverySummary.cshtml" />
+    <None Include="Areas\Reports\Views\CaseManagement\Exited.cshtml" />
+    <None Include="Areas\Reports\Views\CaseManagement\ExitedSummary.cshtml" />
+    <None Include="Areas\Reports\Views\CaseManagement\FamilyPlanning.cshtml" />
+    <None Include="Areas\Reports\Views\CaseManagement\FamilyPlanningSummary.cshtml" />
+    <None Include="Areas\Reports\Views\CaseManagement\HomeDelivery.cshtml" />
+    <None Include="Areas\Reports\Views\CaseManagement\HomeDeliverySummary.cshtml" />
+    <None Include="Areas\Reports\Views\CaseManagement\MaternalDeath.cshtml" />
+    <None Include="Areas\Reports\Views\CaseManagement\MaternalDeathSummary.cshtml" />
+    <None Include="Areas\Reports\Views\CaseManagement\NoBirthNotification.cshtml" />
+    <None Include="Areas\Reports\Views\CaseManagement\NoBirthNotificationSummary.cshtml" />
+    <None Include="Areas\Reports\Views\CaseManagement\Repeat.cshtml" />
+    <None Include="Areas\Reports\Views\CaseManagement\RepeatSummary.cshtml" />
+    <None Include="Areas\Reports\Views\CaseManagement\VisitsSummary.cshtml" />
+    <None Include="Areas\Reports\Views\Changes\Index.cshtml" />
+    <None Include="Areas\Reports\Views\Changes\Summary.cshtml" />
+    <None Include="Areas\Reports\Views\Changes\UpdatesTypes.cshtml" />
+    <None Include="Areas\Reports\Views\Complaints\Index.cshtml" />
+    <None Include="Areas\Reports\Views\Complaints\Summary.cshtml" />
+    <None Include="Areas\Reports\Views\Landing\Index.cshtml" />
+    <None Include="Areas\Reports\Views\Payments\Disbursements.cshtml" />
+    <None Include="Areas\Reports\Views\Payments\DisbursementsDetails.cshtml" />
+    <None Include="Areas\Reports\Views\Payments\Due.cshtml" />
+    <None Include="Areas\Reports\Views\Payments\DueDetails.cshtml" />
+    <None Include="Areas\Reports\Views\Payments\Forfeited.cshtml" />
+    <None Include="Areas\Reports\Views\Payments\ForfeitedDetails.cshtml" />
+    <None Include="Areas\Reports\Views\Payments\Index.cshtml" />
+    <None Include="Areas\Reports\Views\Payments\PayrollDetails.cshtml" />
+    <None Include="Areas\Reports\Views\Payments\Pending.cshtml" />
+    <None Include="Areas\Reports\Views\Payments\PendingDetails.cshtml" />
+    <None Include="Areas\Reports\Views\Payments\_Scripts.cshtml" />
+    <None Include="Areas\Reports\Views\Payments\_Search.cshtml" />
+    <None Include="Areas\Reports\Views\Payments\_SearchNoPayrol.cshtml" />
+    <None Include="Areas\Reports\Views\Shared\_Scripts.cshtml" />
+    <None Include="Areas\Reports\Views\_ViewImports.cshtml" />
+    <None Include="Areas\Reports\Views\_ViewStart.cshtml" />
+    <None Include="Views\Emails\Testing1.cshtml" />
+    <None Include="Views\Emails\_EmailLayout.cshtml" />
+    <None Include="Views\Emails\_ViewStart.cshtml" />
+    <None Include="wwwroot\images\banner1.svg" />
+    <None Include="wwwroot\images\banner2.svg" />
+    <None Include="wwwroot\images\banner3.svg" />
+    <None Include="wwwroot\images\banner4.svg" />
+    <None Include="wwwroot\js\dashboards.js" />
+    <None Include="wwwroot\js\main.js" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-theme.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-theme.min.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap.min.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\fonts\glyphicons-halflings-regular.svg" />
+    <None Include="wwwroot\lib\bootstrap\dist\fonts\glyphicons-halflings-regular.woff2" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.js" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.min.js" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\npm.js" />
+    <None Include="wwwroot\lib\bootstrap\LICENSE" />
+    <None Include="wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js" />
+    <None Include="wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js" />
+    <None Include="wwwroot\lib\jquery-validation\dist\additional-methods.js" />
+    <None Include="wwwroot\lib\jquery-validation\dist\additional-methods.min.js" />
+    <None Include="wwwroot\lib\jquery-validation\dist\jquery.validate.js" />
+    <None Include="wwwroot\lib\jquery-validation\dist\jquery.validate.min.js" />
+    <None Include="wwwroot\lib\jquery-validation\LICENSE.md" />
+    <None Include="wwwroot\lib\jquery\dist\jquery.js" />
+    <None Include="wwwroot\lib\jquery\dist\jquery.min.js" />
+    <None Include="wwwroot\lib\jquery\dist\jquery.min.map" />
+    <None Include="wwwroot\main.popup.js" />
+    <None Include="wwwroot\maps\highcharts-3d.js" />
+    <None Include="wwwroot\maps\highcharts-3d.js.map" />
+    <None Include="wwwroot\maps\highcharts-3d.src.js" />
+    <None Include="wwwroot\maps\highcharts-more.js" />
+    <None Include="wwwroot\maps\highcharts-more.js.map" />
+    <None Include="wwwroot\maps\highcharts-more.src.js" />
+    <None Include="wwwroot\maps\highcharts.js" />
+    <None Include="wwwroot\maps\highcharts.js.map" />
+    <None Include="wwwroot\maps\highcharts.src.js" />
+    <None Include="wwwroot\maps\highmaps.js" />
+    <None Include="wwwroot\maps\highmaps.js.map" />
+    <None Include="wwwroot\maps\highmaps.src.js" />
+    <None Include="wwwroot\maps\highstock.js.map" />
+    <None Include="wwwroot\maps\js\highcharts-3d.js" />
+    <None Include="wwwroot\maps\js\highcharts-3d.js.map" />
+    <None Include="wwwroot\maps\js\highcharts-3d.src.js" />
+    <None Include="wwwroot\maps\js\highcharts-more.js" />
+    <None Include="wwwroot\maps\js\highcharts-more.js.map" />
+    <None Include="wwwroot\maps\js\highcharts-more.src.js" />
+    <None Include="wwwroot\maps\js\highcharts.js" />
+    <None Include="wwwroot\maps\js\highcharts.js.map" />
+    <None Include="wwwroot\maps\js\highcharts.src.js" />
+    <None Include="wwwroot\maps\js\highmaps.js" />
+    <None Include="wwwroot\maps\js\highmaps.js.map" />
+    <None Include="wwwroot\maps\js\highmaps.src.js" />
+    <None Include="wwwroot\maps\js\highstock.js.map" />
+    <None Include="wwwroot\maps\js\modules\accessibility.js" />
+    <None Include="wwwroot\maps\js\modules\accessibility.js.map" />
+    <None Include="wwwroot\maps\js\modules\accessibility.src.js" />
+    <None Include="wwwroot\maps\js\modules\annotations.js" />
+    <None Include="wwwroot\maps\js\modules\annotations.js.map" />
+    <None Include="wwwroot\maps\js\modules\annotations.src.js" />
+    <None Include="wwwroot\maps\js\modules\boost-canvas.js" />
+    <None Include="wwwroot\maps\js\modules\boost-canvas.js.map" />
+    <None Include="wwwroot\maps\js\modules\boost-canvas.src.js" />
+    <None Include="wwwroot\maps\js\modules\boost.js" />
+    <None Include="wwwroot\maps\js\modules\boost.js.map" />
+    <None Include="wwwroot\maps\js\modules\boost.src.js" />
+    <None Include="wwwroot\maps\js\modules\broken-axis.js.map" />
+    <None Include="wwwroot\maps\js\modules\canvasrenderer.experimental.js.map" />
+    <None Include="wwwroot\maps\js\modules\data.js" />
+    <None Include="wwwroot\maps\js\modules\data.js.map" />
+    <None Include="wwwroot\maps\js\modules\data.src.js" />
+    <None Include="wwwroot\maps\js\modules\drilldown.js" />
+    <None Include="wwwroot\maps\js\modules\drilldown.js.map" />
+    <None Include="wwwroot\maps\js\modules\drilldown.src.js" />
+    <None Include="wwwroot\maps\js\modules\export-data.js" />
+    <None Include="wwwroot\maps\js\modules\export-data.js.map" />
+    <None Include="wwwroot\maps\js\modules\export-data.src.js" />
+    <None Include="wwwroot\maps\js\modules\exporting.js" />
+    <None Include="wwwroot\maps\js\modules\exporting.js.map" />
+    <None Include="wwwroot\maps\js\modules\exporting.src.js" />
+    <None Include="wwwroot\maps\js\modules\funnel.js" />
+    <None Include="wwwroot\maps\js\modules\funnel.js.map" />
+    <None Include="wwwroot\maps\js\modules\funnel.src.js" />
+    <None Include="wwwroot\maps\js\modules\gantt.js" />
+    <None Include="wwwroot\maps\js\modules\gantt.js.map" />
+    <None Include="wwwroot\maps\js\modules\gantt.src.js" />
+    <None Include="wwwroot\maps\js\modules\grid-axis.js" />
+    <None Include="wwwroot\maps\js\modules\grid-axis.js.map" />
+    <None Include="wwwroot\maps\js\modules\grid-axis.src.js" />
+    <None Include="wwwroot\maps\js\modules\heatmap.js" />
+    <None Include="wwwroot\maps\js\modules\heatmap.js.map" />
+    <None Include="wwwroot\maps\js\modules\heatmap.src.js" />
+    <None Include="wwwroot\maps\js\modules\map-parser.js.map" />
+    <None Include="wwwroot\maps\js\modules\map.js" />
+    <None Include="wwwroot\maps\js\modules\map.js.map" />
+    <None Include="wwwroot\maps\js\modules\map.src.js" />
+    <None Include="wwwroot\maps\js\modules\no-data-to-display.js" />
+    <None Include="wwwroot\maps\js\modules\no-data-to-display.js.map" />
+    <None Include="wwwroot\maps\js\modules\no-data-to-display.src.js" />
+    <None Include="wwwroot\maps\js\modules\offline-exporting.js" />
+    <None Include="wwwroot\maps\js\modules\offline-exporting.js.map" />
+    <None Include="wwwroot\maps\js\modules\offline-exporting.src.js" />
+    <None Include="wwwroot\maps\js\modules\overlapping-datalabels.js" />
+    <None Include="wwwroot\maps\js\modules\overlapping-datalabels.js.map" />
+    <None Include="wwwroot\maps\js\modules\overlapping-datalabels.src.js" />
+    <None Include="wwwroot\maps\js\modules\series-label.js.map" />
+    <None Include="wwwroot\maps\js\modules\solid-gauge.js.map" />
+    <None Include="wwwroot\maps\js\modules\static-scale.js" />
+    <None Include="wwwroot\maps\js\modules\static-scale.js.map" />
+    <None Include="wwwroot\maps\js\modules\static-scale.src.js" />
+    <None Include="wwwroot\maps\js\modules\stock.js" />
+    <None Include="wwwroot\maps\js\modules\stock.js.map" />
+    <None Include="wwwroot\maps\js\modules\stock.src.js" />
+    <None Include="wwwroot\maps\js\modules\treemap.js" />
+    <None Include="wwwroot\maps\js\modules\treemap.js.map" />
+    <None Include="wwwroot\maps\js\modules\treemap.src.js" />
+    <None Include="wwwroot\maps\js\modules\xrange-series.js" />
+    <None Include="wwwroot\maps\js\modules\xrange-series.js.map" />
+    <None Include="wwwroot\maps\js\modules\xrange-series.src.js" />
+    <None Include="wwwroot\maps\js\themes\avocado.js" />
+    <None Include="wwwroot\maps\js\themes\avocado.js.map" />
+    <None Include="wwwroot\maps\js\themes\avocado.src.js" />
+    <None Include="wwwroot\maps\js\themes\dark-blue.js" />
+    <None Include="wwwroot\maps\js\themes\dark-blue.js.map" />
+    <None Include="wwwroot\maps\js\themes\dark-blue.src.js" />
+    <None Include="wwwroot\maps\js\themes\dark-green.js" />
+    <None Include="wwwroot\maps\js\themes\dark-green.js.map" />
+    <None Include="wwwroot\maps\js\themes\dark-green.src.js" />
+    <None Include="wwwroot\maps\js\themes\dark-unica.js" />
+    <None Include="wwwroot\maps\js\themes\dark-unica.js.map" />
+    <None Include="wwwroot\maps\js\themes\dark-unica.src.js" />
+    <None Include="wwwroot\maps\js\themes\gray.js" />
+    <None Include="wwwroot\maps\js\themes\gray.js.map" />
+    <None Include="wwwroot\maps\js\themes\gray.src.js" />
+    <None Include="wwwroot\maps\js\themes\grid-light.js" />
+    <None Include="wwwroot\maps\js\themes\grid-light.js.map" />
+    <None Include="wwwroot\maps\js\themes\grid-light.src.js" />
+    <None Include="wwwroot\maps\js\themes\grid.js" />
+    <None Include="wwwroot\maps\js\themes\grid.js.map" />
+    <None Include="wwwroot\maps\js\themes\grid.src.js" />
+    <None Include="wwwroot\maps\js\themes\sand-signika.js" />
+    <None Include="wwwroot\maps\js\themes\sand-signika.js.map" />
+    <None Include="wwwroot\maps\js\themes\sand-signika.src.js" />
+    <None Include="wwwroot\maps\js\themes\skies.js" />
+    <None Include="wwwroot\maps\js\themes\skies.js.map" />
+    <None Include="wwwroot\maps\js\themes\skies.src.js" />
+    <None Include="wwwroot\maps\js\themes\sunset.js" />
+    <None Include="wwwroot\maps\js\themes\sunset.js.map" />
+    <None Include="wwwroot\maps\js\themes\sunset.src.js" />
+    <None Include="wwwroot\maps\lib\canvg.js" />
+    <None Include="wwwroot\maps\lib\canvg.src.js" />
+    <None Include="wwwroot\maps\lib\jspdf.js" />
+    <None Include="wwwroot\maps\lib\jspdf.src.js" />
+    <None Include="wwwroot\maps\lib\rgbcolor.js" />
+    <None Include="wwwroot\maps\lib\rgbcolor.src.js" />
+    <None Include="wwwroot\maps\lib\svg2pdf.js" />
+    <None Include="wwwroot\maps\lib\svg2pdf.src.js" />
+    <None Include="wwwroot\maps\modules\accessibility.js" />
+    <None Include="wwwroot\maps\modules\accessibility.js.map" />
+    <None Include="wwwroot\maps\modules\accessibility.src.js" />
+    <None Include="wwwroot\maps\modules\annotations.js" />
+    <None Include="wwwroot\maps\modules\annotations.js.map" />
+    <None Include="wwwroot\maps\modules\annotations.src.js" />
+    <None Include="wwwroot\maps\modules\boost-canvas.js" />
+    <None Include="wwwroot\maps\modules\boost-canvas.js.map" />
+    <None Include="wwwroot\maps\modules\boost-canvas.src.js" />
+    <None Include="wwwroot\maps\modules\boost.js" />
+    <None Include="wwwroot\maps\modules\boost.js.map" />
+    <None Include="wwwroot\maps\modules\boost.src.js" />
+    <None Include="wwwroot\maps\modules\broken-axis.js.map" />
+    <None Include="wwwroot\maps\modules\canvasrenderer.experimental.js.map" />
+    <None Include="wwwroot\maps\modules\data.js" />
+    <None Include="wwwroot\maps\modules\data.js.map" />
+    <None Include="wwwroot\maps\modules\data.src.js" />
+    <None Include="wwwroot\maps\modules\drilldown.js" />
+    <None Include="wwwroot\maps\modules\drilldown.js.map" />
+    <None Include="wwwroot\maps\modules\drilldown.src.js" />
+    <None Include="wwwroot\maps\modules\export-data.js" />
+    <None Include="wwwroot\maps\modules\export-data.js.map" />
+    <None Include="wwwroot\maps\modules\export-data.src.js" />
+    <None Include="wwwroot\maps\modules\exporting.js" />
+    <None Include="wwwroot\maps\modules\exporting.js.map" />
+    <None Include="wwwroot\maps\modules\exporting.src.js" />
+    <None Include="wwwroot\maps\modules\funnel.js" />
+    <None Include="wwwroot\maps\modules\funnel.js.map" />
+    <None Include="wwwroot\maps\modules\funnel.src.js" />
+    <None Include="wwwroot\maps\modules\gantt.js" />
+    <None Include="wwwroot\maps\modules\gantt.js.map" />
+    <None Include="wwwroot\maps\modules\gantt.src.js" />
+    <None Include="wwwroot\maps\modules\grid-axis.js" />
+    <None Include="wwwroot\maps\modules\grid-axis.js.map" />
+    <None Include="wwwroot\maps\modules\grid-axis.src.js" />
+    <None Include="wwwroot\maps\modules\heatmap.js" />
+    <None Include="wwwroot\maps\modules\heatmap.js.map" />
+    <None Include="wwwroot\maps\modules\heatmap.src.js" />
+    <None Include="wwwroot\maps\modules\map-parser.js.map" />
+    <None Include="wwwroot\maps\modules\map.js" />
+    <None Include="wwwroot\maps\modules\map.js.map" />
+    <None Include="wwwroot\maps\modules\map.src.js" />
+    <None Include="wwwroot\maps\modules\no-data-to-display.js" />
+    <None Include="wwwroot\maps\modules\no-data-to-display.js.map" />
+    <None Include="wwwroot\maps\modules\no-data-to-display.src.js" />
+    <None Include="wwwroot\maps\modules\offline-exporting.js" />
+    <None Include="wwwroot\maps\modules\offline-exporting.js.map" />
+    <None Include="wwwroot\maps\modules\offline-exporting.src.js" />
+    <None Include="wwwroot\maps\modules\overlapping-datalabels.js" />
+    <None Include="wwwroot\maps\modules\overlapping-datalabels.js.map" />
+    <None Include="wwwroot\maps\modules\overlapping-datalabels.src.js" />
+    <None Include="wwwroot\maps\modules\series-label.js.map" />
+    <None Include="wwwroot\maps\modules\solid-gauge.js.map" />
+    <None Include="wwwroot\maps\modules\static-scale.js" />
+    <None Include="wwwroot\maps\modules\static-scale.js.map" />
+    <None Include="wwwroot\maps\modules\static-scale.src.js" />
+    <None Include="wwwroot\maps\modules\stock.js" />
+    <None Include="wwwroot\maps\modules\stock.js.map" />
+    <None Include="wwwroot\maps\modules\stock.src.js" />
+    <None Include="wwwroot\maps\modules\treemap.js" />
+    <None Include="wwwroot\maps\modules\treemap.js.map" />
+    <None Include="wwwroot\maps\modules\treemap.src.js" />
+    <None Include="wwwroot\maps\modules\xrange-series.js" />
+    <None Include="wwwroot\maps\modules\xrange-series.js.map" />
+    <None Include="wwwroot\maps\modules\xrange-series.src.js" />
+    <None Include="wwwroot\maps\shape-files\District2018.geojson" />
+    <None Include="wwwroot\maps\themes\avocado.js" />
+    <None Include="wwwroot\maps\themes\avocado.js.map" />
+    <None Include="wwwroot\maps\themes\avocado.src.js" />
+    <None Include="wwwroot\maps\themes\dark-blue.js" />
+    <None Include="wwwroot\maps\themes\dark-blue.js.map" />
+    <None Include="wwwroot\maps\themes\dark-blue.src.js" />
+    <None Include="wwwroot\maps\themes\dark-green.js" />
+    <None Include="wwwroot\maps\themes\dark-green.js.map" />
+    <None Include="wwwroot\maps\themes\dark-green.src.js" />
+    <None Include="wwwroot\maps\themes\dark-unica.js" />
+    <None Include="wwwroot\maps\themes\dark-unica.js.map" />
+    <None Include="wwwroot\maps\themes\dark-unica.src.js" />
+    <None Include="wwwroot\maps\themes\gray.js" />
+    <None Include="wwwroot\maps\themes\gray.js.map" />
+    <None Include="wwwroot\maps\themes\gray.src.js" />
+    <None Include="wwwroot\maps\themes\grid-light.js" />
+    <None Include="wwwroot\maps\themes\grid-light.js.map" />
+    <None Include="wwwroot\maps\themes\grid-light.src.js" />
+    <None Include="wwwroot\maps\themes\grid.js" />
+    <None Include="wwwroot\maps\themes\grid.js.map" />
+    <None Include="wwwroot\maps\themes\grid.src.js" />
+    <None Include="wwwroot\maps\themes\sand-signika.js" />
+    <None Include="wwwroot\maps\themes\sand-signika.js.map" />
+    <None Include="wwwroot\maps\themes\sand-signika.src.js" />
+    <None Include="wwwroot\maps\themes\skies.js" />
+    <None Include="wwwroot\maps\themes\skies.js.map" />
+    <None Include="wwwroot\maps\themes\skies.src.js" />
+    <None Include="wwwroot\maps\themes\sunset.js" />
+    <None Include="wwwroot\maps\themes\sunset.js.map" />
+    <None Include="wwwroot\maps\themes\sunset.src.js" />
+    <None Include="wwwroot\uploads\changes\20191024091034-Test Document.pdf" />
+    <None Include="wwwroot\uploads\changes\20193023033038-Test Document.pdf" />
+    <None Include="wwwroot\uploads\changes\20193308103311-Test Document.pdf" />
+    <None Include="wwwroot\uploads\changes\20195923035927-Test Document.pdf" />
+    <None Include="wwwroot\uploads\enrolment\20190324110300-login details nurses.xlsx" />
+    <None Include="wwwroot\uploads\enrolment\20190324110317-BulkReport_Sample - Validation.xlsx" />
+    <None Include="wwwroot\uploads\enrolment\20190325120331-BulkReport_Sample - Validation.xlsx" />
+    <None Include="wwwroot\uploads\enrolment\20190424110408-BulkReport_Sample - Validation.xlsx" />
+    <None Include="wwwroot\uploads\enrolment\20190525010504-BulkReport_Sample - Validation.xlsx" />
+    <None Include="wwwroot\uploads\enrolment\20190825100816-BulkReport_Sample - Validation.xlsx" />
+    <None Include="wwwroot\uploads\enrolment\20191025101011-BulkReport_Sample - Validation.xlsx" />
+    <None Include="wwwroot\uploads\enrolment\20191125101153-BulkReport_Sample - Validation.xlsx" />
+    <None Include="wwwroot\uploads\enrolment\20191225101215-BulkReport_Sample - Validation.xlsx" />
+    <None Include="wwwroot\uploads\enrolment\20191425101421-BulkReport_Sample - Validation.xlsx" />
+    <None Include="wwwroot\uploads\enrolment\20191725111708-BulkReport_Sample - Validation.xlsx" />
+    <None Include="wwwroot\uploads\enrolment\20191725111724-BulkReport_Sample - Validation.xlsx" />
+    <None Include="wwwroot\uploads\enrolment\20191825111825-BulkReport_Sample - Validation.xlsx" />
+    <None Include="wwwroot\uploads\enrolment\20192925102948-BulkReport_Sample - Validation.xlsx" />
+    <None Include="wwwroot\uploads\enrolment\20194325114303-BulkReport_Sample - Validation.xlsx" />
+    <None Include="wwwroot\uploads\enrolment\20194625114601-BulkReport_Sample - Validation.xlsx" />
+    <None Include="wwwroot\uploads\enrolment\20194725114746-BulkReport_Sample - Validation.xlsx" />
+    <None Include="wwwroot\uploads\enrolment\20194925114933-BulkReport_Sample - Validation.xlsx" />
+    <None Include="wwwroot\uploads\enrolment\20195225115237-BulkReport_Sample - Validation.xlsx" />
+    <None Include="wwwroot\uploads\enrolment\20195325115329-BulkReport_Sample - Validation.xlsx" />
+    <None Include="wwwroot\uploads\enrolment\20195625115634-BulkReport_Sample - Validation.xlsx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Areas\Dashboard\Views\Complaints\Index.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Dashboard\Views\CaseManagement\Index.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Dashboard\Views\Maps\Index.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Dashboard\Views\Payments\Index.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Dashboard\Views\Enrolment\Index.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Dashboard\Views\Landing\Index.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Dashboard\Views\CommunityValidation\Index.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Dashboard\Views\Shared\_Menu.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Dashboard\Views\Shared\_Layout.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Dashboard\Views\_ViewImports.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Dashboard\Views\_ViewStart.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Export\Views\Beneficiary\CommunityValidation.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Areas\Export\Views\Beneficiary\CommunityValidationSummary.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Areas\Export\Views\Beneficiary\Enrolled.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Areas\Export\Views\Beneficiary\EnrolledSummary.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Export\Views\Beneficiary\Index.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Export\Views\Beneficiary\MovedOut.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Export\Views\Beneficiary\MovedOutSummary.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Export\Views\Beneficiary\NotEnrolled.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Areas\Export\Views\Beneficiary\NotEnrolledSummary.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Export\Views\Beneficiary\RegisteredSummary.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Export\Views\Beneficiary\Statement.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Export\Views\Beneficiary\Variance.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Areas\Export\Views\Beneficiary\VarianceSummary.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Areas\Export\Views\Changes\Index.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Export\Views\Changes\Summary.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Export\Views\Changes\UpdatesTypes.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Export\Views\CommunityValidation\Compare.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Export\Views\Complaints\Index.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Export\Views\Complaints\Summary.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Export\Views\Payments\Disbursements.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Export\Views\Payments\DisbursementsDetails.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Export\Views\Payments\Due.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Export\Views\Payments\DueDetails.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Export\Views\Payments\Forfeited.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Export\Views\Payments\ForfeitedDetails.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Export\Views\Payments\Index.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Export\Views\Payments\PayrollDetails.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Export\Views\Payments\Pending.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Export\Views\Payments\PendingDetails.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Export\Views\Payments\_Scripts.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Export\Views\Payments\_Search.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Export\Views\Payments\_SearchNoPayrol.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Export\Views\_ViewImports.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Export\Views\_ViewStart.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\_LayoutPopupBig.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\_TopNav.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+  </ItemGroup>
+</Project>

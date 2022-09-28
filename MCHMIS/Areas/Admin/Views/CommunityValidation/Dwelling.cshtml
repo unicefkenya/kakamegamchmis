@@ -1,0 +1,290 @@
+﻿@model MCHMIS.ViewModels.HouseholdDwellingViewModel
+@{
+    ViewData["Title"] = "Dwelling and Household";
+}
+@if (ViewBag.HouseHoldCaptured != null)
+{
+    <ul class="nav nav-tabs">
+        <li class="active">
+            <a asp-action="Dwelling" asp-route-id="@Model.CVListDetailsId">
+                <i class="fa fa-home"></i> DWELLING AND HOUSEHOLD
+            </a>
+        </li>
+        <li>
+            <a asp-action="Demographics" asp-route-id="@Model.CVListDetailsId">
+                <i class="fa fa-group"></i> HOUSEHOLD DEMOGRAPHICS
+            </a>
+        </li>
+    </ul>
+}
+else
+{
+    <ul class="nav nav-tabs">
+        <li class="active">
+            <a asp-action="Dwelling" asp-route-id="@Model.CVListDetailsId">
+                <i class="fa fa-home"></i> DWELLING AND HOUSEHOLD
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <i class="fa fa-group"></i> HOUSEHOLD DEMOGRAPHICS
+            </a>
+        </li>
+    </ul>
+}
+<hr />
+<div class="row">
+
+    <form asp-action="Dwelling" class="registration-form">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="HouseholdId" />
+        d<input type="hidden" asp-for="CVListDetailsId" />
+        <div class="col-md-3">
+
+            <div class="form-group">
+                <label class="control-label">(2.01) How many habitable ROOMS does this dwelling unit contain?</label>
+                <input asp-for="HabitableRoomsNo" class="form-control required" />
+                <span asp-validation-for="HabitableRoomsNo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">(2.02) TENURE status of the dwelling unit and/or surrounding terrain/land <br />If owner occupied, state whether:</label>
+                <select asp-items="@(new SelectList(Model.SystemCodes.Single(s => s.Code == "Tenure Status").SystemCodeDetails.OrderBy(i => i.OrderNo), "Id", "DisplayName",Model.TenureStatusId))" name="TenureStatusId" class="form-control required">
+                    <option value="">Select</option>
+                </select>
+                <span asp-validation-for="TenureStatusId" class="text-danger"></span>
+                <div class="other-cont">
+                    <label>Other</label>
+                    <input asp-for="TenureStatusOther" class="form-control-other" />
+                </div>
+            </div>
+            <div class="form-group border-bottom">
+                <label class="control-label">Dominant CONSTRUCTION MATERIAL of the main Dwelling unit</label>
+                <table>
+                    <tr>
+                        <td class="border-right border-bottom">
+                            <label>(2.03) ROOF</label>
+                            <select asp-items="@(new SelectList(Model.SystemCodes.Single(s => s.Code == "Roof Material").SystemCodeDetails.OrderBy(i => i.OrderNo), "Id", "DisplayName",Model.RoofMaterialId))" name="RoofMaterialId" class="form-control required">
+                                <option value="">Select</option>
+                            </select>
+                            <span asp-validation-for="RoofMaterialId" class="text-danger"></span>
+                            <div class="other-cont">
+                                <label>Other</label>
+
+                                <input asp-for="RoofMaterialOther" class="form-control-other" />
+                            </div>
+                        </td>
+                        <td class="border-bottom">
+                            <label>(2.04) WALL</label>
+                            <select asp-items="@(new SelectList(Model.SystemCodes.Single(s => s.Code == "Wall Material").SystemCodeDetails.OrderBy(i => i.OrderNo), "Id", "DisplayName",Model.WallMaterialId))" name="WallMaterialId" class="form-control required">
+                                <option value="">Select</option>
+                            </select>
+                            <span asp-validation-for="WallMaterialId" class="text-danger"></span>
+                            <div class="other-cont">
+                                <label>Other</label>
+                                <input asp-for="WallMaterialOther" class="form-control-other" />
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="border-right">
+                            <label>(2.05) FLOOR</label>
+                            <select asp-items="@(new SelectList(Model.SystemCodes.Single(s => s.Code == "Floor Material").SystemCodeDetails.OrderBy(i => i.OrderNo), "Id", "DisplayName",Model.FloorMaterialId))" name="FloorMaterialId" class="form-control required">
+                                <option value="">Select</option>
+                            </select>
+                            <span asp-validation-for="FloorMaterialId" class="text-danger"></span>
+                            <div class="other-cont">
+                                <label>Other</label>
+                                <input asp-for="FloorMaterialOther" class="form-control-other" />
+                            </div>
+                        </td>
+                        <td>
+                            <label>(2.06) The dwelling unit is at</label>
+                            <select asp-items="@(new SelectList(Model.SystemCodes.Single(s => s.Code == "Dwelling Unit Risk").SystemCodeDetails.OrderBy(i => i.OrderNo), "Id", "DisplayName",Model.UnitRiskId))" name="UnitRiskId" class="form-control required">
+                                <option value="">Select</option>
+                            </select>
+                            <span asp-validation-for="UnitRiskId" class="text-danger"></span>
+                            <div class="other-cont">
+                                <label>Other</label>
+                                <input asp-for="UnitRiskOther" class="form-control-other" />
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label class="control-label">(2.07) Main source of WATER:</label>
+                @{ var count = 0;}
+                <select asp-items="@(new SelectList(Model.SystemCodes.Single(s => s.Code == "Water Source").SystemCodeDetails.OrderBy(i => i.OrderNo), "Id", "DisplayName",Model.WaterSourceId))" name="WaterSourceId" class="form-control required">
+                    <option value="">Select</option>
+                </select>
+                <span asp-validation-for="WaterSourceId" class="text-danger"></span>
+                <div class="other-cont">
+                    <label>Other</label>
+                    <input asp-for="WaterSourceOther" class="form-control-other" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label">(2.08) Main mode of HUMAN WASTE DISPOSAL:</label>
+                <select asp-items="@(new SelectList(Model.SystemCodes.Single(s => s.Code == "Toilet Type").SystemCodeDetails.OrderBy(i => i.OrderNo), "Id", "DisplayName",Model.ToiletTypeId))" name="ToiletTypeId" class="form-control required">
+                    <option value="">Select</option>
+                </select>
+                <span asp-validation-for="ToiletTypeId" class="text-danger"></span>
+                <div class="other-cont">
+                    <label>Other</label>
+                    <input asp-for="ToiletTypeOther" class="form-control-other" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label">(2.09) Main type of COOKING FUEL:</label>
+                <select asp-items="@(new SelectList(Model.SystemCodes.Single(s => s.Code == "Cooking Fuel").SystemCodeDetails.OrderBy(i => i.OrderNo), "Id", "DisplayName",Model.CookingFuelSourceId))" name="CookingFuelSourceId" class="form-control required">
+                    <option value="">Select</option>
+                </select>
+                <span asp-validation-for="CookingFuelSourceId" class="text-danger"></span>
+                <div class="other-cont">
+                    <label>Other</label>
+                    <input asp-for="CookingFuelSourceOther" class="form-control-other" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label">(2.10) Main type of LIGHTING FUEL:</label>
+                <select asp-items="@(new SelectList(Model.SystemCodes.Single(s => s.Code == "Lighting Source").SystemCodeDetails.OrderBy(i => i.OrderNo), "Id", "DisplayName",Model.LightingSourceId))" name="LightingSourceId" class="form-control required">
+                    <option value="">Select</option>
+                </select>
+                <span asp-validation-for="LightingSourceId" class="text-danger"></span>
+                <div class="other-cont">
+                    <label>Other</label>
+                    <input asp-for="LightingSourceOther" class="form-control-other" />
+                </div>
+            </div>
+            <div class="form-group  border-bottom">
+                <label class="control-label">Does the household OWN any of the following items?</label>
+                <select multiple="multiple" class="form-control multiple" name="HouseholdAssets[]">
+                    @foreach (var item in Model.SystemCodes.Single(s => s.Code == "Household Assets").SystemCodeDetails.OrderBy(i => i.OrderNo))
+                    {
+                        <option value="@item.Id">@item.DisplayName</option>
+                    }
+                </select>
+                <span asp-validation-for="HouseholdAssets" class="text-danger"></span>
+            </div>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+        </div>
+        <div class="col-md-3">
+
+            <div class="form-group">
+                <label class="control-label">How many of each of the following livestock are currently by this household?</label>
+                <div class="col-md-6">
+
+                    @{count = 0;}
+                    @foreach (var item in Model.SystemCodes.Single(s => s.Code == "Household Livestock").SystemCodeDetails.OrderBy(i => i.OrderNo))
+                    {
+                        <div class="form-group no-border">
+                            @item.DisplayName
+                            <input type="number" class="form-control required" name="HouseholdLivestock[@count].ItemCount" value="@Model.Assets?.SingleOrDefault(i=>i.AssetId==item.Id)?.ItemCount">
+                            <input type="hidden" name="HouseholdLivestock[@count].AssetId" value="@item.Id" />
+                            <span asp-validation-for="HouseholdLivestock[@count].AssetId" class="text-danger"></span>
+                        </div>
+                        if (count == 3)
+                        {
+                            @Html.Raw("</div><div class='col-md-6'>")
+                            ;
+                        }
+                        count++;
+                    }
+                </div>
+            </div>
+            <div class="form-group border-bottom">
+                <label class="control-label">(2.26) How many LIVE BIRTHS occurred in this household in the last 12 months?</label>
+                <input asp-for="LiveBirths" class="form-control required" />
+                <span asp-validation-for="LiveBirths" class="text-danger"></span>
+                <p>&nbsp;</p>
+                <label class="control-label">(2.27) How many DEATHS occurred in this household in the last 12 months?</label>
+                <input asp-for="Deaths" class="form-control required" />
+                <span asp-validation-for="Deaths" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label class="control-label">(2.28) Currently, the CONDITIONS of your household are:</label>
+                <select asp-items="@(new SelectList(Model.SystemCodes.Single(s => s.Code == "Household Conditions").SystemCodeDetails.OrderBy(i => i.OrderNo), "Id", "DisplayName",Model.HouseholdConditionId))" name="HouseholdConditionId" class="form-control required">
+                    <option value="">Select</option>
+                </select>
+                <span asp-validation-for="HouseholdConditionId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">(2.29) In the past 7 days, did anyone in this household cut the size of the meals or skip meals because of the lack of enough money?</label>
+                <select asp-items="@(new SelectList(Model.SystemCodes.Single(s => s.Code == "Boolean Options").SystemCodeDetails.OrderBy(i => i.OrderNo), "Id", "DisplayName",Model.HasSkippedMealId))" name="HasSkippedMealId" class="form-control required">
+                    <option value="">Select</option>
+                </select>
+                <span asp-validation-for="HasSkippedMealId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label text-center">BENEFITS FROM SOCIAL ASSISTANCE PROGRAMMES</label>
+                <label>(2.30) Is anyone in this household receiving benefits from any of the following National Safety Net Programmes?</label>
+                <select multiple="multiple" name="OtherSPProgrammes[]" class="form-control multiple">
+                    @foreach (var item in Model.SystemCodes.Single(s => s.Code == "Other SP Programme").SystemCodeDetails.OrderBy(i => i.OrderNo))
+                    {
+                        <option value="@item.Id">@item.DisplayName</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="control-label">(2.31) Is anyone in this household receiving benefits from any other Social Assistance Programme or any other external support?</label>
+                <select asp-items="@(new SelectList(Model.SystemCodes.Single(s => s.Code == "Boolean Options").SystemCodeDetails.OrderBy(i => i.OrderNo), "Id", "DisplayName",Model.IsReceivingOtherBenefitId))" name="IsReceivingOtherBenefitId" class="form-control required">
+                    <option value="">Select</option>
+                </select>
+                <span asp-validation-for="IsReceivingOtherBenefitId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">(2.32) Name of the PROGRAMME(s):</label>
+                <input asp-for="OtherProgrammes" class="form-control" />
+                <span asp-validation-for="OtherProgrammes" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">(2.33) What type of BENEFIT do you receive?</label>
+                <select asp-items="@(new SelectList(Model.SystemCodes.Single(s => s.Code == "SP Benefit Type").SystemCodeDetails.OrderBy(i => i.OrderNo), "Id", "DisplayName",Model.OtherProgrammesBenefitTypeId))" name="OtherProgrammesBenefitTypeId" class="form-control">
+                    <option value="">Select</option>
+                </select>
+                <span asp-validation-for="OtherProgrammesBenefitTypeId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">(2.34) How MUCH was the benefit in the last receipt?</label>
+                <input asp-for="OtherProgrammesBenefitAmount" placeholder="Ksh" class="form-control" />
+                <span asp-validation-for="OtherProgrammesBenefitAmount" class="text-danger"></span>
+            </div>
+            <div class="form-group border-bottom">
+                <label class="control-label">(2.35) Specify IN-KIND of benefit:</label>
+                <input asp-for="OtherProgrammesInKindBenefit" class="form-control" />
+                <span asp-validation-for="OtherProgrammesInKindBenefit" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">(2.36) Does the household receive support from friend and relatives?</label>
+                <select asp-items="@(new SelectList(Model.SystemCodes.Single(s => s.Code == "Boolean Options").SystemCodeDetails.OrderBy(i => i.OrderNo), "Id", "DisplayName",Model.BenefitFromFriendsRelativeId))" name="BenefitFromFriendsRelativeId" class="form-control required">
+                    <option value="">Select</option>
+                </select>
+                <span asp-validation-for="BenefitFromFriendsRelativeId" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <hr />
+            <a asp-action="Index" class="btn btn-default glyphicon glyphicon-step-backward"> Back</a>
+            <button type="submit" class="btn btn-success pull-right">
+                <i class="glyphicon glyphicon-ok-sign"></i> Save
+            </button>
+        </div>
+    </form>
+</div>
+
+@section scripts{
+
+    <script type="text/javascript" src="~/js/bootstrap-multiselect.js"></script>
+    <link rel="stylesheet" href="~/css/bootstrap-multiselect.css" type="text/css" />
+    <script>
+        $(document).ready(function () {
+            $('.multiple').multiselect();
+        });
+    </script>
+}

@@ -1,0 +1,44 @@
+﻿@model IEnumerable<MCHMIS.Models.Ward>
+
+@{
+    ViewData["Title"] = "Wards";
+}
+@section buttons{
+   
+    <a asp-controller="Villages"  asp-action="Index">Villages</a>
+    <a asp-action="Create" class="margin-right-10">Create New</a>
+}
+
+<table id="table-filter" class="table table-striped table-bordered">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SubCounty)
+        </th>
+        <th class="fit">Villages</th>
+        <th class="fit">Edit</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SubCounty.Name)
+            </td>
+            <td class="text-center">
+                <a asp-controller="Villages" class="fa fa-eye" asp-action="Index" asp-route-id="@item.Id"></a>
+            </td>
+            <td>
+                <a asp-action="Edit" class="fa fa-pencil" asp-route-id="@item.Id"></a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

@@ -1,0 +1,301 @@
+﻿body {
+    background: #ffffff;
+    color: #000000;
+}
+
+h1, h2, h3, h4 {
+    margin-bottom: 13px;
+    font-weight: bold;
+}
+
+h1 {
+    font-size: 14px
+}
+
+h2 {
+    font-size: 13px
+}
+
+h3 {
+    font-size: 13px
+}
+
+p {
+    font-size: 12px;
+    margin-bottom: 15px
+}
+
+h2.lbl-title {
+    margin-top: 40px;
+}
+
+table p {
+    margin-bottom: 10px
+}
+
+span.span-checkbox {
+    padding: 5px;
+    border: 1px solid;
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+}
+
+.border-bottom-none {
+    border-bottom: none !important
+}
+
+.border-top-none {
+    border-top: none !important
+}
+
+.padding-bottom-20 {
+    padding-bottom: 20px !important
+}
+
+.margin-top-15 {
+    margin-top: 15px !important
+}
+
+.table td.fit,
+.table th.fit {
+    white-space: nowrap;
+    width: 1%;
+}
+
+.form-title {
+    font-size: 15px
+}
+
+.no-padding td, .no-padding th {
+    padding: 0 !important;
+}
+
+.padding-top td {
+    padding-top: 15px !important;
+}
+
+.padding-bottom td {
+    padding-bottom: 15px !important;
+}
+
+.scg-form div, .scg-form section {
+    padding-bottom: 20px
+}
+
+.text-gray {
+    color: #999;
+}
+
+.cut-icon {
+    margin-top: -5px;
+}
+
+span.separator {
+    margin-top: 20px;
+    float: left;
+    clear: both;
+    width: 100%;
+}
+
+img {
+    max-width: 100%
+}
+
+.text-center {
+    text-align: center;
+}
+
+header, .row {
+    width: 100%;
+    display: block;
+    float: left
+}
+
+.table-bordered {
+    border: 1px solid #000;
+}
+
+.table {
+    width: 100% !important;
+    margin-bottom: 20px;
+}
+
+table {
+    max-width: 100%;
+    background-color: transparent;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+    table td, table th {
+        font-size: 13px;
+        padding: 5px;
+    }
+
+    table.table-bordered td, table.table-bordered th {
+        border-bottom: 1px solid #000;
+        border-right: 1px solid #000;
+        text-align: left;
+    }
+
+.row {
+    margin-right: -15px;
+    margin-left: -15px;
+}
+
+.col-md-1,
+.col-md-2,
+.col-md-3,
+.col-md-4,
+.col-md-5,
+.col-md-6,
+.col-md-7,
+.col-md-8,
+.col-md-9,
+.col-md-10,
+.col-md-11,
+.col-md-12 {
+    float: left;
+}
+
+.col-md-2 {
+    width: 16.666666666666664%;
+}
+
+.col-md-7 {
+    width: 58.333333333333336%;
+}
+
+.col-md-3 {
+    width: 25%;
+}
+
+.col-md-6 {
+    width: 50%;
+}
+
+.col-md-12 {
+    width: 100%;
+    clear: both;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.clearfix:before,
+.clearfix:after {
+    display: table;
+    content: " ";
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+.form-title {
+    font-size: 25px
+}
+
+span.separator {
+    padding-top: 20px;
+    float: left;
+    width: 100%;
+}
+
+/*Export Form*/
+
+.export-form .form-group {
+    margin-top: 0;
+}
+
+.export-form td {
+    border: none !important;
+}
+
+    .export-form td td {
+        padding: 0 !important
+    }
+
+.export-form table {
+    margin-bottom: 0;
+}
+
+.part-one {
+    width: 100%
+}
+
+.title-cont {
+    background: #e8e7e7;
+    padding: 1px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+    .title-cont h2 {
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+input.form-control-other {
+    width: 85%;
+    clear: none;
+    display: inline-block;
+    border: none;
+    border-bottom: 2px solid #000;
+    top: -1px;
+    position: relative;
+    font-size: 12px;
+    padding-bottom: 0;
+    padding-left: 10px;
+}
+
+.targeting-form td {
+    text-transform: uppercase
+}
+
+    .targeting-form td.fit {
+        font-weight: bold
+    }
+
+table.table.targeting-form {
+    border: 3px solid;
+}
+
+hr {
+    border: 0;
+    border-top: 1px solid #a9a9a9;
+    padding: 0;
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+.High td, .Phone.Not.Registered td {
+    color: #dc3545 !important
+}
+
+.Medium td, .Names.Mismatch td {
+    color: #ce9a00 !important
+}
+
+.Low td, .Validated td {
+    color: green !important
+}
+
+.table .table {
+    border-top: 1px solid #ddd !important;
+    background-color: #fff;
+    border-left: 1px solid #ddd !important;
+}

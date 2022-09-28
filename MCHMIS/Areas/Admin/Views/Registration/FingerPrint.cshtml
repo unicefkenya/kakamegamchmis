@@ -1,0 +1,65 @@
+﻿@model IEnumerable<HouseholdRegMember>
+
+@{
+    ViewData["Title"] = "Mother's Fingerprints";
+
+}
+
+@*<ul class="nav nav-tabs">
+
+    <li>
+        <a asp-action="Create" asp-route-id="@ViewBag.HouseHoldId">
+            <i class="fa fa-user"></i> MOTHER'S IDENTIFICATION DETAILS
+        </a>
+    </li>
+    <li class="active">
+        <a asp-action="FingerPrint" asp-route-id="@ViewBag.HouseHoldId">
+            <i class="fa fa-lock"></i> MOTHER'S FINGERPRINTS
+        </a>
+    </li>
+    <li>
+        <a asp-action="Dwelling" asp-route-id="@ViewBag.HouseHoldId">
+            <i class="fa fa-home"></i> DWELLING AND HOUSEHOLD CHARACTERISTICS
+        </a>
+    </li>
+    <li>
+        <a asp-action="Demographics" asp-route-id="@ViewBag.HouseHoldId">
+            <i class="fa fa-group"></i> HOUSEHOLD DEMOGRAPHICS
+        </a>
+    </li>
+</ul>
+
+<hr />*@
+
+<div class="cont-instructions">
+    <p><strong>NOTE:</strong></p>
+    <ol>
+        <li>Open the fingerprint scanner application and take fingerprints of the Mother's Index finger</li>
+        <li>You will be taken automatically to the next step once the fingerprints are taken.</li>
+        @*<li>In the Beta Version, just click Next.</li>*@
+    </ol>
+</div>
+
+<div class="action-cont col-md-12">
+    <a asp-action="Create" asp-route-id="@ViewBag.HouseHoldId" class="btn btn-danger glyphicon glyphicon-step-backward pull-left"> Back</a>
+
+    <a asp-action="Dwelling" asp-route-id="@ViewBag.HouseHoldId" class="btn btn-success pull-right">
+        <i class="glyphicon glyphicon-ok-sign"></i> Next
+    </a>
+</div>
+<a id="RootUrl" href="~/admin/registration/@ViewBag.Url"></a>
+@section scripts{
+
+    <script>
+    $(window).load(function () {
+        if ('@ViewBag.Url'.indexOf('FingerPrint')<0) {
+            var url = $('#RootUrl').attr('href');
+            window.location.href = url;
+        }
+        setTimeout(function () {
+            var url = $('#RootUrl').attr('href');
+            window.location.href = url;
+        }, 15000);
+    });
+    </script>
+}

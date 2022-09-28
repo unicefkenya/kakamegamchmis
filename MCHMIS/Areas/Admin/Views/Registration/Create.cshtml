@@ -1,0 +1,646 @@
+﻿@using Newtonsoft.Json
+@model MCHMIS.ViewModels.RegistrationViewModel
+
+@{
+    ViewData["Title"] = "Mother's Details / Geographic Identification";
+}
+
+@if (ViewBag.HouseHoldId != null)
+{
+    <ul class="nav nav-tabs">
+        <li class="active">
+            <a asp-action="Create" asp-route-id="@ViewBag.HouseHoldId">
+                <i class="fa fa-user"></i> MOTHER'S IDENTIFICATION DETAILS
+            </a>
+        </li>
+        <li>
+            <a asp-action="FingerPrint" asp-route-id="@ViewBag.HouseHoldId">
+                <i class="fa fa-lock"></i> MOTHER'S FINGERPRINTS
+            </a>
+        </li>
+        <li>
+            <a asp-action="Dwelling" asp-route-id="@ViewBag.HouseHoldId">
+                <i class="fa fa-home"></i> DWELLING AND HOUSEHOLD CHARACTERISTICS
+            </a>
+        </li>
+        <li>
+            <a asp-action="Demographics" asp-route-id="@ViewBag.HouseHoldId">
+                <i class="fa fa-group"></i> HOUSEHOLD DEMOGRAPHICS
+            </a>
+        </li>
+    </ul>
+
+}
+else
+{
+    <ul class="nav nav-tabs">
+        <li class="active">
+            <a href="#">
+                <i class="fa fa-user"></i> MOTHER'S IDENTIFICATION DETAILS
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <i class="fa fa-lock"></i> MOTHER'S FINGERPRINTS
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <i class="fa fa-home"></i> DWELLING AND HOUSEHOLD CHARACTERISTICS
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <i class="fa fa-group"></i> HOUSEHOLD DEMOGRAPHICS
+            </a>
+        </li>
+    </ul>
+
+}
+<hr />
+<div class="row">
+
+    <form asp-action="@(string.IsNullOrEmpty(Model.Id) ? "Create" : "Edit" )"  enctype="multipart/form-data">
+
+        <input type="hidden" value="@Model.MinimumAge" id="mimimunAge" />
+        <input type="hidden" value="" id="motherAge" />
+        @if (!string.IsNullOrEmpty(Model.Id))
+        {
+            @Html.HiddenFor(i => i.DateCreated)
+            @Html.HiddenFor(i => i.CreatedById)
+            @Html.HiddenFor(i => i.TypeId)
+            @Html.HiddenFor(i => i.HealthFacilityId)
+            @Html.HiddenFor(i => i.UniqueId)
+            @Html.HiddenFor(i => i.MotherId)
+            @Html.HiddenFor(i => i.StatusId)
+           
+        }
+    @Html.HiddenFor(i => i.SupportingDocument)
+        <input type="hidden" asp-for="Id" />
+        <div class="col-md-12">
+            <h2 class="lbl-title">MOTHER'S DETAILS - Today's Date: @DateTime.Now.ToString("dd/MM/yyyy") </h2>
+            <hr />
+        </div>
+
+        <div class="form-group col-md-4">
+            <label asp-for="FirstName" class="control-label"></label>
+            <input asp-for="FirstName" class="form-control required" />
+            <span asp-validation-for="FirstName" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-4">
+            <label asp-for="MiddleName" class="control-label"></label>
+            <input asp-for="MiddleName" class="form-control" />
+            <span asp-validation-for="MiddleName" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-4">
+            <label asp-for="Surname" class="control-label"></label>
+            <input asp-for="Surname" class="form-control required" />
+            <span asp-validation-for="Surname" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-4">
+            <label asp-for="CommonName" class="control-label"></label>
+            <input asp-for="CommonName" class="form-control" />
+            <span asp-validation-for="CommonName" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-4">
+            <label asp-for="IdentificationFormId" class="control-label"></label>
+            <select asp-for="IdentificationFormId" class="form-control required" asp-items="ViewBag.IdentificationFormId">
+                <option value="Document Number">Select</option>
+            </select>
+            <span asp-validation-for="IdentificationFormId" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-4">
+            <label asp-for="IdNumber" class="control-label identification-form"></label>
+            <input asp-for="IdNumber" class="form-control required" />
+            <span asp-validation-for="IdNumber" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-2">
+            <label asp-for="DOB" class="control-label"></label>
+            <div class='input-group dob'>
+                <input asp-for="DOB" type="text" class="form-control required no-typing reg-date" autocomplete="off" />
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+            </div>
+            <span asp-validation-for="DOB" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-2 ">
+            <div class="checkbox checkbox-inline checkbox-only checkbox-cont">
+                <span id="age" class="text-info"></span>
+            </div>
+        </div>
+        <div class="form-group col-md-4">
+            <label asp-for="MaritalStatusId" class="control-label"></label>
+            <select asp-for="MaritalStatusId" class="form-control required" asp-items="ViewBag.MaritalStatusId">
+                <option value="">Select</option>
+            </select>
+            <span asp-validation-for="MaritalStatusId" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-4">
+            <label asp-for="Phone" class="control-label"></label>
+            <input asp-for="Phone" class="form-control required" />
+            <span asp-validation-for="Phone" class="text-danger"></span>
+        </div>
+
+        <div class="clearfix"></div>
+        <div class="form-group col-md-4">
+            <label asp-for="OwnsPhoneId" class="control-label"></label>
+            <select asp-for="OwnsPhoneId" class="form-control required" asp-items="ViewBag.OwnsPhoneId" ng-model="OwnsPhoneId">
+                <option value="">Select</option>
+            </select>
+            <span asp-validation-for="OwnsPhoneId" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-4" ng-show="OwnsPhoneId==2">
+            <label asp-for="NomineeFirstName" class="control-label"></label>
+            <input asp-for="NomineeFirstName" class="form-control required" />
+            <span asp-validation-for="NomineeFirstName" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-4" ng-show="OwnsPhoneId==2">
+            <label asp-for="NomineeMiddleName" class="control-label"></label>
+            <input asp-for="NomineeMiddleName" class="form-control" />
+            <span asp-validation-for="NomineeMiddleName" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-4" ng-show="OwnsPhoneId==2">
+            <label asp-for="NomineeSurname" class="control-label"></label>
+            <input asp-for="NomineeSurname" class="form-control required" />
+            <span asp-validation-for="NomineeSurname" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-4" ng-show="OwnsPhoneId==2">
+            <label asp-for="NomineeIdNumber" class="control-label"></label>
+            <input asp-for="NomineeIdNumber" class="form-control required" />
+            <span asp-validation-for="NomineeIdNumber" class="text-danger"></span>
+        </div>
+
+        <div class="form-group col-md-4">
+            <label asp-for="NOKFirstName" class="control-label"></label>
+            <input asp-for="NOKFirstName" class="form-control" />
+            <span asp-validation-for="NOKFirstName" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-4">
+            <label asp-for="NOKMiddleName" class="control-label"></label>
+            <input asp-for="NOKMiddleName" class="form-control" />
+            <span asp-validation-for="NOKMiddleName" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-4">
+            <label asp-for="NOKSurname" class="control-label"></label>
+            <input asp-for="NOKSurname" class="form-control NOKSurname" />
+            <span asp-validation-for="NOKSurname" class="text-danger NOKSurname-error"></span>
+        </div>
+        <div class="form-group col-md-4">
+            <label asp-for="NOKPhone" class="control-label"></label>
+            <input asp-for="NOKPhone" class="form-control" />
+            <span asp-validation-for="NOKPhone" class="text-danger NOKPhone-error"></span>
+        </div>
+        <div class="form-group col-md-4">
+            <label asp-for="NOKIdNumber" class="control-label"></label>
+            <input asp-for="NOKIdNumber" class="form-control" />
+            <span asp-validation-for="NOKIdNumber" class="text-danger"></span>
+        </div>
+
+        <div class="form-group col-md-2">
+            <label asp-for="Gravida" class="control-label"></label>
+            <input asp-for="Gravida" class="form-control required" min="0" />
+            <span asp-validation-for="Gravida" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-2">
+            <label asp-for="Para" class="control-label"></label>
+            <input asp-for="Para" class="form-control required" />
+            <span asp-validation-for="Para" class="text-danger"></span>
+        </div>
+
+        <div class="form-group col-md-2">
+            <label asp-for="LMP" class="control-label"></label>
+            <div class='input-group lmp'>
+                <input asp-for="LMP" type="text" class="form-control required lmp-date no-typing" autocomplete="off" />
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+            </div>
+            <span asp-validation-for="LMP" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-2 ">
+            <div class="checkbox checkbox-inline checkbox-only checkbox-cont">
+                <label>
+                    <input asp-for="LMPUnknown" id="lmp-unknown" value="true" type="checkbox" /> LMP Unknown?
+                </label>
+            </div>
+        </div>
+        <div class="form-group col-md-4 epm-cont" style="display: none">
+            <label asp-for="EPM" class="control-label"></label>
+            <input asp-for="EPM" class="form-control epm" autocomplete="off" />
+            <span asp-validation-for="EPM" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-4">
+            <label asp-for="EDD" class="control-label"></label>
+            <input asp-for="EDD" class="form-control edd-date no-typing" autocomplete="off" />
+            <span asp-validation-for="EDD" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-4 col-xs-4" id="SupportingDocumentCont">
+            <label asp-for="SupportingDocument" class="control-label"></label>
+            <input type="file" class="form-control supporting-document" id="filecontrol" name="file" />
+            <span asp-validation-for="SupportingDocument" class="text-danger"></span>
+            @if (!string.IsNullOrEmpty(Model.SupportingDocument))
+            {
+                <span>(@Model.SupportingDocument)</span>
+            }
+            <span class="text-danger field-validation-error form-error">
+                <span class="">*Attach Supporting Document in PDF format.</span>
+            </span>
+        </div>
+        @*<div class="form-group col-md-4">
+                <label class="control-label">Are you/ Have you ever been in the Imarisha Afya Mama Na Mtoto?</label>
+                <select asp-for="HasBeenInMCHProgramId" class="form-control required" asp-items="ViewBag.HasBeenInMCHProgramId">
+                    <option>Select</option>
+                </select>
+                <span asp-validation-for="HasBeenInMCHProgramId" class="text-danger"></span>
+            </div>*@
+        @*<div class="form-group col-md-2">
+                <label asp-for="EDD" class="control-label"></label>
+                <div class='input-group date'>
+                    <input asp-for="EDD" type="text" class="form-control required edd-date" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+                <span asp-validation-for="EDD" class="text-danger"></span>
+            </div>*@
+
+        @*<div class="form-group col-md-4">
+                <label asp-for="PhotoUrl" class="control-label"></label>
+                <input type="file" name="photo" class="form-control" />
+                <span asp-validation-for="PhotoUrl" class="text-danger"></span>
+            </div>*@
+
+        <div class="col-md-12">
+            <h2 class="lbl-title">GEOGRAPHIC IDENTIFICATION</h2>
+            <hr />
+        </div>
+
+        <div class="form-group col-md-2">
+            <label asp-for="CountyId" class="control-label"></label>
+            <select asp-for="CountyId" class="form-control required" asp-items="ViewBag.CountyId" ng-model="CountyId"></select>
+            <span asp-validation-for="CountyId" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-2 location-cont" ng-show="CountyId==801">
+            <label asp-for="SubCountyId" class="control-label"></label>
+            <select asp-for="SubCountyId" class="form-control required" asp-items="ViewBag.SubCountyId" ng-model="SubCountyId">
+                <option value="">Select</option>
+            </select>
+            <span asp-validation-for="SubCountyId" class="text-danger"></span>
+        </div>
+        @*<div class="form-group col-md-2 location-cont" ng-show="CountyId==801">
+                <label asp-for="ConstituencyId" class="control-label"></label>
+                <select asp-for="ConstituencyId" class="form-control required" ng-model="ConstituencyId" asp-items="ViewBag.ConstituencyId">
+                    <option value="">Select</option>
+                </select>
+                <span asp-validation-for="ConstituencyId" class="text-danger"></span>
+            </div>*@
+        <div class="form-group col-md-2 location-cont" ng-show="CountyId==801">
+            <label asp-for="WardId" class="control-label"></label>
+            <select asp-for="WardId" class="form-control required" ng-model="WardId"
+                    ng-options="item.Name for item in wards| filter: {SubCountyId: SubCountyId||'-1'} track by item.Id">
+                <option value="">Select</option>
+            </select>
+            <span asp-validation-for="WardId" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-2 location-cont" ng-show="CountyId==801">
+            <label asp-for="SubLocationId" class="control-label"></label>
+            <select asp-for="SubLocationId" class="form-control required">
+                <option value="">Select</option>
+                <option ng-repeat="item in sublocations | filter: {WardId: WardId.Id||'-1'}" value="{{item.Id}}">
+                    {{item.Name}}
+                </option>
+            </select>
+            <span asp-validation-for="SubLocationId" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-2" ng-show="CountyId==801">
+            <label asp-for="VillageId" class="control-label"></label>
+            <select asp-for="VillageId" class="form-control required" ng-options="item as item.Name for item in villages | filter: {WardId: WardId.Id||'-1'} track by item.Id" ng-model="village">
+                <option value="">Select</option>
+            </select>
+
+            @*<select asp-for="VillageId" class="form-control required" ng-model="villageId">
+                    <option value="">Select</option>
+                    <option ng-repeat="item in villages | filter: {WardId: WardId}" value="{{item.Id}}">
+                        {{item.Name}}
+                    </option>
+                </select>*@
+            <span asp-validation-for="VillageId" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-2" ng-show="CountyId==801">
+            <label asp-for="CommunityAreaId" class="control-label"></label>
+            <select asp-for="CommunityAreaId" class="form-control required">
+                <option value="">Select</option>
+                <option ng-repeat="item in communityAreas | filter : {VillageId:village.Id||'-1'} : true" value="{{item.Id}}">
+                    {{item.Name}}
+                </option>
+            </select>
+            <span asp-validation-for="CommunityAreaId" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-4" ng-show="CountyId==9001">
+            <label asp-for="OtherCountyId" class="control-label"></label>
+            <select asp-for="OtherCountyId" class="form-control filter-list" style="width: 100%" asp-items="ViewBag.OtherCountyId">
+                <option value="">Select</option>
+            </select>
+            <span asp-validation-for="OtherCountyId" class="text-danger"></span>
+        </div>
+        <div class="row location-cont" ng-show="CountyId==801">
+            <div class="col-md-12">
+                @*<div class="form-group col-md-4">
+                        <label asp-for="LocationId" class="control-label"></label>
+                        <select asp-for="LocationId" class="form-control required" ng-model="LocationId">
+                            <option value="">Select</option>
+                            <option ng-repeat="item in locations | filter: { Division.District.ConstituencyId: ConstituencyId}" value="{{item.Id}}">
+                                {{item.Name}}
+                            </option>
+                        </select>
+                        <span asp-validation-for="LocationId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label asp-for="SubLocationId" class="control-label"></label>
+                        <select asp-for="SubLocationId" class="form-control required" ng-model="SubLocationId">
+                            <option value="">Select</option>
+                            <option ng-repeat="item in sublocations | filter: { LocationId: LocationId}" value="{{item.Id}}">
+                                {{item.Name}}
+                            </option>
+                        </select>
+                        <span asp-validation-for="SubLocationId" class="text-danger"></span>
+                    </div>*@
+
+                <div class="form-group col-md-4">
+                    <label asp-for="PhysicalAddress" class="control-label"></label>
+                    <input asp-for="PhysicalAddress" class="form-control" />
+                    <span asp-validation-for="PhysicalAddress" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+
+                    <div class="row">
+                        <div class="col-md-8">
+                            <label asp-for="ResidenceDurationYears" class="control-label"></label>
+                            <input asp-for="ResidenceDurationYears" class="form-control required" min="0" />
+                            <span asp-validation-for="ResidenceDurationYears" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-4">
+                            <label asp-for="ResidenceDurationMonths" class="control-label"></label>
+                            <input asp-for="ResidenceDurationMonths" class="form-control required" min="0" max="11" />
+                            <span asp-validation-for="ResidenceDurationMonths" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group col-md-2">
+                    <label asp-for="NearestReligiousBuilding" class="control-label"></label>
+                    <input asp-for="NearestReligiousBuilding" class="form-control" />
+                    <span asp-validation-for="NearestReligiousBuilding" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-2">
+                    <label asp-for="NearestSchool" class="control-label"></label>
+                    <input asp-for="NearestSchool" class="form-control" />
+                    <span asp-validation-for="NearestSchool" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group col-md-12">
+            <a asp-action="Index" class="btn btn-default glyphicon glyphicon-step-backward"> Back</a>
+            @if (Model.StatusId == 0 || Model.StatusId == 1 || Model.StatusId == 2 || Model.StatusId == 5 || Model.StatusId == 20)
+            {
+                <button type="submit" class="btn btn-success pull-right btn-next">
+                    <i class="glyphicon glyphicon-ok-sign"></i> Next
+                </button>
+                <img width="32" style="display: none" class="pull-right ajax-loader-next" src="~/images/ajaxloader.gif" />
+            }
+            <button type="submit" class="btn btn-success pull-right btn-next">
+                <i class="glyphicon glyphicon-ok-sign"></i> Next
+            </button>
+        </div>
+    </form>
+</div>
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var scope = angular.element(document.querySelector('body')).scope();
+            scope.$apply(function(filter) {
+                scope.locations = @Html.Raw(JsonConvert.SerializeObject(Model.Locations));
+                scope.wards = @Html.Raw(JsonConvert.SerializeObject(Model.Wards));
+                scope.sublocations = @Html.Raw(JsonConvert.SerializeObject(Model.SubLocations));
+
+                scope.villages = @Html.Raw(JsonConvert.SerializeObject(Model.Villages));
+                scope.communityAreas = @Html.Raw(JsonConvert.SerializeObject(Model.CommunityAreas));
+
+                scope.SubLocationId = '@Model.SubLocationId';
+                scope.SubCountyId = '@Model.SubCountyId';
+
+                var index = indexByKeyValue(scope.wards, "Id", parseInt('@Model.WardId'));
+
+                scope.WardId = scope.wards[index];
+
+                index = indexByKeyValue(scope.villages, "Id",  parseInt('@Model.VillageId'));
+                scope.village = scope.villages[index];
+
+                scope.VillageId = '@Model.VillageId';
+                scope.OwnsPhoneId = '@Model.OwnsPhoneId';;
+                scope.CountyId = '@(Model.CountyId ?? 801)';
+
+                scope.villageId = '1';
+            });
+            setTimeout(function() {
+                $('#SubCountyId').val('@Model.SubCountyId');
+
+                $('#OwnsPhoneId').val('@Model.OwnsPhoneId');
+                $('#SubLocationId').val('@Model.SubLocationId');
+                $('#WardId').val('@Model.WardId');
+
+                $('#VillageId').val('@Model.VillageId');
+
+                $('#CommunityAreaId').val('@Model.CommunityAreaId');
+                },
+                100);
+            $('.dob').datetimepicker({
+                format: 'YYYY/MM/DD',
+                // maxDate: moment(),
+                useCurrent: false
+            });
+
+            if ($('.reg-date').val() !== '') {
+                var years = moment().diff($('.reg-date').val(), 'years');
+                if (years > 18) {
+                    $("#Over18").prop('checked', true);
+                } else {
+                    $("#Over18").prop('checked', false);
+
+                }
+                $("#age").html('Mother is ' + years + ' years old.');
+                $('#motherAge').val(years);
+            }
+            $(".dob").on("dp.change",
+                function(e) {
+                    var years = moment().diff($('.reg-date').val(), 'years');
+                    $('#motherAge').val(years);
+                    if (years > 18) {
+                        $("#Over18").prop('checked', true);
+                    } else {
+                        $("#Over18").prop('checked', false);
+                        $('#OwnsPhoneId').val(2);
+                        $('#OwnsPhoneId').trigger('change');
+                    }
+                    $("#age").html('Mother is ' + years + ' years old.');
+                    $('#motherAge').val(years);
+                });
+
+            $("#OwnsPhoneId").on("change",
+                function(e) {
+
+                    if ($("#OwnsPhoneId").val() == 1) {
+                        var years = $('#motherAge').val();
+                        if (years < 18) {
+                            alert('Underage mothers cannot have registered MPESA phone numbers.');
+                            $('#OwnsPhoneId').val(2);
+                            $('#OwnsPhoneId').trigger('change');
+                            e.preventDefault();
+                            return false;
+                        }
+                    }
+
+                });
+
+            $('.lmp').datetimepicker({
+                format: 'YYYY/MM/DD',
+                // maxDate: moment(),
+                useCurrent: false
+            });
+            $(".lmp").on("dp.change",
+                function(e) {
+                    var lmpDate = $('.lmp-date').val();
+                    var new_date = moment(lmpDate, "YYYY/MM/DD").add(280, 'days');
+                    $('.edd-date').val(new_date.format('YYYY/MM/DD'));
+
+                });
+            $(".epm").on("change",
+                function(e) {
+                    var today = new Date();
+                    var month = parseInt($(this).val());
+                    var diff = 280 - month * 30;
+                    var new_date = moment(today).add(diff, 'days');
+                    $('.lmp-date').val('');
+                    $('.edd-date').val(new_date.format('YYYY/MM/DD'));
+
+                });
+            if ($("#lmp-unknown").prop("checked") === true) {
+                $('.lmp-date').val('');
+                $('.lmp-date').prop('disabled', 'disabled');
+                $('.lmp-date').rules('remove', 'required');
+                $('.epm-cont').fadeIn();
+            } else {
+                $('.lmp-date').prop('disabled', false);
+                $('.lmp-date').rules('add', 'required');
+                $('.epm-cont').fadeOut();
+            }
+            $("#lmp-unknown").on("change",
+                function(e) {
+                    if ($("#lmp-unknown").prop("checked") === true) {
+                        $('.lmp-date').val('');
+                        $('.lmp-date').prop('disabled', 'disabled');
+                        $('.lmp-date').rules('remove', 'required');
+                        $('.epm-cont').fadeIn();
+                    } else {
+                        $('.lmp-date').prop('disabled', false);
+                        $('.lmp-date').rules('add', 'required');
+                        $('.epm-cont').fadeOut();
+                    }
+                });
+            $("#NOKFirstName").on('change',
+                function(e) {
+                    if ($(this).val() === '') {
+                        $('#NOKFirstName').rules('remove', 'required');
+                        $('#NOKPhone').rules('remove', 'required');
+                        $('#NOKSurname').rules('remove', 'required');
+                        $('#NOKSurname').attr('aria-invalid', 'false');
+                        $('.NOKSurname-error,#NOKPhone-error').html('');
+
+                    } else {
+                        $('#NOKFirstName').rules('add', 'required');
+                        $('#NOKSurname').rules('add', 'required');
+                        $('#NOKPhone').rules('add', 'required');
+                    }
+                });
+
+            $("#IdentificationFormId").on("change",
+                function(e) {
+                    var selected = $('#IdentificationFormId option:selected').text();
+                    selected = selected.substring(2, selected.length);
+                    $('.identification-form').text(selected + ' Number');
+                });
+
+            $("#CountyId").on("change",
+                function(e) {
+
+                    if ($(this).val() === 801) {
+                        $('.location-cont select').addClass('required');
+                    } else {
+                        $('.location-cont select').removeClass('required');
+                        $('.location-cont select').each(function() {
+                            $(this).rules('remove', 'required');
+                        });
+                    }
+
+                });
+
+            $("form").off('submit').on("submit",
+                function(e) {
+                    var minimumAge = parseInt($('#mimimunAge').val());
+                    var motherAge = parseInt($('#motherAge').val());
+                    var residenceDuration = parseInt($('#ResidenceDurationYears').val());
+
+                    if (motherAge < minimumAge) {
+                        alert("Mother's should be atleast " +
+                            minimumAge +
+                            " years old. If this is a genuine case, contact system administrator.")
+                        return false;
+                    }
+                    if (residenceDuration > motherAge) {
+                        alert('Duration of residence should not to be more than the age of the mother.');
+                        return false;
+                    }
+
+                    if ($("#CountyId").val() == 801 &&
+                        $('#NearestReligiousBuilding').val() === '' &&
+                        $('#NearestSchool').val() === '') {
+                        alert('Nearest church / mosque or Nearest school is required.');
+                        return false;
+                    }
+                    if ($("#CountyId").val() == 9001 && $('#OtherCountyId').val() === '') {
+                        alert('Select the County the mother comes from.');
+                        return false;
+                    }
+
+                    if ($("form").valid()) {
+                        $('.btn-next').hide();
+                        $('.ajax-loader-next').show();
+                    } else {
+                        return false;
+                    }
+                });
+            $('form').on('submit', function (e) {
+                var failed = false;
+              
+
+
+                if (($('.supporting-document').val().length !== 0 && $('.supporting-document').val().toLowerCase().indexOf(".pdf") < 0)
+                    || ($('.supporting-document').val().length === 0 &&  $('#SupportingDocument').val().length === 0)) {
+                    $('.form-error').fadeIn();
+                    failed = true;
+                } else {
+                    $('.form-error').fadeOut();
+                }
+             
+                if (failed === true) {
+                    e.preventDefault();
+                    $('.btn-success').removeProp('disabled').show();
+                    $('.ajax-loader-next').hide();
+                    return false;
+                }
+            });
+        });
+    </script>
+}

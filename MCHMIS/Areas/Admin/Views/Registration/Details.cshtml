@@ -1,0 +1,627 @@
+﻿@model MCHMIS.ViewModels.HouseholdDetailsViewModel
+
+@{
+    ViewData["Title"] = "Household Details";
+    var count = 1;
+    var tasks = User.FindFirst("UserRoles").Value;
+}
+@if (Model.Household.StatusId == 1 && (string.IsNullOrEmpty(Model.Household.SupportingDocument) || string.IsNullOrEmpty(Model.Household.Mother.IdNumber) || Model.Household.FingerPrint.Length < 5))
+{
+    <div class="alert alert-warning notification">
+        @if (string.IsNullOrEmpty(Model.Household.SupportingDocument))
+        {
+            <p>- Supporting document(s) missing</p>
+        }
+        @if (string.IsNullOrEmpty(Model.Household.Mother.IdNumber))
+        {
+            <p>- Identification document number missing</p>
+        }
+        @if (Model.Household.FingerPrint.Length < 5)
+        {
+            <p>- Fingerprint not taken.</p>
+        }
+        @if (Model.Household.VillageId == null)
+        {
+            <p>- Village missing.</p>
+        }
+    </div>
+}
+<h2 class="lbl-title">MOTHER'S DETAILS</h2>
+
+<table class="table table-striped table-bordered">
+
+    <tr>
+
+        <td>
+            <strong>@Html.DisplayNameFor(model => model.Household.Mother.FirstName):</strong>
+            @Html.DisplayFor(model => model.Household.Mother.FirstName)
+        </td>
+        <td>
+            <strong>@Html.DisplayNameFor(model => model.Household.Mother.MiddleName):</strong>
+            @Html.DisplayFor(model => model.Household.Mother.MiddleName)
+        </td>
+        <td>
+            <strong>@Html.DisplayNameFor(model => model.Household.Mother.Surname):</strong>
+            @Html.DisplayFor(model => model.Household.Mother.Surname)
+        </td>
+        <td>
+            <strong>@Html.DisplayNameFor(model => model.Household.CommonName):</strong>
+            @Html.DisplayFor(model => model.Household.CommonName)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <strong>@Html.DisplayNameFor(model => model.Household.StatusId):</strong>
+            @Html.DisplayFor(model => model.Household.Status.Name)
+           
+        </td>
+        <td>
+            <strong>Notes:</strong>
+            @Html.DisplayFor(model => model.Household.Status.Name)
+            @foreach (var note in Model.Household.Notes)
+            {
+                <span>- @note.Description</span>
+            }
+        </td>
+        <td>
+            <strong>@Html.DisplayNameFor(model => model.Household.Mother.IdentificationFormId):</strong>
+            @Html.DisplayFor(model => model.Household.Mother.IdentificationForm.Code)
+        </td>
+        <td>
+            <strong>@Html.DisplayNameFor(model => model.Household.Mother.IdNumber):</strong>
+            @Html.DisplayFor(model => model.Household.Mother.IdNumber)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <strong>@Html.DisplayNameFor(model => model.Household.Mother.DOB):</strong>
+            @Html.DisplayFor(model => model.Household.Mother.DOB)
+        </td>
+        <td>
+            <strong>@Html.DisplayNameFor(model => model.Household.Mother.MaritalStatusId):</strong>
+            @Html.DisplayFor(model => model.Household.Mother.MaritalStatus.Code)
+        </td>
+        <td>
+            <strong>@Html.DisplayNameFor(model => model.Household.Phone):</strong>
+            @Html.DisplayFor(model => model.Household.Phone)
+        </td>
+        <td>
+            <strong>Recipient Names:</strong>
+            @Html.DisplayFor(model => model.Household.RecipientNames)
+        </td>
+    </tr>
+    @if (!string.IsNullOrEmpty(Model.Household.NomineeFirstName))
+    {
+        <tr>
+            <td>
+                <strong>@Html.DisplayNameFor(model => model.Household.NomineeFirstName):</strong>
+                @Html.DisplayFor(model => model.Household.NomineeFirstName)
+            </td>
+            <td>
+                <strong>@Html.DisplayNameFor(model => model.Household.NomineeMiddleName):</strong>
+                @Html.DisplayFor(model => model.Household.NomineeMiddleName)
+            </td>
+            <td>
+                <strong>@Html.DisplayNameFor(model => model.Household.NomineeSurname):</strong>
+                @Html.DisplayFor(model => model.Household.NomineeSurname)
+            </td>
+            <td>
+                <strong>@Html.DisplayNameFor(model => model.Household.NomineeIdNumber):</strong>
+                @Html.DisplayFor(model => model.Household.NomineeIdNumber)
+            </td>
+        </tr>
+    }
+    <tr>
+        <td>
+            <strong>Next of Kin First Name:</strong>
+            @Html.DisplayFor(model => model.Household.NOKFirstName)
+        </td>
+        <td>
+            <strong>@Html.DisplayNameFor(model => model.Household.NOKMiddleName):</strong>
+            @Html.DisplayFor(model => model.Household.NOKMiddleName)
+        </td>
+        <td>
+            <strong>@Html.DisplayNameFor(model => model.Household.NOKSurname):</strong>
+            @Html.DisplayFor(model => model.Household.NOKSurname)
+        </td>
+        <td>
+            <strong>@Html.DisplayNameFor(model => model.Household.NOKPhone):</strong>
+            @Html.DisplayFor(model => model.Household.NOKPhone)
+        </td>
+    </tr>
+    <tr>
+
+        <td>
+            <strong>@Html.DisplayNameFor(model => model.Household.NOKIdNumber):</strong>
+            @Html.DisplayFor(model => model.Household.NOKIdNumber)
+        </td>
+        <td>
+            <strong>@Html.DisplayNameFor(model => model.Household.Gravida):</strong>
+            @Html.DisplayFor(model => model.Household.Gravida)
+        </td>
+        <td>
+            <strong>@Html.DisplayNameFor(model => model.Household.Para):</strong>
+            @Html.DisplayFor(model => model.Household.Para)
+        </td>
+        <td>
+            <strong>@Html.DisplayNameFor(model => model.Household.LMP):</strong>
+            @Html.DisplayFor(model => model.Household.LMP)
+        </td>
+    </tr>
+    <tr>
+
+        <td>
+            <strong>@Html.DisplayNameFor(model => model.Household.EDD):</strong>
+            @Html.DisplayFor(model => model.Household.EDD)
+        </td>
+        <td>
+            <strong>@Html.DisplayNameFor(model => model.Household.HealthFacilityId):</strong>
+            @Html.DisplayFor(model => model.Household.HealthFacility.Name)
+        </td>
+        <td>
+            <strong>@Html.DisplayNameFor(model => model.Household.Mother.SupportStatusId):</strong>
+            @if (tasks.Contains("View HIV Information"))
+            {
+                @Html.DisplayFor(model => model.SupportStatus.Code)
+            }
+            else
+            {
+                <span>xxx</span>
+            }
+        </td>
+        <td>
+            <div class="row">
+                <div class="col-md-6">
+                    <strong>Disabilities:</strong>
+                    @{ var disabilities = "";}
+                    @foreach (var item in Model.Disabilities)
+                    {
+                        disabilities += item.Disability.Code + ",";
+                    }
+                    @if (disabilities.Length > 1)
+                    {
+                        <span>@disabilities.Substring(0, disabilities.Length - 1)</span>
+                    }
+                    else
+                    {
+                        <span>None</span>
+                    }
+                </div>
+                <div class="col-md-6">
+                    <strong>@Html.DisplayNameFor(model => model.Household.Mother.MUAC):</strong>
+                    @Html.DisplayFor(model => model.Household.Mother.MUAC)
+                </div>
+            </div>
+        </td>
+    </tr>
+@if (Model.Household.SupportingDocument != null)
+{
+    <tr>
+        <td colspan="4">
+            <strong>Supporting Document:</strong>
+
+            <a href="~/uploads/registration/@Model.Household.SupportingDocument" target="_blank" class="btn btn-primary pull-right">
+                <i class="fa fa-file-pdf-o"></i> Download
+            </a>
+
+        </td>
+    </tr>
+}
+</table>
+<hr />
+<h2 class="lbl-title">GEOGRAPHIC IDENTIFICATION</h2>
+<table class="table table-bordered table-striped">
+    <tr>
+        <td>
+            <strong>@Html.DisplayNameFor(model => model.Household.Village.Ward.SubCounty.County):</strong>
+            @Html.DisplayFor(model => model.Household.Village.Ward.SubCounty.County.Name)
+        </td>
+        <td>
+            <strong>@Html.DisplayNameFor(model => model.Household.Village.Ward.SubCounty):</strong>
+            @Html.DisplayFor(model => model.Household.Village.Ward.SubCounty.Name)
+        </td>
+        <td>
+            <strong>@Html.DisplayNameFor(model => model.Household.Village.Ward):</strong>
+            @Html.DisplayFor(model => model.Household.Village.Ward.Name)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <strong>@Html.DisplayNameFor(model => model.Household.SubLocation.Location):</strong>
+            @Html.DisplayFor(model => model.Household.SubLocation.Location.Name)
+        </td>
+        <td>
+            <strong>@Html.DisplayNameFor(model => model.Household.SubLocation):</strong>
+            @Html.DisplayFor(model => model.Household.SubLocation.Name)
+        </td>
+        <td>
+            <strong>@Html.DisplayNameFor(model => model.Household.Village.Name):</strong>
+            @Html.DisplayFor(model => model.Household.Village.Name)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <strong>@Html.DisplayNameFor(model => model.Household.PhysicalAddress):</strong>
+            @Html.DisplayFor(model => model.Household.PhysicalAddress)
+        </td>
+        <td>
+            <strong>Duration of residence in this place:</strong>
+            @Html.DisplayFor(model => model.Household.ResidenceDurationYears) Years,
+            @Html.DisplayFor(model => model.Household.ResidenceDurationMonths) Months
+        </td>
+        <td>
+            <div class="row">
+                <div class="col-md-6">
+                    <strong>@Html.DisplayNameFor(model => model.Household.NearestReligiousBuilding):</strong>
+                    @Html.DisplayFor(model => model.Household.NearestReligiousBuilding)
+                </div>
+                <div class="col-md-6">
+                    <strong>@Html.DisplayNameFor(model => model.Household.NearestSchool):</strong>
+                    @Html.DisplayFor(model => model.Household.NearestSchool)
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>
+
+<hr />
+<h2 class="lbl-title">DWELLING AND HOUSEHOLD</h2>
+@if (Model.Characteristic != null)
+{
+    <table id="dwelling-xtics-table" class="table table-bordered table-striped">
+        <tr>
+            <td width="33%">
+                <strong>@Html.DisplayNameFor(model => model.Characteristic.HabitableRoomsNo):</strong>
+                @Html.DisplayFor(model => model.Characteristic.HabitableRoomsNo)
+            </td>
+            <td width="33%">
+                <strong>@Html.DisplayNameFor(model => model.Characteristic.CookingFuelSourceId):</strong>
+                @Html.DisplayFor(model => model.Characteristic.CookingFuelSource.Code)
+                @((Model.Characteristic != null && string.IsNullOrEmpty(Model.Characteristic.CookingFuelSourceOther)) ? "" : " - " + Model.Characteristic.CookingFuelSourceOther)
+            </td>
+            <td width="33%">
+                <strong>@Html.DisplayNameFor(model => model.Characteristic.HouseholdConditionId):</strong>
+                @Html.DisplayFor(model => model.Characteristic.HouseholdCondition.Code)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <strong>@Html.DisplayNameFor(model => model.Characteristic.TenureStatusId):</strong>
+                @Html.DisplayFor(model => model.Characteristic.TenureStatus.Code)
+                @(string.IsNullOrEmpty(Model.Characteristic.TenureStatusOther) ? "" : " - " + Model.Characteristic.TenureStatusOther)
+            </td>
+            <td>
+                <strong>@Html.DisplayNameFor(model => model.Characteristic.LightingSourceId):</strong>
+                @Html.DisplayFor(model => model.Characteristic.LightingSource.Code)
+                @(string.IsNullOrEmpty(Model.Characteristic.LightingSourceOther) ? "" : " - " + Model.Characteristic.LightingSourceOther)
+            </td>
+            <td>
+                <strong>@Html.DisplayNameFor(model => model.Characteristic.HasSkippedMealId):</strong>
+                @Html.DisplayFor(model => model.Characteristic.HasSkippedMeal.Code)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <strong>Dominant Construction Material of the main dwelling unit</strong>
+                <table class="table">
+                    <tr>
+                        <td>
+                            <strong>@Html.DisplayNameFor(model => model.Characteristic.RoofMaterialId):</strong>
+                            @Html.DisplayFor(model => model.Characteristic.RoofMaterial.Code)
+                        </td>
+                        <td>
+                            <strong>@Html.DisplayNameFor(model => model.Characteristic.WallMaterialId):</strong>
+                            @Html.DisplayFor(model => model.Characteristic.WallMaterial.Code)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>@Html.DisplayNameFor(model => model.Characteristic.FloorMaterialId):</strong>
+                            @Html.DisplayFor(model => model.Characteristic.FloorMaterial.Code)
+                        </td>
+                        <td>
+                            <strong>@Html.DisplayNameFor(model => model.Characteristic.UnitRiskId):</strong>
+                            @Html.DisplayFor(model => model.Characteristic.UnitRisk.Code)
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <strong>Does the household OWN any of the following items?</strong>
+                <table class="table">
+                    <tr>
+                        @{ count = 1; }
+                        @foreach (var item in Model.Assets.Where(i => i.AssetTypeId == 203))
+                        {
+                            <td>
+                                <strong>@item.Asset.Code:</strong>
+                                <span>@(item.HasItem == true ? "Yes" : "No")</span>
+                            </td>
+                            if (count != 0 && count % 2 == 0)
+                            {
+                                @Html.Raw("</tr><tr>")
+                                ;
+                            }
+                            count++;
+                        }
+                        <td></td>
+                    </tr>
+                </table>
+            </td>
+            <td>
+
+                <strong>BENEFITS FROM SOCIAL ASSISTANCE PROGRAMMES</strong><br />
+                <strong>@Html.DisplayNameFor(model => model.OtherProgrammes):</strong>
+                @if (!Model.OtherProgrammes.Any())
+                {
+                    <span>None</span>
+                }
+                else
+                {
+                    <ol>
+
+                        @foreach (var item in Model.OtherProgrammes)
+                        {
+                            <li>
+                                <strong>@item.OtherProgramme.Code:</strong>
+                            </li>
+
+                        }
+                    </ol>
+                }
+            </td>
+        </tr>
+        <tr>
+            <td>
+
+                <strong>@Html.DisplayNameFor(model => model.Characteristic.WaterSourceId):</strong>
+                @Html.DisplayFor(model => model.Characteristic.WaterSource.Code)
+                <div class="separator"></div>
+                <strong>@Html.DisplayNameFor(model => model.Characteristic.ToiletTypeId):</strong>
+                @Html.DisplayFor(model => model.Characteristic.ToiletType.Code)
+
+                <div class="separator"></div>
+                <strong>@Html.DisplayNameFor(model => model.Characteristic.LiveBirths):</strong>
+                @Html.DisplayFor(model => model.Characteristic.LiveBirths)
+                <div class="separator"></div>
+                <strong>@Html.DisplayNameFor(model => model.Characteristic.Deaths):</strong>
+                @Html.DisplayFor(model => model.Characteristic.Deaths)
+            </td>
+            <td>
+                <strong>Livestock are currently owned by the household</strong>
+                <table class="table">
+                    <tr>
+                        @{ count = 1; }
+                        @foreach (var item in Model.Assets.Where(i => i.AssetTypeId == 204))
+                        {
+                            <td>
+                                <strong>@item.Asset.Code:</strong>
+                                <span>@item.ItemCount</span>
+                            </td>
+                            if (count != 0 && count % 2 == 0)
+                            {
+                                @Html.Raw("</tr><tr>")
+                                ;
+                            }
+                            count++;
+                        }
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <strong>@Html.DisplayNameFor(model => model.Characteristic.IsReceivingOtherBenefitId):</strong>
+                @Html.DisplayFor(model => model.Characteristic.IsReceivingOtherBenefit.Code)
+                @if (Model.Characteristic.IsReceivingOtherBenefit.Code.Equals("Yes"))
+                {
+                    <div class="separator"></div>
+                    <strong>@Html.DisplayNameFor(model => model.Characteristic.OtherProgrammes):</strong>
+                    @Html.DisplayFor(model => model.Characteristic.OtherProgrammes)
+
+                    <div class="separator"></div>
+
+                    <strong>@Html.DisplayNameFor(model => model.Characteristic.OtherProgrammesBenefitTypeId):</strong>
+                    @Html.DisplayFor(model => model.Characteristic.OtherProgrammesBenefitType.Code)
+
+                }
+
+                <div class="separator"></div>
+                <strong>@Html.DisplayNameFor(model => model.Characteristic.BenefitFromFriendsRelativeId):</strong>
+                @Html.DisplayFor(model => model.Characteristic.BenefitFromFriendsRelative.Code)
+            </td>
+        </tr>
+    </table>
+
+}
+else
+{
+    <table id="dwelling-xtics-table" class="table table-bordered table-striped">
+        <tr>
+            <td class="dataTables_empty">No data found.</td>
+        </tr>
+    </table>
+}
+
+<hr />
+<h2 class="lbl-title">HOUSEHOLD MEMBERS</h2>
+<hr />
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Member.Relationship)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Member.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Member.MiddleName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Member.Surname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Member.DOB)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Member.Gender)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Member.MaritalStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Member.IdentificationFormId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Member.IdNumber)
+            </th>
+            <th>View</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Members)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Relationship.Code)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MiddleName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Surname)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.DOB)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Gender.Code)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MaritalStatus.Code)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdentificationForm.Code)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdNumber)
+                </td>
+                <td class="fit">
+                    <a asp-action="MemberDetails" class="fa fa-eye lnk-modal" asp-route-id="@item.Id"></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@if (!string.IsNullOrEmpty(Model.View) && Model.View.Equals("approve"))
+{
+    <div class="row">
+        <div class="col-md-12"> <hr /></div>
+
+        <div class="action-cont col-md-6 pull-right">
+            <form asp-action="Approve" class="margin-bottom-10">
+                @if (Model.Household.RequiresHealthVerification == true)
+                {
+                    <div class="form-group col-md-12 verify-health">
+                        <input type="checkbox" asp-for="RequiresHealthVerification" class="required" />
+                        <label asp-for="RequiresHealthVerification" class="control-label"></label>
+                        <span asp-validation-for="RequiresHealthVerification" class="text-danger"></span>
+                    </div>
+                }
+                else
+                {
+                    <div class="form-group col-md-12 verify-health">
+                        <input type="checkbox" asp-for="RequiresHealthVerification" class="required" />
+                        <label class="control-label" style="float: left;padding-top: 3px;">I have verified Mother's information and the records looks authentic.</label>
+                        <span asp-validation-for="RequiresHealthVerification" class="text-danger" style="clear: left"></span>
+                    </div>
+                }
+                <div class="form-group col-md-12">
+                    <input type="hidden" name="Id" value="@Model.Household.Id" />
+                    <label asp-for="Notes" class="control-label"></label>
+                    <input asp-for="Notes" class="form-control" />
+                    <span class="field-validation-valid notes-error text-danger">*This field is required.</span>
+                </div>
+                <div class="form-group col-md-12">
+                    <a asp-action="Index" class="btn btn-danger glyphicon glyphicon-step-backward pull-left"> Back</a>
+                    <button type="submit" class="btn btn-success pull-right btn-approve-status">
+                        <i class="glyphicon glyphicon-ok-sign"></i> Approve
+                    </button>
+                    <button type="submit" class="btn btn-danger pull-right btn-reject-status margin-right-15">
+                        <i class="glyphicon glyphicon-remove"></i> Reject
+                    </button>
+                    <input type="hidden" name="StatusId" id="action" />
+                </div>
+            </form>
+        </div>
+    </div>
+}
+else
+{
+    <a asp-action="Index" class="btn btn-danger glyphicon glyphicon-step-backward pull-left"> Back</a>
+    <div class="col-md-4 pull-right">
+        <a href="#" class="lnk-blacklist pull-right btn btn-danger">
+            Blacklist
+        </a>
+    </div>
+    <div class="clearfix"></div>
+    <form asp-action="Blacklist" class="form-blacklist row" style="display: none">
+        <div class="col-md-4 pull-right">
+            <div class="form-group col-md-12 col-xs-12">
+                <label class="control-label">Blacklist Reason</label>
+                <input asp-for="Notes" class="form-control required" />
+                <span asp-validation-for="Notes" class="text-danger"></span>
+                <input type="hidden" name="Id" value="@Model.Household.Id" />
+            </div>
+            <div class="form-group col-md-3 ">
+                <a href="#" class="lnk-blacklist-close pull-left btn btn-default">
+                    close
+                </a>
+            </div>
+            <button type="submit" class="btn btn-danger pull-right btn-blacklist btn-next margin-right-10">
+                <i class="glyphicon glyphicon-ok-sign"></i> Submit
+            </button>
+            <input type="hidden" name="Option" id="option" />
+        </div>
+    </form>
+
+}
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".lnk-blacklist").on("click", function (e) {
+                e.preventDefault();
+                $(".form-blacklist").slideToggle();
+                $(".lnk-blacklist").hide();
+                $(".lnk-blacklist-close").show();
+                return false;
+            });
+            $(".lnk-blacklist-close").on("click", function (e) {
+                e.preventDefault();
+                $(".form-blacklist").slideToggle();
+                $(".lnk-blacklist").show();
+                $(".lnk-blacklist-close").hide();
+                return false;
+            });
+            $(".btn.btn-blacklist").on("click", function (e) {
+                if ($('#Notes').val() === '') {
+                    alert('Blacklist reason is required.');
+                    return false;
+                }
+                var r = confirm("Blacklist the mother?");
+                if (r == true) {
+                    $('#option').val('deactivate');
+                } else {
+                    $('#option').val('');
+                    return false;
+                }
+
+            });
+        });
+    </script>
+}

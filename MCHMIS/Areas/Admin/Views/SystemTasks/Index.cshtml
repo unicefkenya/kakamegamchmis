@@ -1,0 +1,60 @@
+﻿@model IEnumerable<MCHMIS.Models.SystemTask>
+
+@{
+    ViewData["Title"] = "System Tasks";
+}
+@section buttons
+{
+    <a asp-action="Create">Create New</a>
+}
+ <table class="table table-striped table-bordered table-hover">
+                    <tr>
+                        <th>Id</th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Parent)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Name)
+                        </th>
+                        <th>Order</th>
+                        <th class="fit">Edit</th>
+                    </tr>
+
+                    @foreach (var item in Model) {
+                        <tr>
+                            <td>@item.Id</td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Parent.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Order)
+                            </td>
+                            <td>
+                                @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "fa fa-pencil" })
+                            </td>
+                        </tr>
+                        foreach (var child in item.Children.OrderBy(c=>c.Order))
+                        {
+                            <tr>
+                                <td>@child.Id</td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => child.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => child.Order)
+                                </td>
+                                <td>
+                                    @Html.ActionLink(" ", "Edit", new {id = child.Id}, new {@class = "fa fa-pencil"})
+                                </td>
+                            </tr>
+                        }
+                    }
+
+                </table>
+           

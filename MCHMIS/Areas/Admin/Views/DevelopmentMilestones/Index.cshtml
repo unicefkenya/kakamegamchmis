@@ -1,0 +1,50 @@
+﻿@model IEnumerable<MCHMIS.Models.DevelopmentMilestone>
+
+@{
+    ViewData["Title"] = "Development Milestones";
+}
+
+@section buttons{
+    <a asp-action="Create">Create New</a>
+}
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NormalLimits)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UpperLimit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LimitTag)
+            </th>
+            <th>Edit</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NormalLimits)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UpperLimit)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LimitTag)
+                </td>
+                <td class="fit">
+                    <a asp-action="Edit" class="fa fa-pencil" asp-route-id="@item.Id"></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

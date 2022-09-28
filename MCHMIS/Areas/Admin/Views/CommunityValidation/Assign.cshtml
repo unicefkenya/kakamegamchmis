@@ -1,0 +1,225 @@
+﻿@using Newtonsoft.Json
+@model MCHMIS.ViewModels.CommunityValidationListViewModel
+@{
+    ViewData["Title"] = @Model.CVList.ListTypeId == 211 ? "Community Validation" : "Monitoring Team Validation";
+}
+<style>
+    #table-filter_length {
+        top: 29px;
+        position: relative;
+        left: 15px;
+        float: left;
+    }
+</style>
+<form asp-action="Assign">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="form-group col-md-2">
+        <label asp-for="SubCountyId" class="control-label"></label>
+        <select asp-for="SubCountyId" class="form-control" ng-model="SubCountyId" asp-items="ViewBag.SubCountyId">
+            <option value="">Select</option>
+        </select>
+    </div>
+    <div class="form-group col-md-2">
+        <label asp-for="WardId" class="control-label"></label>
+        <select asp-for="WardId" class="form-control" ng-model="WardId"
+                ng-options="item.Name for item in wards| filter: {SubCountyId: SubCountyId||'-1'} track by item.Id">
+            <option value="">Select</option>
+        </select>
+    </div>
+    <div class="form-group col-md-2">
+        <label asp-for="VillageId" class="control-label"></label>
+        <select asp-for="VillageId" class="form-control" ng-options="item as item.Name for item in villages | filter: {WardId: WardId.Id||'-1'} track by item.Id" ng-model="village">
+            <option value="">Select</option>
+        </select>
+    </div>
+    <div class="form-group col-md-2">
+        <label asp-for="CommunityAreaId" class="control-label"></label>
+        <select asp-for="CommunityAreaId" class="form-control">
+            <option value="">Select</option>
+            <option ng-repeat="item in communityAreas | filter : {VillageId:village.Id||'-1'} : true" value="{{item.Id}}">
+                {{item.Name}}
+            </option>
+        </select>
+    </div>
+    <div class="col-md-2 pull-left">
+        <button type="submit" class="btn btn-success pull-left btn-filter inline">
+            <i class="glyphicon glyphicon-search"></i> Search
+        </button>
+        <button type="button" class="btn btn-default btn-reset pull-left btn-filter inline">
+            <i class="fa fa-eraser"></i> Clear
+        </button>
+    </div>
+    <input type="hidden" name="Page" id="pagination-page" value="1" />
+</form>
+<hr />
+<form asp-action="AssignSave">
+    <div class="form-group col-md-4">
+        <input type="hidden" asp-for="Id" />
+        <label class="control-label">Select @(Model.CVList.ListTypeId == 211 ? "CHV" : "M&E Officer") to Assign</label>
+        <span asp-validation-for="EnumeratorId" class="text-danger"></span>
+        <select asp-for="EnumeratorId" class="form-control filter-list" asp-items="ViewBag.EnumeratorId">
+            <option value="">Select</option>
+        </select>
+    </div>
+
+    <table id="table-filter" class="table table-striped table-striped-header-only table-bordered">
+        <thead>
+            <tr>
+                <th>Unique ID</th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Household.Mother.FirstName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Household.Mother.MiddleName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Household.Mother.Surname)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Household.Mother.IdNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Household.HealthFacilityId)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.Household.Phone)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Household.EDD)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Household.Village.Ward.SubCountyId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Household.Village.WardId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Household.Village.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Household.CommunityArea.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Household.PMTScore)
+                </th>
+                <th>
+                    CV PMT Score
+                </th>
+                <th>
+                    Variance
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Household.Status)
+                </th>
+                <th>
+                    @Html.DisplayName("CVH")
+                </th>
+                <th class="fit">
+                    <input type="checkbox" id="check-all" />
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Details)
+            {
+                <tr class="@Html.DisplayFor(modelItem => item.VarianceCategory.Code)">
+                    <td> @Html.DisplayFor(modelItem => item.Household.UniqueId)</td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Household.Mother.FirstName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Household.Mother.MiddleName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Household.Mother.Surname)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Household.Mother.IdNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Household.HealthFacility.Name)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Household.Phone)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Household.EDD)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Household.Village.Ward.SubCounty.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Household.Village.Ward.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Household.Village.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Household.CommunityArea.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Household.PMTScore)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CVHouseHold.PMTScore)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Variance)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Status.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Enumerator.FullName)
+                    </td>
+                    <td class="text-center fit">
+                        <input type="checkbox" id="@item.Id" class="ben-checkbox" name="Ids[]" value="@item.Id" />
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="col-md-12 action-cont margin-top-10 ">
+        <div class="text-danger text-right">
+            <p>
+                <strong>Select the households to assign to the @(Model.CVList.ListTypeId == 211 ? "CHV" : "M&E Officer").</strong>
+            </p>
+        </div>
+
+        <button type="submit" class="btn btn-success pull-right">
+            <i class="glyphicon glyphicon-ok-sign"></i> Assign
+        </button>
+    </div>
+</form>
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var scope = angular.element(document.querySelector('body')).scope();
+            scope.$apply(function (filter) {
+                scope.wards = @Html.Raw(JsonConvert.SerializeObject(Model.Wards));
+                scope.SubCountyId ='@Model.SubCountyId';
+                scope.WardId = '@Model.WardId';
+
+                scope.villages = @Html.Raw(JsonConvert.SerializeObject(Model.Villages));
+                scope.communityAreas = @Html.Raw(JsonConvert.SerializeObject(Model.CommunityAreas));
+
+                var index=indexByKeyValue(scope.wards,"Id",'@Model.WardId');
+                scope.WardId = scope.wards[index];
+
+                index=indexByKeyValue(scope.villages,"Id",'@Model.VillageId');
+                scope.village = scope.villages[index];
+                scope.VillageId = '@Model.VillageId';
+
+                setTimeout(function() {
+
+                    $('#CommunityAreaId').val('@Model.CommunityAreaId');
+                },100);
+
+            });
+        });
+    </script>
+}

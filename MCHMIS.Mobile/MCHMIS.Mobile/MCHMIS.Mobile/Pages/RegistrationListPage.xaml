@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:dataGrid="clr-namespace:Xamarin.Forms.DataGrid;assembly=Xamarin.Forms.DataGrid"
+    xmlns:views="clr-namespace:SuaveControls.Views;assembly=SuaveControls.FloatingActionButton"
+             Title="Community Volunteer Validation"
+             x:Class="MCHMIS.Mobile.Pages.RegistrationListPage">
+  <TabbedPage.Resources></TabbedPage.Resources>
+  <ContentPage Title="Downloaded Mothers">
+    <ContentPage.Content>
+      <ScrollView>
+        <StackLayout>
+          <SearchBar Text="{Binding Filter, Mode=TwoWay}"
+             Placeholder="Search "
+             SearchCommand="{Binding FilterDownloadedRegistrationsCommand}"
+             FontSize="Small" ></SearchBar>
+
+          <dataGrid:DataGrid  VerticalOptions="FillAndExpand"  x:Name="DownloadedRegistrationsGrid"
+                     ItemsSource="{Binding  DownloadedRegistrations, Mode=TwoWay}"
+                     SelectionEnabled="True"
+                     RowHeight="70"
+                     HeaderHeight="50" BorderThickness="1"
+                      BorderColor="#CCCCCC"
+                      HeaderBackground="{DynamicResource KenyaGreen}"
+                     IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
+                     SelectedItem="{Binding SelectedRegistration}"
+                     ActiveRowColor="#8899AA">
+            <x:Arguments>
+              <ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>
+            </x:Arguments>
+            <dataGrid:DataGrid.HeaderLabelStyle>
+              <OnPlatform x:TypeArguments="Style"></OnPlatform>
+            </dataGrid:DataGrid.HeaderLabelStyle>
+            <dataGrid:DataGrid.Columns>
+              <dataGrid:DataGridColumn Title="Unique ID."  PropertyName="UniqueId" Width="0.75*" />
+              <dataGrid:DataGridColumn Title="Mother's Name" PropertyName="MothersFullName" Width="0.75*" />
+              <!--<dataGrid:DataGridColumn Title="Common Name" PropertyName="CommonName" Width="0.75*" />-->
+              <dataGrid:DataGridColumn Title="Mother's Phone" PropertyName="Phone" Width="0.75*" />
+              <!--<dataGrid:DataGridColumn Title="Next Of Kin" PropertyName="NOKsFullName" Width="0.75*" />
+              <dataGrid:DataGridColumn Title="Next Of Kin Phone No." PropertyName="NOKPhone" Width="0.75*" />-->
+            </dataGrid:DataGrid.Columns>
+            <dataGrid:DataGrid.RowsBackgroundColorPalette>
+              <dataGrid:PaletteCollection>
+                <Color>#FEFEFE</Color>
+                <Color>#FFFFFF</Color>
+              </dataGrid:PaletteCollection>
+            </dataGrid:DataGrid.RowsBackgroundColorPalette>
+            <dataGrid:DataGrid.Resources></dataGrid:DataGrid.Resources>
+          </dataGrid:DataGrid>
+        </StackLayout>
+      </ScrollView>
+    </ContentPage.Content>
+  </ContentPage>
+  <ContentPage Title="Households In Progress">
+    <ContentPage.Content>
+      <ScrollView>
+        <StackLayout>
+          <SearchBar Text="{Binding Filter, Mode=TwoWay}"
+                     Placeholder="Search Households InProgress Registration  "
+                     SearchCommand="{Binding FilterOngoingRegistrationsCommand}"
+                     FontSize="Small" ></SearchBar>
+          <dataGrid:DataGrid  VerticalOptions="FillAndExpand"  x:Name="OngoingRegistrationsGrid"
+                     ItemsSource="{Binding  OngoingRegistrations, Mode=TwoWay}"
+                     SelectionEnabled="True"
+                     RowHeight="70"
+                     HeaderHeight="50"
+                              BorderColor="#CCCCCC"
+                     HeaderBackground="{DynamicResource KenyaGreen}"
+                     IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
+                     SelectedItem="{Binding SelectedRegistration}"
+                     ActiveRowColor="#8899AA">
+            <x:Arguments>
+              <ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>
+            </x:Arguments>
+            <dataGrid:DataGrid.HeaderLabelStyle>
+              <OnPlatform x:TypeArguments="Style"></OnPlatform>
+            </dataGrid:DataGrid.HeaderLabelStyle>
+            <dataGrid:DataGrid.Columns>
+              <dataGrid:DataGridColumn Title="Unique ID." PropertyName="UniqueId" Width="0.75*" />
+              <dataGrid:DataGridColumn Title="Mother's Name" PropertyName="MothersFullName" Width="0.75*" />
+              <!--<dataGrid:DataGridColumn Title="Common Name" PropertyName="CommonName" Width="0.75*" />-->
+              <dataGrid:DataGridColumn Title="Mother's Phone" PropertyName="Phone" Width="0.75*" />
+              <!--<dataGrid:DataGridColumn Title="Next Of Kin" PropertyName="NOKsFullName" Width="0.75*" />
+              <dataGrid:DataGridColumn Title="Next Of Kin Phone No." PropertyName="NOKPhone" Width="0.75*" />-->
+            </dataGrid:DataGrid.Columns>
+            <dataGrid:DataGrid.RowsBackgroundColorPalette>
+              <dataGrid:PaletteCollection>
+                <Color>#FEFEFE</Color>
+                <Color>#FFFFFF</Color>
+              </dataGrid:PaletteCollection>
+            </dataGrid:DataGrid.RowsBackgroundColorPalette>
+            <dataGrid:DataGrid.Resources>
+            </dataGrid:DataGrid.Resources>
+          </dataGrid:DataGrid>
+        </StackLayout>
+      </ScrollView>
+    </ContentPage.Content>
+  </ContentPage>
+  <ContentPage Title="Completed Households, Pending Upload">
+    <ContentPage.Content>
+      <ScrollView>
+        <StackLayout>
+          <SearchBar Text="{Binding Filter, Mode=TwoWay}"
+                     Placeholder="Search Registration Households"
+                     SearchCommand="{Binding FilterCompleteRegistrationsCommand}"
+                     FontSize="Small" />
+
+          <dataGrid:DataGrid  VerticalOptions="FillAndExpand"  x:Name="CompleteRegistrationsGrid"
+                     ItemsSource="{Binding  CompleteRegistrations, Mode=TwoWay}"
+                     SelectionEnabled="True"
+                     RowHeight="70"
+                     HeaderHeight="50"
+                              BorderColor="#CCCCCC"
+                     HeaderBackground="{DynamicResource KenyaGreen}"
+                     IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
+                     SelectedItem="{Binding SelectedRegistration}"
+                     ActiveRowColor="#8899AA">
+            <x:Arguments>
+              <ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>
+            </x:Arguments>
+            <dataGrid:DataGrid.HeaderLabelStyle>
+              <OnPlatform x:TypeArguments="Style"></OnPlatform>
+            </dataGrid:DataGrid.HeaderLabelStyle>
+            <dataGrid:DataGrid.Columns>
+              <dataGrid:DataGridColumn Title="Unique ID." PropertyName="UniqueId" Width="0.75*" />
+              <dataGrid:DataGridColumn Title="Mother's Name" PropertyName="MothersFullName" Width="0.75*" />
+              <!--<dataGrid:DataGridColumn Title="Common Name" PropertyName="CommonName" Width="0.75*" />-->
+              <dataGrid:DataGridColumn Title="Mother's Phone" PropertyName="Phone" Width="0.75*" />
+              <!--<dataGrid:DataGridColumn Title="Next Of Kin" PropertyName="NOKsFullName" Width="0.75*" />
+              <dataGrid:DataGridColumn Title="Next Of Kin Phone No." PropertyName="NOKPhone" Width="0.75*" />-->
+            </dataGrid:DataGrid.Columns>
+            <dataGrid:DataGrid.RowsBackgroundColorPalette>
+              <dataGrid:PaletteCollection>
+                <Color>#FEFEFE</Color>
+                <Color>#FFFFFF</Color>
+              </dataGrid:PaletteCollection>
+            </dataGrid:DataGrid.RowsBackgroundColorPalette>
+            <dataGrid:DataGrid.Resources></dataGrid:DataGrid.Resources>
+          </dataGrid:DataGrid>
+        </StackLayout>
+      </ScrollView>
+    </ContentPage.Content>
+  </ContentPage>
+</TabbedPage>

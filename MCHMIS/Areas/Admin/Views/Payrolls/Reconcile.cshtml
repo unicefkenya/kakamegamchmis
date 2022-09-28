@@ -1,0 +1,76 @@
+﻿@using System.Data
+@model MCHMIS.ViewModels.EnrolmentListImportViewModel
+@{
+    ViewData["Title"] = "Import";
+}
+
+<form asp-action="Reconcile" enctype="multipart/form-data">
+    <div class="form-horizontal">
+        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-4">
+                    <input type="file" accept=".xls,.xlsx,.csv" class="form-control" name="uploadfile" />
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-success pull-left">
+                        <i class="glyphicon glyphicon-ok-sign"></i> Process file
+                    </button>
+                    <input type="hidden" name="id" value="@Model.Id" />
+                </div>
+                <div class="col-md-12">
+                    <p>&nbsp;</p>
+                    <hr />
+                    <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-danger glyphicon glyphicon-step-backward pull-left"> Back</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@if (Model != null && Model.Table != null)
+{
+
+    <div class="scrollable">
+        <p>&nbsp;</p>
+        <table class="table table-responsive table-bordered table-striped">
+            <thead>
+                <tr>
+                    @foreach (DataColumn column in Model.Table.Columns)
+                    {
+                        <th>
+                            @(column.ColumnName.Length > 16 ? column.ColumnName.Substring(0, 15) + "..." : column.ColumnName)
+                        </th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (DataRow row in Model.Table.Rows)
+                {
+                    <tr>
+                        @foreach (DataColumn col in Model.Table.Columns)
+                        {
+                            <td>@row[col.ColumnName]</td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <p>&nbsp;</p>
+    <label class="control-label col-md-2 padding-top-10">Total Records to be imported: </label>
+    <div class="col-md-2">
+        <input type="text" disabled="disabled" class="form-control" value="@Model.Rows" />
+    </div>
+
+    <form asp-action="ImportSave" enctype="multipart/form-data">
+        <div class="form-group save-imports">
+            <div class="col-md-12">
+                <input type="hidden" name="filepath" value="@ViewBag.UploadedFilePath" />
+                <input type="hidden" name="filename" value="@ViewBag.FileName" />
+                <input type="hidden" name="Id" value="@Model.Id" />
+                <input type="submit" value="Save" class="btn btn-primary btn-create pull-right" />
+            </div>
+        </div>
+    </form>
+}

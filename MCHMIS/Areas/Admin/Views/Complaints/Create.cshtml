@@ -1,0 +1,185 @@
+﻿@using Newtonsoft.Json
+@model MCHMIS.ViewModels.ComplaintViewModels
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<form asp-action="Create" class="complaint-form" enctype="multipart/form-data">
+
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>SECTION A: DETAILS OF COMPLAINANT</h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content sectiona" style="min-height: 300px">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label asp-for="IsComplainantAnonymousId" class="control-label"></label>
+                        <select asp-for="IsComplainantAnonymousId" class="form-control" asp-items="ViewBag.IsComplainantAnonymousId" ng-model="IsComplainantAnonymousId">
+                            <option value="">Select</option>
+                        </select>
+                        <span asp-validation-for="IsComplainantAnonymousId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group" ng-show="IsComplainantAnonymousId==270">
+                        <label asp-for="IsComplainantBeneficiaryId" class="control-label"></label>
+                        <select asp-for="IsComplainantBeneficiaryId" class="form-control" asp-items="ViewBag.IsComplainantBeneficiaryId" ng-model="IsComplainantBeneficiaryId">
+                            <option value="">Select</option>
+                        </select>
+                        <span asp-validation-for="IsComplainantBeneficiaryId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group" ng-show="IsComplainantBeneficiaryId==269">
+                        <label asp-for="UniqueId" class="control-label"></label>
+                        <input asp-for="UniqueId" class="form-control" />
+                        <span asp-validation-for="UniqueId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group" ng-show="IsComplainantAnonymousId==270">
+                        <label asp-for="Name" class="control-label"></label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group" ng-show="IsComplainantAnonymousId==2">
+                        <label asp-for="IdNumber" class="control-label"></label>
+                        <input asp-for="IdNumber" class="form-control required" />
+                        <span asp-validation-for="IdNumber" class="text-danger"></span>
+                    </div>
+                    <div class="form-group" ng-show="IsComplainantAnonymousId==2">
+                        <label asp-for="Phone" class="control-label"></label>
+                        <input asp-for="Phone" class="form-control required" />
+                        <span asp-validation-for="Phone" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="HealthFacilityId" class="control-label"></label>
+                        <select asp-for="HealthFacilityId" class="form-control required filter-list" asp-items="ViewBag.HealthFacilityId">
+                            <option value="">Select</option>
+                        </select>
+                        <span asp-validation-for="HealthFacilityId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="WardId" class="control-label"></label>
+                        <select asp-for="WardId" class="form-control required filter-list" asp-items="ViewBag.WardId" ng-model="WardId">
+                            <option value="">Select</option>
+                        </select>
+                        <span asp-validation-for="WardId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="VillageId" class="control-label"></label>
+                        <select asp-for="VillageId" class="form-control required">
+                            <option value="">Select</option>
+                            <option ng-repeat="item in villages | filter: {WardId: WardId}" value="{{item.Id}}">
+                                {{item.Name}}
+                            </option>
+                        </select>
+                        <span asp-validation-for="VillageId" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>SECTION B</h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content sectionb" style="min-height: 300px">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label asp-for="ComplaintDate" class="control-label"></label>
+                        <div class='input-group date'>
+                            <input asp-for="ComplaintDate" type="text" class="form-control required no-typing" autocomplete="off" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                        <span asp-validation-for="ComplaintDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CategoryId" class="control-label font-bold"></label>
+                        <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId" ng-model="CategoryId">
+                            <option value="">Select</option>
+                        </select>
+                        <span asp-validation-for="CategoryId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+
+                        <table class="table table-bordered">
+                            <tr>
+                                <th class="fit">SELECT</th>
+                                <th><span class="complaint-title">Program Complaints </span></th>
+                            </tr>
+
+                            <tr ng-repeat="item in ComplaintTypes| filter: {CategoryId : CategoryId||'-1' }">
+                                <td class="text-center">
+                                    <input type="radio" class="rd-button" ng-checked="ComplaintTypeId==item.Id" value="{{item.Id}}" name="ComplaintTypeId" />
+                                </td>
+                                <td>
+                                    {{item.Name}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">
+                                    <input type="radio" class="rd-button" value="" name="ComplaintTypeId" />
+                                </td>
+                                <td>
+                                    <input asp-for="OtherComplaintType" placeholder="Other" class="form-control" />
+                                </td>
+                            </tr>
+                        </table>
+                        <span class="field-validation-valid text-danger complaint-error">Select Complaint</span>
+
+                        <div class="x_title margin-top-25">
+                            <h2>SECTION C</h2>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Description" class="control-label"></label>
+                            <textarea asp-for="Description" class="form-control required"></textarea>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Form" class="control-label"></label>
+                            <input type="file" class="form-control supporting-document" id="filecontrol" name="file" />
+                            <span asp-validation-for="Form" class="text-danger"></span>
+                            <span class="text-danger field-validation-error form-error">
+                                <span class="">*Attach form in PDF format.</span>
+                            </span>
+                        </div>
+                        <div class="form-group margin-top-25">
+                            <a asp-action="Index" class="btn btn-danger glyphicon glyphicon-step-backward pull-left"> Back</a>
+                            <button type="submit" class="btn btn-success pull-right">
+                                <i class="glyphicon glyphicon-ok-sign"></i> Save
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            var scope = angular.element(document.querySelector('body')).scope();
+            scope.$apply(function (filter) {
+                scope.ComplaintTypes = @Html.Raw(JsonConvert.SerializeObject(Model.ComplaintTypes));
+                scope.IsComplainantAnonymousId = '';
+                scope.IsComplainantBeneficiaryId = '';
+                scope.CategoryId = '@Model.CategoryId';
+                scope.ComplaintTypeId = '@Model.ComplaintTypeId';
+                scope.villages = @Html.Raw(JsonConvert.SerializeObject(Model.Villages));
+                scope.WardId = '@Model.WardId';
+                scope.VillageId = '@Model.VillageId';
+            });
+            setTimeout(function() {
+                $('#WardId').val('@Model.WardId');
+                $('#VillageId').val('@Model.VillageId');
+                $('.select-searchable,.filter-list').select2();
+            },100);
+
+            $('.sectiona').css('min-height',$('.sectionb').height());
+        });
+    </script>
+}

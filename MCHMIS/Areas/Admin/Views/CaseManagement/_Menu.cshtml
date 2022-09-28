@@ -1,0 +1,98 @@
+﻿@using System.Linq.Expressions
+@{
+    string pregnancyId = "0";
+    try
+    {
+         pregnancyId = Model.PregnancyId;
+    }
+    catch (Exception e)
+    {
+         pregnancyId = "0";
+    }
+
+}
+<ul class="nav nav-tabs">
+
+    @if (pregnancyId!=null && !pregnancyId.Equals("0"))
+    {
+        <li class="create update">
+            <a asp-action="Update" asp-route-id="@Model.PregnancyId">
+                <i class="fa fa-user"></i> PREGNANCY DATA
+            </a>
+        </li>
+        @*<li class="preventiveservices">
+            <a asp-action="PreventiveServices" asp-route-id="@Model.PregnancyId">
+                <i class="fa fa-book"></i> PREVENTIVE SERVICES
+            </a>
+        </li>*@
+        if (ViewBag.motherSupportStatusId == 266)
+        {
+            <li class="pmtctinterventions">
+                <a asp-action="PMTCTInterventions" asp-route-id="@Model.PregnancyId">
+                    <i class="fa fa-book"></i> PMTCT INTERVENTIONS
+                </a>
+            </li>
+        }
+
+        <li class="delivery">
+            <a asp-action="Delivery" asp-route-id="@Model.PregnancyId">
+                <i class="fa fa-book"></i> DELIVERY DATA
+            </a>
+        </li>
+        <li class="childhealthmonitoring">
+            <a asp-action="ChildHealthMonitoring" asp-route-id="@Model.PregnancyId">
+                <i class="fa fa-book"></i> CHILD DATA
+            </a>
+        </li>
+        <li class="postnatal">
+            <a asp-action="PostNatal" asp-route-id="@Model.PregnancyId">
+                <i class="fa fa-book"></i> POST NATAL EXAMINATION
+            </a>
+        </li>
+        <li class="familyplanning">
+            <a asp-action="FamilyPlanning" asp-route-id="@Model.PregnancyId">
+                <i class="fa fa-book"></i> FAMILY PLANNING
+            </a>
+        </li>
+
+    }
+    else
+    {
+        <li class="create update">
+            <a href="#" class="lnk-disabled">
+                <i class="fa fa-user"></i> PREGNANCY DATA
+            </a>
+        </li>
+        @*<li class="preventiveservices">
+            <a href="#" class="lnk-disabled">
+                <i class="fa fa-book"></i> PREVENTIVE SERVICES
+            </a>
+        </li>*@
+        <li class="pmtctinterventions">
+            <a href="#" class="lnk-disabled">
+                <i class="fa fa-book"></i> PMTCT INTERVENTIONS
+            </a>
+        </li>
+        <li class="delivery">
+            <a href="#" class="lnk-disabled">
+                <i class="fa fa-book"></i> DELIVERY DATA
+            </a>
+        </li>
+        <li class="childhealthmonitoring">
+            <a href="#" class="lnk-disabled">
+                <i class="fa fa-book"></i> CHILD DATA
+            </a>
+        </li>
+        <li class="postnatal">
+            <a href="#" class="lnk-disabled">
+                <i class="fa fa-home"></i> POST NATAL EXAMINATION
+            </a>
+        </li>
+        <li class="familyplanning">
+            <a href="#" class="lnk-disabled">
+                <i class="fa fa-book"></i> FAMILY PLANNING
+            </a>
+        </li>
+
+    }
+</ul>

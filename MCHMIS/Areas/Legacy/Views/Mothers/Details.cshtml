@@ -1,0 +1,331 @@
+﻿@model MCHMIS.Areas.Legacy.ViewModels.LegacyDetailsViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+<style>
+    dt, dd {
+        border-bottom: 1px solid;
+        padding: 2px;
+    }
+
+    dd {
+        border-right: 1px solid;
+    }
+</style>
+<div class="col-md-6 col-sm-12 col-xs-12">
+    <div class="x_panel">
+        <div class="x_title">
+            <h2>Record Details</h2>
+            <div class="clearfix"></div>
+        </div>
+        <div class="x_content sectiona" style="min-height: 300px">
+            <div class="form-horizontal">
+
+                <dl class="dl-horizontal col-md-6">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Exception)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Exception)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Mother.M_Names)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Mother.M_Names)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Mother.M_IDNo)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Mother.M_IDNo)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Mother.M_DOB)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Mother.M_DOB)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Mother.M_County)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Mother.M_County)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Mother.M_Ward)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Mother.M_Ward)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Mother.M_Phoneno)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Mother.M_Phoneno)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Mother.M_Address)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Mother.M_Address)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Mother.M_Occupation)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Mother.M_Occupation)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Mother.F_Names)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Mother.F_Names)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Mother.F_IDNo)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Mother.F_IDNo)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Mother.F_DOB)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Mother.F_DOB)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Mother.F_County)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Mother.F_County)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Mother.F_Ward)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Mother.F_Ward)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Mother.F_Phoneno)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Mother.F_Phoneno)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Mother.F_Photo)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Mother.F_Photo)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Mother.F_Address)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Mother.F_Address)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Mother.F_Occupation)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Mother.F_Occupation)
+                    </dd>
+                </dl>
+                <dl class="dl-horizontal col-md-6">
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Mother.F_Income)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Mother.F_Income)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Mother.G_Names)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Mother.G_Names)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Mother.G_IDNo)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Mother.G_IDNo)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Mother.G_DOB)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Mother.G_DOB)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Mother.G_County)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Mother.G_County)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Mother.G_Ward)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Mother.G_Ward)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Mother.G_Phoneno)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Mother.G_Phoneno)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Mother.G_Photo)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Mother.G_Photo)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Mother.G_Address)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Mother.G_Address)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Mother.G_Occupation)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Mother.G_Occupation)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Mother.G_Income)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Mother.G_Income)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Mother.G_Relationship)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Mother.G_Relationship)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Mother.Other_income)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Mother.Other_income)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Mother.facilityid)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Mother.facilityid)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Mother.CareOf)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Mother.CareOf)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Mother.unqualified_reason)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Mother.unqualified_reason)
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-6 col-sm-12 col-xs-12">
+    <div class="x_panel">
+        <div class="x_title">
+            <h2>Update</h2>
+            <div class="clearfix"></div>
+        </div>
+        <div class="x_content sectiona" style="min-height: 300px">
+            <table class="table table-bordered table-striped">
+                <tr>
+                    <td class="text-bold">
+                        @Html.DisplayNameFor(model => model.StatusId):
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.Status)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-bold">
+                        @Html.DisplayNameFor(model => model.Exception):
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.Exception)
+                    </td>
+                </tr>
+
+                <tr>
+                    <td width="200" class="text-bold">
+                        @Html.DisplayNameFor(model => model.NationalId):
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.NationalId)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-bold">
+                        @Html.DisplayNameFor(model => model.PhoneNumber):
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.PhoneNumber)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-bold">
+                        @Html.DisplayNameFor(model => model.DOB):
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.DOB)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-bold">
+                        @Html.DisplayNameFor(model => model.Notes):
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.Notes)
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="text-bold fit">Supporting Document:</td>
+                    <td>
+                        @if (Model.SupportingDocument != null)
+                        {
+                            <a href="~/uploads/legacy/@Model.SupportingDocument" target="_blank">
+                                <i class="fa fa-file-pdf-o"></i>
+                            </a>
+                        }
+                    </td>
+                </tr>
+                @if (!string.IsNullOrEmpty(Model.ApprovalNotes))
+                {
+                    <tr>
+                        <td class="text-bold">
+                            @Html.DisplayNameFor(model => model.ApprovalNotes):
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.ApprovalNotes)
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <link rel="stylesheet" href="~/css/prettyPhoto.css" type="text/css" media="screen" charset="utf-8" />
+    <script src="~/js/jquery.prettyPhoto.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("a[rel^='prettyPhoto']").prettyPhoto();
+        });
+    </script>
+}

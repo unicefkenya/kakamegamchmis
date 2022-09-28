@@ -1,0 +1,36 @@
+﻿@model MCHMIS.Models.SystemCode
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="row">
+    <div class="col-md-8">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Code" class="control-label"></label>
+                <input asp-for="Code" class="form-control" />
+                <span asp-validation-for="Code" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <textarea asp-for="Description" class="form-control"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SystemModuleId" class="control-label"></label>
+                <select asp-for="SystemModuleId" class="form-control filter-list" asp-items="ViewBag.SystemModuleId">
+                    <option value="">Select</option>
+                </select>
+                <span asp-validation-for="SystemModuleId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <a asp-action="Index" class="btn btn-danger glyphicon glyphicon-step-backward pull-left"> Back</a>
+                <input type="submit" value="Save" class="btn btn-primary pull-right" />
+            </div>
+        </form>
+    </div>
+</div>

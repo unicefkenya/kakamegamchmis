@@ -1,0 +1,48 @@
+﻿@using MCHMIS.Areas.Reports.ViewModels
+
+@model MCHMIS.Areas.Reports.ViewModels.HouseholdsReportViewModel
+
+@if (Model.Summaries != null)
+{
+    <table id="table-only" class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Summary.Facility)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.Summary.Beneficiaries)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Summaries)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Facility)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Beneficiaries)
+                    </td>
+                </tr>
+            }
+        </tbody>
+        @if (Model.Summaries.Any())
+        {
+            <tfoot>
+                <tr>
+                    <td>
+                        <strong>Total</strong>
+                    </td>
+                    <td>
+                         <strong>@Model.Summaries.Sum(i => i.Beneficiaries).ToString("##,###")</strong>
+                    </td>
+                </tr>
+            </tfoot>
+        }
+    </table>
+
+}

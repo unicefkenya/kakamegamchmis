@@ -1,0 +1,52 @@
+﻿@model MCHMIS.ViewModels.FRApprovalSummaryViewModel
+@{
+    ViewBag.Title = "Approvals";
+    Layout = "~/Views/Shared/_LayoutPopup.cshtml";
+}
+
+@using (Html.BeginForm("ActionSave", "FundRequests", FormMethod.Post, new { @class = "form-vertical", role = "form" }))
+
+{
+
+    <div class="form-vertical">
+        <div class="col-md-6">
+            <div class="col-md-12">
+                <strong>No of Beneficiaries: </strong>
+                @Html.DisplayFor(modelItem => Model.Beneficiaries)
+            </div>
+            <div class="col-md-12">
+                <strong>No of Facilities: </strong>
+                @Html.DisplayFor(modelItem => Model.Facilities)
+            </div>
+            <div class="col-md-12">
+                <strong>Amount: </strong>
+                @Model.Amount.ToString("##,###")
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="col-md-12">
+                <strong>Date Created: </strong>@Html.DisplayFor(modelItem => Model.FundRequest.DateCreated)
+            </div>
+            <div class="col-md-12">
+                <strong>Created by: </strong> @Html.DisplayFor(modelItem => Model.FundRequest.CreatedBy.Name)
+            </div>
+        </div>
+        <hr />
+
+        <div class="form-group col-md-12 ">
+            <label asp-for="Notes" class="control-label"></label>
+            <span class="field-validation-valid notes-error text-danger">*This field is required.</span>
+            <textarea asp-for="Notes" class="form-control approval-notes" />
+        </div>
+        <div class="form-group col-md-12 padding-top">
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-success pull-right btn-approve">
+                <i class="glyphicon glyphicon-ok-sign"></i> Approve
+            </button>
+            <input type="hidden" name="StatusId" id="action" />
+        </div>
+
+        @Html.HiddenFor(m => m.Id)
+    </div>
+
+}

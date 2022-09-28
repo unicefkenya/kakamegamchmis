@@ -1,0 +1,69 @@
+﻿@using Newtonsoft.Json
+@model MCHMIS.Areas.Reports.ViewModels.VarianceReportViewModel
+
+@if (Model.Summaries != null)
+{
+    <table id="table-only" class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Summary.Facility)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Summary.High)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Summary.Medium)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Summary.Low)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Summaries)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Facility)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.High)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Medium)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Low)
+                    </td>
+                </tr>
+            }
+            @if (!Model.Summaries.Any())
+            {
+                <tr>
+                    <td colspan="8" class="dataTables_empty">No data found</td>
+                </tr>
+            }
+        </tbody>
+        @if (Model.Summaries.Any())
+        {
+            <tfoot>
+                <tr>
+                    <td>
+                        <strong>Total</strong>
+                    </td>
+                    <td>
+                        <strong>@Model.Summaries.Sum(i => i.High)</strong>
+                    </td>
+                    <td>
+                        <strong>@Model.Summaries.Sum(i => i.Medium)</strong>
+                    </td>
+                    <td>
+                        <strong>@Model.Summaries.Sum(i => i.Low)</strong>
+                    </td>
+                </tr>
+            </tfoot>
+        }
+    </table>
+
+}

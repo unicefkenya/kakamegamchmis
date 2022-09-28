@@ -1,0 +1,14 @@
+update Reasons set CategoryId=1 where Id<5
+
+update Reasons set CategoryId=2 where CategoryId=0
+select * from Reasons
+
+
+update b
+set b.MotherId=h.MotherId
+ from Beneficiaries b
+ inner join HouseholdRegs h on h.Id=b.HouseholdId
+
+Reasons table missing CategoryId
+
+Migrate Reports Data

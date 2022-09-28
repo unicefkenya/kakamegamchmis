@@ -1,0 +1,65 @@
+﻿@using Newtonsoft.Json
+@model MCHMIS.Areas.Reports.ViewModels.ComplaintsReportViewModel
+
+@if (Model.Summaries != null)
+{
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Summary.Facility)
+                </th>
+                @*<th>
+                    @Html.DisplayNameFor(model => model.Summary.SubCounty)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Summary.Ward)
+                </th>*@
+                <th>
+                    @Html.DisplayNameFor(model => model.Summary.Count)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Summaries)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Facility)
+                    </td>
+                    @*<td>
+                        @Html.DisplayFor(modelItem => item.SubCounty)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ward)
+                    </td>*@
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Count)
+                    </td>
+                </tr>
+            }
+            @if (!Model.Summaries.Any())
+            {
+                <tr>
+                    <td class="dataTables_empty" colspan="10">
+                        No data found.
+                    </td>
+                </tr>
+            }
+        </tbody>
+        @if (Model.Summaries.Any())
+        {
+            <tfoot>
+                <tr>
+                    <td>
+                        <strong>Total</strong>
+                    </td>
+                    <td>
+                        <strong>@Model.Summaries.Sum(i => i.Count).ToString("##,###")</strong>
+                    </td>
+                </tr>
+            </tfoot>
+        }
+    </table>
+
+}

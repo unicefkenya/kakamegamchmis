@@ -1,0 +1,118 @@
+﻿@using Newtonsoft.Json
+@model MCHMIS.ViewModels.EnumeratorViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group col-md-6">
+                <label asp-for="EnumeratorGroupId" class="control-label"></label>
+                <select asp-for="EnumeratorGroupId" class ="form-control" asp-items="ViewBag.EnumeratorGroupId"></select>
+            </div>
+           
+            <div class="form-group col-md-6">
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-6">
+                <label asp-for="MiddleName" class="control-label"></label>
+                <input asp-for="MiddleName" class="form-control" />
+                <span asp-validation-for="MiddleName" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-6">
+                <label asp-for="Surname" class="control-label"></label>
+                <input asp-for="Surname" class="form-control" />
+                <span asp-validation-for="Surname" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-6">
+                <label asp-for="NationalIdNo" class="control-label"></label>
+                <input asp-for="NationalIdNo" class="form-control" />
+                <span asp-validation-for="NationalIdNo" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-6">
+                <label asp-for="MobileNo" class="control-label"></label>
+                <input asp-for="MobileNo" class="form-control" />
+                <span asp-validation-for="MobileNo" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-6">
+                <label asp-for="SubCountyId" class="control-label"></label>
+                <select asp-for="SubCountyId" class="form-control" ng-model="SubCountyId" asp-items="ViewBag.SubCountyId">
+                    <option value="">Select</option>
+                </select>
+                <span asp-validation-for="SubCountyId" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-6">
+                <label asp-for="WardId" class="control-label"></label>
+                <select asp-for="WardId" class="form-control" ng-model="WardId">
+                    <option value="">Select</option>
+                    <option ng-repeat="item in wards | filter: {SubCountyId: SubCountyId}" value="{{item.Id}}">
+                        {{item.Name}}
+                    </option>
+                </select>
+                <span asp-validation-for="WardId" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-6">
+                <label asp-for="VillageId" class="control-label"></label>
+                <select asp-for="VillageId" class="form-control required">
+                    <option value="">Select</option>
+                    <option ng-repeat="item in villages | filter: {WardId: WardId}" value="{{item.Id}}">
+                        {{item.Name}}
+                    </option>
+                </select>
+                <span asp-validation-for="VillageId" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-6">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-6">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-6">
+                <div class="checkbox-cont margin-top-20">
+                    <label>
+                        <input asp-for="IsActive" />
+                        <label asp-for="IsActive" class="control-label"></label>
+                    </label>
+                </div>
+            </div>
+           
+            <div class="form-group col-md-12">
+                <a asp-action="Index" class="btn btn-danger glyphicon glyphicon-step-backward pull-left"> Back</a>
+                <button type="submit" class="btn btn-success pull-right">
+                    <i class="glyphicon glyphicon-ok-sign"></i> Save
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+@section scripts{
+    <script type="text/javascript">
+    $(document).ready(function () {
+        var scope = angular.element(document.querySelector('body')).scope();
+        scope.$apply(function (filter) {
+            scope.locations = @Html.Raw(JsonConvert.SerializeObject(Model.Locations));
+            scope.wards = @Html.Raw(JsonConvert.SerializeObject(Model.Wards));
+            scope.sublocations = @Html.Raw(JsonConvert.SerializeObject(Model.SubLocations));
+            scope.villages = @Html.Raw(JsonConvert.SerializeObject(Model.Villages));
+            scope.WardId = '@Model.WardId';
+            scope.VillageId = '@Model.VillageId';
+        
+        });
+        setTimeout(function() {
+            $('#SubCountyId').val('@Model.SubCountyId');
+            $('#WardId').val('@Model.WardId');
+            $('#VillageId').val('@Model.VillageId');
+            },100);
+
+        });
+    </script>
+}

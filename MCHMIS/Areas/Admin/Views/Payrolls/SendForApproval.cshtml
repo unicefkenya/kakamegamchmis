@@ -1,0 +1,34 @@
+﻿@model MCHMIS.ViewModels.FRApprovalSummaryViewModel
+@{
+    ViewBag.Title = Model.Option.Equals("reconciliation") ? "Send Payroll Reconciliation for approval?" : "Send Payroll for approval?";
+
+    Layout = "~/Views/Shared/_LayoutPopup.cshtml";
+}
+
+@using (Html.BeginForm("Send", "Payrolls", FormMethod.Post, new { @class = "form-vertical", role = "form" }))
+
+{
+    <div class="form-vertical">
+
+        <div class="col-md-12">
+            <strong>No of Beneficiaries: </strong>
+            @Html.DisplayFor(modelItem => Model.Beneficiaries)
+        </div>
+        <div class="col-md-12">
+            <strong>No of Facilities: </strong>
+            @Html.DisplayFor(modelItem => Model.Facilities)
+        </div>
+        <div class="col-md-12">
+            <strong>Amount: </strong>
+            @Model.Amount.ToString("##,###")
+        </div>
+
+        <div class="col-md-12">
+            <hr />
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+            <input type="submit" value="Send" class="btn pull-right btn-primary" />
+        </div>
+        @Html.HiddenFor(m => m.Id)
+        @Html.HiddenFor(m => m.Option)
+    </div>
+}

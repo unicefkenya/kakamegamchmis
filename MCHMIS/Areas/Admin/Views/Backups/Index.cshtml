@@ -1,0 +1,45 @@
+﻿@using Newtonsoft.Json
+@using X.PagedList.Mvc.Core
+@model MCHMIS.ViewModels.BackupListViewModel
+@{
+    ViewData["Title"] = "Backups";
+}
+<form asp-action="Index" class="form-paginated">
+      <input type="hidden" name="Page" id="pagination-page" value="1" />
+</form>
+<table class="table table-striped table-bordered">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.File.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.File.LastModified)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.File.Length)
+        </th>
+        <th class="fit"></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model.Files)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastModified)
+            </td>
+            <td>
+                @(item.Length/(1024*1024)) MB
+            </td>
+            <td class="fit">
+                <a asp-action="Download" class="fa fa-eye" asp-route-id="@item.Name"></a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+@Html.PagedListPager(Model.Files, page => Url.Action("Index", new { page }))

@@ -1,0 +1,218 @@
+﻿@model MCHMIS.ViewModels.HouseholdRegMemberViewModel
+
+@{
+    ViewData["Title"] = "Household Demographics - " + (Model.IsMother ? "Mothers Details" : "Household Member Details");
+    Layout = "~/Views/Shared/_LayoutPopupBig.cshtml";
+}
+
+<form asp-action="SaveMember">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="HouseholdId" />
+    <input type="hidden" asp-for="IsMother" />
+    <input type="hidden" asp-for="CreatedOn" />
+    <input type="hidden" asp-for="Id" />
+
+    @if (Model.IsMother)
+    {
+
+        <input type="hidden" asp-for="FirstName" />
+        <input type="hidden" asp-for="MiddleName" />
+        <input type="hidden" asp-for="Surname" />
+        <input type="hidden" asp-for="GenderId" />
+        <input type="hidden" asp-for="IdentificationFormId" />
+        <input type="hidden" asp-for="IdNumber" />
+        <input type="hidden" asp-for="GenderId" />
+        <input type="hidden" asp-for="MaritalStatusId" />
+        <input type="hidden" asp-for="DOB" />
+    }
+    <div class="form-group col-md-4">
+        <label asp-for="RelationshipId" class="control-label"></label>
+        <select asp-for="RelationshipId" class="form-control required" asp-items="ViewBag.RelationshipId">
+            <option value="">Select</option>
+        </select>
+        <span asp-validation-for="RelationshipId" class="text-danger"></span>
+    </div>
+    <div class="form-group col-md-4">
+        <label asp-for="FirstName" class="control-label"></label>
+        <input asp-for="FirstName" class="form-control" disabled="@(Model.IsMother?" disabled":null)" />
+        <span asp-validation-for="FirstName" class="text-danger"></span>
+    </div>
+    <div class="form-group col-md-4">
+        <label asp-for="MiddleName" class="control-label"></label>
+        <input asp-for="MiddleName" class="form-control" disabled="@(Model.IsMother?" disabled":null)" />
+        <span asp-validation-for="MiddleName" class="text-danger"></span>
+    </div>
+    <div class="form-group col-md-4">
+        <label asp-for="Surname" class="control-label"></label>
+        <input asp-for="Surname" class="form-control" disabled="@(Model.IsMother?" disabled":null)" />
+        <span asp-validation-for="Surname" class="text-danger"></span>
+    </div>
+    <div class="form-group col-md-4">
+        <label asp-for="GenderId" class="control-label"></label>
+        <select asp-for="GenderId" class="form-control required" asp-items="ViewBag.GenderId" disabled="@(Model.IsMother?" disabled":null)">
+            <option value="">Select</option>
+        </select>
+        <span asp-validation-for="MaritalStatusId" class="text-danger"></span>
+    </div>
+    <div class="form-group col-md-4">
+        <label asp-for="IdentificationFormId" class="control-label"></label>
+        <select asp-for="IdentificationFormId" class="form-control required" asp-items="ViewBag.IdentificationFormId" disabled="@(Model.IsMother?" disabled":null)">
+            <option value="">Select</option>
+        </select>
+        <span asp-validation-for="IdentificationFormId" class="text-danger"></span>
+    </div>
+    <div class="form-group col-md-4">
+        <label asp-for="IdNumber" class="control-label"></label>
+        <input asp-for="IdNumber" class="form-control" disabled="@(Model.IsMother?" disabled":null)" />
+        <span asp-validation-for="IdNumber" class="text-danger"></span>
+    </div>
+
+    <div class="form-group col-md-4">
+        <label asp-for="MaritalStatusId" class="control-label"></label>
+        <select asp-for="MaritalStatusId" class="form-control required" asp-items="ViewBag.MaritalStatusId" disabled="@(Model.IsMother?" disabled":null)">
+            <option value="">Select</option>
+        </select>
+        <span asp-validation-for="MaritalStatusId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group col-md-4">
+        <label asp-for="DOB" class="control-label"></label>
+        <div class='input-group date'>
+            <input asp-for="DOB" type="text" autocomplete="off" class="form-control no-typing" disabled="@(Model.IsMother?" disabled":null)" />
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+        </div>
+        <span asp-validation-for="DOB" class="text-danger"></span>
+    </div>
+    <div class="form-group col-md-4">
+        <label asp-for="SpouseInHouseholdId" class="control-label"></label>
+        <select asp-for="SpouseInHouseholdId" class="form-control required" asp-items="ViewBag.SpouseInHouseholdId">
+            <option value="">Select</option>
+        </select>
+        <span asp-validation-for="SpouseInHouseholdId" class="text-danger"></span>
+    </div>
+    <div class="form-group col-md-4">
+        <label asp-for="FatherAliveId" class="control-label"></label>
+        <select asp-for="FatherAliveId" class="form-control required" asp-items="ViewBag.FatherAliveId">
+            <option value="">Select</option>
+        </select>
+        <span asp-validation-for="FatherAliveId" class="text-danger"></span>
+    </div>
+    <div class="form-group col-md-4">
+        <label asp-for="MotherAliveId" class="control-label"></label>
+        <select asp-for="MotherAliveId" class="form-control required" asp-items="ViewBag.MotherAliveId">
+            <option value="">Select</option>
+        </select>
+        <span asp-validation-for="MotherAliveId" class="text-danger"></span>
+    </div>
+    @if (Model.IsMother)
+    {
+        @*<div class="form-group col-md-2">
+                <label asp-for="SupportStatusId" class="control-label"></label>
+                <select asp-for="SupportStatusId" class="form-control" asp-items="ViewBag.SupportStatusId">
+                    <option value="">Select</option>
+                </select>
+                <span asp-validation-for="SupportStatusId" class="text-danger"></span>
+            </div>*@
+        <div class="form-group col-md-4">
+            <label asp-for="ChronicIllnessId" class="control-label"></label>
+            <select asp-for="ChronicIllnessId" class="form-control required" asp-items="ViewBag.ChronicIllnessId">
+                <option value="">Select</option>
+            </select>
+            <span asp-validation-for="ChronicIllnessId" class="text-danger"></span>
+        </div>
+    }
+    else
+    {
+        <div class="form-group col-md-4">
+            <label asp-for="ChronicIllnessId" class="control-label"></label>
+            <select asp-for="ChronicIllnessId" class="form-control required" asp-items="ViewBag.ChronicIllnessId">
+                <option value="">Select</option>
+            </select>
+            <span asp-validation-for="ChronicIllnessId" class="text-danger"></span>
+        </div>
+    }
+
+    <div class="form-group col-md-4">
+        <label asp-for="DisabilityTypeId" class="control-label"></label>
+        <select asp-for="DisabilityTypeId" multiple="multiple" name="DisabilityTypes[]" class="form-control multiple" asp-items="ViewBag.DisabilityTypeId"></select>
+        <span asp-validation-for="DisabilityTypeId" class="text-danger"></span>
+    </div>
+    <div class="form-group col-md-4">
+        <label asp-for="DisabilityRequires24HrCareId" class="control-label"></label>
+        <select asp-for="DisabilityRequires24HrCareId" class="form-control" asp-items="ViewBag.DisabilityRequires24HrCareId">
+            <option value="">Select</option>
+        </select>
+        <span asp-validation-for="DisabilityRequires24HrCareId" class="text-danger"></span>
+    </div>
+    <div class="form-group col-md-4">
+        <label asp-for="DisabilityCaregiverId" class="control-label"></label>
+        <select asp-for="DisabilityCaregiverId" class="form-control" asp-items="ViewBag.DisabilityCaregiverId">
+            <option value="">Select</option>
+        </select>
+        <span asp-validation-for="DisabilityCaregiverId" class="text-danger"></span>
+    </div>
+    <div class="form-group col-md-4">
+        <label asp-for="EducationAttendanceId" class="control-label"></label>
+        <select asp-for="EducationAttendanceId" class="form-control required" asp-items="ViewBag.EducationAttendanceId">
+            <option value="">Select</option>
+        </select>
+        <span asp-validation-for="EducationAttendanceId" class="text-danger"></span>
+    </div>
+    <div class="form-group col-md-4">
+        <label asp-for="EducationLevelId" class="control-label"></label>
+        <select asp-for="EducationLevelId" class="form-control" asp-items="ViewBag.EducationLevelId">
+            <option value="">Select</option>
+        </select>
+        <span asp-validation-for="EducationLevelId" class="text-danger"></span>
+    </div>
+    <div class="form-group col-md-4">
+        <label asp-for="SchoolTypeId" class="control-label"></label>
+        <select asp-for="SchoolTypeId" class="form-control" asp-items="ViewBag.SchoolTypeId">
+            <option value="">Select</option>
+        </select>
+        <span asp-validation-for="EducationLevelId" class="text-danger"></span>
+    </div>
+    <div class="form-group col-md-4">
+        <label asp-for="OccupationTypeId" class="control-label"></label>
+        <select asp-for="OccupationTypeId" class="form-control required" asp-items="ViewBag.OccupationTypeId">
+            <option value="">Select</option>
+        </select>
+        <span asp-validation-for="OccupationTypeId" class="text-danger"></span>
+    </div>
+    <div class="form-group col-md-4">
+        <label asp-for="FormalJobTypeId" class="control-label"></label>
+        <select asp-for="FormalJobTypeId" class="form-control required" asp-items="ViewBag.FormalJobTypeId">
+            <option value="">Select</option>
+        </select>
+        <span asp-validation-for="FormalJobTypeId" class="text-danger"></span>
+    </div>
+    <div class="col-md-12">
+        <p>&nbsp;</p>
+        <hr />
+        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-success pull-right">
+            <i class="glyphicon glyphicon-ok-sign"></i> Save
+        </button>
+    </div>
+</form>
+@section scripts{
+
+    <script type="text/javascript" src="~/js/bootstrap-multiselect.js"></script>
+    <link rel="stylesheet" href="~/css/bootstrap-multiselect.css" type="text/css" />
+    <script>
+        $(document).ready(function () {
+
+            $('.multiple').multiselect();
+            $('.btn-group').off('click').on('click', function () {
+                if ($('.btn-group').hasClass('open')) {
+                    $('.btn-group').removeClass('open');
+                } else {
+                    $('.btn-group').addClass('open');
+                }
+
+            });
+        });
+    </script>
+}

@@ -1,0 +1,82 @@
+﻿@{
+    ViewData["Title"] = "Payments";
+}
+
+<div class="row">
+    <div class="col-md-12 ">
+        <div class="filter-cont">
+            <div class="row">
+                <div class="col-md-4">
+                    <label class="control-label">Indicator</label>
+                    <select id="IndicatorId" class="form-control col-md-3" asp-items="ViewBag.IndicatorId"></select>
+                </div>
+                <div class="col-md-2">
+                    <label class="control-label">Health Facility</label>
+                    <select id="HealthFacilityId" class="form-control col-md-3 filter-list" asp-items="ViewBag.HealthFacilityId">
+                        <option value="">All</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <label class="control-label">Ward</label>
+                    <select id="WardId" class="form-control col-md-3 filter-list" asp-items="ViewBag.WardId">
+                        <option value="">All</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <label class="control-label">Reporting Period</label>
+                    <select id="PeriodId" class="form-control col-md-3" asp-items="ViewBag.PeriodId"></select>
+                </div>
+                <div class="col-md-2 pull-left">
+                    <button type="submit" class="btn btn-success btn-filter-dashboard">
+                        <i class="glyphicon glyphicon-search"></i> Filter
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 chart" id="payments-barchart">
+    </div>
+    <div class="col-md-6 chart" id="totals-piechart">
+    </div>
+</div>
+
+@section scripts
+    {
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.btn-filter-dashboard').on('click', getData);
+            var root = $('#RootUrl').val();
+
+            var scope = angular.element(document.querySelector('body')).scope();
+
+            $('#PeriodId').val('@ViewBag.CurrentPeriodId');
+            $('#IndicatorId').val('@ViewBag.CurrentIndicatorId');
+            getData();
+        });
+        function getData() {
+            showLoader();
+            $.post('Payments/FirstChart', { 'id': $('#PeriodId').val(), 'IndicatorId': $('#IndicatorId').val(), 'HealthFacilityId': $('#HealthFacilityId').val(), 'WardId': $('#WardId').val() })
+                .done(function(data) {
+                    hideLoader();
+                    var scope = angular.element(document.querySelector('body')).scope();
+                    scope.$apply(function(filter) {
+                        scope.data = data;
+                        scope.itemsPerPage = 20;
+                        scope.currentPage = 1;
+
+                        setTimeout(function() {
+                                PaymentsChats(data);
+                            },
+                            10);
+
+                    });
+
+                })
+                .fail(ajaxError);
+        }
+    </script>
+}

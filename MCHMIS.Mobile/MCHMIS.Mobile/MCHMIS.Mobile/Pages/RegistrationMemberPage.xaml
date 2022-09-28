@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:MCHMIS.Mobile.Controls;assembly=MCHMIS.Mobile"
+    Title="Add/ Edit Household Member"
+             x:Class="MCHMIS.Mobile.Pages.RegistrationMemberPage">
+  <ContentPage.Resources>
+    <StyleSheet Source="Styles.css" />
+  </ContentPage.Resources>
+  <controls:AlwaysScrollView>
+    <StackLayout StyleClass="body">
+      <StackLayout StyleClass="CardSpacing, CardPadding, container">
+        <StackLayout StyleClass="StandardSpacing, StandardPadding, full">
+          <FlexLayout StyleClass="body" Wrap="Wrap" x:Name="Form">
+            <StackLayout StyleClass="StandardSpacing, StandardPadding, full">
+
+              <StackLayout   StyleClass="full"  Padding="0" Margin="0" IsVisible="{Binding IsNotIprsed}">
+
+                <Label Text="(3.01) First Name" StyleClass="boldLabel,half,medium" />
+                <Entry StyleClass="boldLabel,half,medium"  x:Name="FirstName" Text="{Binding Member.FirstName}" FontSize="Small" />
+                <Label Text="(3.01) Middle Name" StyleClass="boldLabel,half,medium" />
+                <Entry StyleClass="boldLabel,half,medium"  x:Name="MiddleName" Text="{Binding Member.MiddleName}" FontSize="Small" />
+                <Label Text="(3.01) Surname" StyleClass="boldLabel,half,medium" />
+                <Entry StyleClass="boldLabel,half,medium"  x:Name="Surname" Text="{Binding Member.Surname}" FontSize="Small" />
+
+                <Label Text="(3.02 A)What Type of Identification Document does the Member have?" StyleClass="boldLabel,half,medium,multiline" />
+                <Picker StyleClass="boldLabel,half,medium" Title="Select " x:Name="IdentificationDocumentTypeId" ItemsSource="{Binding LoadedIdentificationDocumentTypes}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding SelectedIdentificationDocumentType}" />
+
+                <StackLayout   StyleClass="half"  Padding="0" Margin="0" IsVisible="{Binding IsDocument}">
+                  <Label Text="(3.02 B)Identification Number" StyleClass="boldLabel,full,medium" />
+                  <Entry StyleClass="boldLabel,full,medium" x:Name="IdentificationNumber" Text="{Binding Member.IdentificationNumber}" FontSize="Small" />
+                </StackLayout>
+
+                <Label Text="(3.03)What is the Member's relationship to the head of this household?" StyleClass="boldLabel,half,medium,multiline" />
+                <Picker StyleClass="boldLabel,half,medium"  Title="Select " x:Name="RelationshipIdX1" ItemsSource="{Binding LoadedRelationships}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding SelectedRelationship}" />
+
+                <Label Text="(3.04)What is the Member's sex?" StyleClass="boldLabel,half,medium" />
+                <Picker StyleClass="boldLabel,half,medium"  Title="Select " x:Name="SexId" ItemsSource="{Binding LoadedSexs}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding SelectedSex}" />
+                <Label Text="(3.05)What is the Member's Date Of Birth?" StyleClass="boldLabel,half,medium" />
+                <DatePicker StyleClass="half" x:Name="DateOfBirth" VerticalOptions="CenterAndExpand"  Date="{Binding DateOfBirth}">
+                  <DatePicker.Format>yyyy-MM-dd</DatePicker.Format>
+                </DatePicker>
+              </StackLayout>
+
+              <StackLayout   StyleClass="full"  Padding="0" Margin="0" IsVisible="{Binding IsIprsed}">
+                <Label Text="(3.01) First Name" StyleClass="boldLabel,full,medium" />
+                <Label StyleClass="boldLabel,full,medium"  x:Name="FirstNameX" Text="{Binding Member.FirstName}" FontSize="Small" />
+                <Label Text="(3.01) Middle Name" StyleClass="boldLabel,full,medium" />
+                <Label StyleClass="boldLabel,full,medium"  x:Name="MiddleNameX" Text="{Binding Member.MiddleName}" FontSize="Small" />
+                <Label Text="(3.01) Surname" StyleClass="boldLabel,full,medium" />
+                <Label StyleClass="boldLabel,full,medium"  x:Name="SurnameX" Text="{Binding Member.Surname}" FontSize="Small" />
+
+                <Label Text="(3.01) Phone Number" StyleClass="boldLabel,full,medium" />
+                <Label StyleClass="boldLabel,full,medium"  x:Name="PhoneNumberX" Text="{Binding Member.PhoneNumber}" FontSize="Small" />
+
+                <Label Text="(3.02 A)What Type of Identification Document does the Member have?" StyleClass="boldLabel,full,medium,multiline" />
+                <Label StyleClass="boldLabel,full,medium"  x:Name="IdentificationDocumentTypeIdX"    Text="{Binding SelectedIdentificationDocumentType.Description}" />
+
+                <StackLayout   StyleClass="full"  Padding="0" Margin="0" IsVisible="{Binding IsDocument}">
+                  <Label Text="(3.02 B)Identification Number" StyleClass="boldLabel,full,medium" />
+                  <Label StyleClass="boldLabel,full,medium" x:Name="IdentificationNumberX" Text="{Binding Member.IdentificationNumber}" FontSize="Small" />
+                </StackLayout>
+
+                <Label Text="(3.03)What is the Member's relationship to the head of this Household?" StyleClass="boldLabel,full,medium,multiline" />
+                <Picker StyleClass="boldLabel,full,medium"  Title="Select " x:Name="RelationshipIdX" ItemsSource="{Binding LoadedRelationships}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding SelectedRelationship}" />
+
+                <Label Text="(3.04)What is the Member's sex?" StyleClass="boldLabel,full,medium" />
+                <Label StyleClass="boldLabel,full,medium"   x:Name="SexIdX" Text="{Binding SelectedSex.Description}" />
+
+                <Label Text="(3.05)What is the Member's Date Of Birth?" StyleClass="boldLabel,full,medium" />
+                <Label StyleClass="boldLabel,full,medium"  x:Name="DateOfBirthX" Text="{Binding Member.DateOfBirth}" FontSize="Small" />
+              </StackLayout>
+
+              <Label IsVisible="{Binding IsOver5}" Text="(3.06)What is the Member's Marital Status?" StyleClass="boldLabel,full,medium" />
+              <Picker  IsVisible="{Binding IsOver5}" StyleClass="boldLabel,full,medium"  Title="Select " x:Name="MaritalStatusId" ItemsSource="{Binding LoadedMaritalStatuses}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding SelectedMaritalStatus}" />
+
+              <StackLayout   StyleClass="full"  Padding="0" Margin="0" IsVisible="{Binding IsMarried}">
+                <Label Text="(3.07 A)Does the member's spouse live in this household?" StyleClass="boldLabel,full,medium,multiline" />
+                <Picker StyleClass="boldLabel,full,medium" Title="Select " x:Name="SpouseInHouseholdId" ItemsSource="{Binding LoadedSpouseInHouseholds}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding SelectedSpouseInHousehold}" />
+                <StackLayout   StyleClass="full"  Padding="0" Margin="0" IsVisible="{Binding IsSpouseInHH}">
+                  <Label Text="(3.07 B)Select Spouse" StyleClass="boldLabel,full,medium,multiline" />
+                  <Label Text="(If you haven't entered the Spouse details, select the member as the spouse and come back and edit.)" StyleClass="full,medium,multiline" />
+                  <Picker StyleClass="boldLabel,full,medium" Title="Select " x:Name="SpouseId" ItemsSource="{Binding LoadedSpouses}" ItemDisplayBinding="{Binding FullName}" SelectedItem="{Binding SelectedSpouse}" />
+                </StackLayout>
+              </StackLayout>
+              <Label Text="(3.08)Is the Father Alive?" StyleClass="boldLabel,full,medium" />
+              <Picker StyleClass="boldLabel,full,medium" Title="Select " x:Name="FatherAliveStatusId" ItemsSource="{Binding LoadedFatherAliveOptions}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding SelectedFatherAliveOption}" />
+              <Label Text="(3.09)Is the Mother Alive?" StyleClass="boldLabel,full,medium" />
+              <Picker StyleClass="boldLabel,full,medium" Title="Select " x:Name="MotherAliveStatusId" ItemsSource="{Binding LoadedMotherAliveOptions}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding SelectedMotherAliveOption}" />
+              <Label Text="(3.10)Does the Member  suffer from a chronic illness?" StyleClass="boldLabel,full,medium,multiline" />
+              <Picker StyleClass="boldLabel,full,medium" Title="Select " x:Name="ChronicIllnessStatusId" ItemsSource="{Binding LoadedChronicIllnessOptions}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding SelectedChronicIllnessOption}" />
+              <Label Text="(3.11)Does the Member  have a disability? " StyleClass="boldLabel,full,medium,multiline" />
+              <Picker StyleClass="boldLabel,full,medium" Title="Select " x:Name="DisabilityTypeId" ItemsSource="{Binding LoadedDisabilityTypes}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding SelectedDisabilityType}" />
+
+              <StackLayout StyleClass="full"  Padding="0" Margin="0" IsVisible="{Binding IsDisabled}">
+                <Label StyleClass="boldLabel,full,medium,multiline" Text="What Type of Disability does the member have?" />
+                <ListView RowHeight="60" HasUnevenRows="False" x:Name="LoadedDisabilities" Margin="0"  ItemsSource="{Binding LoadedDisabilities}">
+                  <ListView.ItemTemplate>
+                    <DataTemplate>
+                      <ViewCell>
+                        <FlexLayout Wrap="Wrap" StyleClass="full" Padding="0"  HeightRequest="0"  Margin="0">
+                          <Switch StyleClass="tenth,SauBlue,pull-left" IsToggled="{Binding IsSelected}" />
+                          <Label  StyleClass="SauBlue,half,medium,pull=left" Margin="0,15,0,0"  Text="{Binding  Item.Description}" />
+                        </FlexLayout>
+                      </ViewCell>
+                    </DataTemplate>
+                  </ListView.ItemTemplate>
+                </ListView>
+
+                <Label Text="(3.12) Does the disability require 24-hour care?" StyleClass="boldLabel,full,medium,multiline" />
+                <Picker StyleClass="boldLabel,full,medium" Title="Select " x:Name="DisabilityCareStatusId" ItemsSource="{Binding LoadedDisabilityCareStatuses}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding SelectedDisabilityCareStatus}" />
+
+                <StackLayout   StyleClass="full"  Padding="0" Margin="0" IsVisible="{Binding IsNeedCare}">
+                  <Label Text="(3.13)(CHECK 3.05 (DOB), if AGE is between 0 and 17 OR older than 65, AND check 3.12 if answer is YES, then ask…)" StyleClass="boldLabel,full,medium,multiline" />
+
+                  <Label StyleClass="boldLabel,full,medium,multiline" Text="Who is the Member's main Care giver? (LINE NUMBER) (If NONE, Leave BLANK)" />
+                  <Picker StyleClass="boldLabel,full,medium" Title="Select " x:Name="CaregiverId" ItemsSource="{Binding LoadedCaregivers}" ItemDisplayBinding="{Binding FullName}" SelectedItem="{Binding SelectedCg}" />
+                </StackLayout>
+              </StackLayout>
+              <StackLayout   StyleClass="full"  Padding="0" Margin="0" IsVisible="{Binding IsOver3}">
+                <Label Text="(3.14)What is the school or learning institution attendance status of Member? (for all members  aged 3 and older) " StyleClass="boldLabel,full,medium,multiline" />
+                <Picker StyleClass="boldLabel,full,medium" Title="Select " x:Name="LearningStatusId" ItemsSource="{Binding LoadedLearningStatuses}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding SelectedLearningStatus}" />
+              </StackLayout>
+              <StackLayout   StyleClass="full"  Padding="0" Margin="0" IsVisible="{Binding WentToSchool}">
+                <Label Text="(3.15 a)What is the highest Std/Form/Level reached by Member?" StyleClass="boldLabel,full,medium,multiline" />
+                <Picker StyleClass="boldLabel,full,medium" Title="Select " x:Name="EducationLevelId" ItemsSource="{Binding LoadedEducationLevels}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding SelectedEducationLevel}" />
+                <Label Text="(3.15 b) Is the school Public or Private? " StyleClass="boldLabel,full,medium,multiline" />
+                <Picker StyleClass="boldLabel,full,medium" Title="Select " x:Name="SchoolTypeId" ItemsSource="{Binding LoadedSchoolTypes}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding SelectedSchoolType}" />
+              </StackLayout>
+
+              <StackLayout   StyleClass="full"  Padding="0" Margin="0" IsVisible="{Binding IsOver5}">
+                <Label Text="(3.16)What was Member's mainly doing during the last seven days? (for all aged 5 and older)?" StyleClass="boldLabel,full,medium,multiline" />
+                <Picker StyleClass="boldLabel,full,medium" Title="Select " x:Name="WorkTypeId" ItemsSource="{Binding LoadedWorkTypes}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding SelectedWorkType}" />
+                <Label Text="(3.17)Does Member's work on a formal job, teaching, public sector, NGO/FBO?" StyleClass="boldLabel,full,medium,multiline" />
+                <Picker StyleClass="boldLabel,full,medium" Title="Select " x:Name="FormalJobNgoId" ItemsSource="{Binding LoadedJobOptions}" ItemDisplayBinding="{Binding Description}"   SelectedItem="{Binding SelectedJobOption}" />
+              </StackLayout>
+              <StackLayout StyleClass="StandardSpacing, StandardPadding">
+                <Button
+        IsEnabled="{Binding IsNotBusy}"
+        Text="Save Member Details" Command="{Binding  SaveMemberCommand}"
+            StyleClass="btn-success, full,BgKenyaGreen,White"  ></Button>
+                <ActivityIndicator IsRunning="{Binding IsBusy}" StyleClass="quarter" />
+                <Label Text="{Binding Message}" IsVisible="{Binding IsBusy}" VerticalOptions="Center"  HorizontalOptions="Center" StyleClass="three-quarter" />
+              </StackLayout>
+            </StackLayout>
+          </FlexLayout>
+        </StackLayout>
+      </StackLayout>
+    </StackLayout>
+  </controls:AlwaysScrollView>
+</ContentPage>

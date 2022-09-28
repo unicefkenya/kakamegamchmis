@@ -1,0 +1,30 @@
+﻿@model MCHMIS.ViewModels.SendForApprovalViewModel
+@{
+    ViewBag.Title = "Send for approval?";
+
+}
+
+<form asp-action="SendForApprovalSave">
+
+    <div class="form-vertical">
+        <p>&nbsp;</p>
+        <div class="col-md-6">
+            Send <strong>@Model.Count update@(Model.Count > 1 ? "s" : "")</strong> for approval?
+        </div>
+
+        <div class="col-md-12">
+            <p>&nbsp;</p>
+            <hr />
+            <input type="hidden" name="Id" value="@ViewBag.Id" />
+            <a asp-action="Index" class="btn btn-danger glyphicon glyphicon-step-backward pull-left"> Back</a>
+            <button type="submit" class="btn btn-success pull-right">
+                <i class="glyphicon glyphicon-ok-sign"></i> Send
+            </button>
+
+            @foreach (var id in Model.Ids)
+            {
+                <input type="hidden" name="Ids[]" value="@id" />
+            }
+        </div>
+    </div>
+</form>

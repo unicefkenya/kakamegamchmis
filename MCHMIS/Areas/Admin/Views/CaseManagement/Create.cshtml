@@ -1,0 +1,136 @@
+﻿@model MCHMIS.ViewModels.CaseManagementViewModel
+
+@{
+    ViewData["Title"] = "Pregnancy Data - " + Model.Household.Mother.FullName;
+}
+
+@Html.Partial("_Menu")
+<div class="row">
+    <form asp-action="Create">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input asp-for="HouseholdId" type="hidden" />
+        <div class="col-md-6">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>ANTENATAL PROFILE</h2>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <div class="form-group col-md-6">
+                        <label asp-for="BloodGroupId" class="control-label"></label>
+                        <select asp-for="BloodGroupId" class="form-control" asp-items="ViewBag.BloodGroupId">
+                            <option value="">Select</option>
+                        </select>
+                        <span asp-validation-for="BloodGroupId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="RhesusId" class="control-label"></label>
+                        <select asp-for="RhesusId" class="form-control" asp-items="ViewBag.RhesusId">
+                            <option value="">Select</option>
+                        </select>
+                        <span asp-validation-for="RhesusId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="SupportStatusId" class="control-label"></label>
+                        <select asp-for="SupportStatusId" class="form-control" asp-items="ViewBag.SupportStatusId">
+                            <option value="">Select</option>
+                        </select>
+                        <span asp-validation-for="SupportStatusId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="PregnancyNo" class="control-label"></label>
+                        <input asp-for="PregnancyNo" class="form-control" min="0" />
+                        <span asp-validation-for="PregnancyNo" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label asp-for="InfantFeedingCounselingDoneId" class="control-label"></label>
+                        <select asp-for="InfantFeedingCounselingDoneId" class="form-control" asp-items="ViewBag.InfantFeedingCounselingDoneId">
+                            <option value="">Select</option>
+                        </select>
+                        <span asp-validation-for="InfantFeedingCounselingDoneId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="BreastfeedingCounselingDoneId" class="control-label"></label>
+                        <select asp-for="BreastfeedingCounselingDoneId" class="form-control" asp-items="ViewBag.BreastfeedingCounselingDoneId">
+                            <option value="">Select</option>
+                        </select>
+                        <span asp-validation-for="BreastfeedingCounselingDoneId" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>PRESENT PREGNANCY DATA</h2>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <div class="form-group col-md-6">
+                        <label asp-for="VisitDate" class="control-label"></label>
+                        <div class='input-group date'>
+                            <input asp-for="VisitDate" type="text" class="form-control required no-typing date" autocomplete="off" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                        <span asp-validation-for="VisitDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="ClinicVisitId" class="control-label"></label>
+                        <select asp-for="ClinicVisitId" class="form-control" asp-items="ViewBag.ClinicVisitId">
+                            <option value="">Select</option>
+                        </select>
+                        <span asp-validation-for="ClinicVisitId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="Weight" class="control-label"></label>
+                        <input asp-for="Weight" class="form-control" />
+                        <span asp-validation-for="Weight" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="BloodPressure" class="control-label"></label>
+                        <input asp-for="BloodPressure" class="form-control" />
+                        <span asp-validation-for="BloodPressure" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="PreventiveServices" class="control-label"></label>
+                        <select asp-for="PreventiveServices" class="form-control multiple" asp-items="ViewBag.PreventiveServiceId"  multiple="multiple">
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="NextVisit" class="control-label"></label>
+                        <div class='input-group date-future'>
+                            <input asp-for="NextVisit" type="text" class="form-control required no-typing" autocomplete="off" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <hr />
+                <button type="submit" class="btn btn-success pull-right">
+                    <i class="glyphicon glyphicon-ok-sign"></i> Save
+                </button>
+                <a asp-action="Index" class="btn btn-danger glyphicon glyphicon-step-backward pull-left"> Back</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section scripts{
+
+    <script type="text/javascript" src="~/js/bootstrap-multiselect.js"></script>
+    <link rel="stylesheet" href="~/css/bootstrap-multiselect.css" type="text/css" />
+    <script>
+        $(document).ready(function () {
+            $('.multiple').multiselect();
+          
+        });
+    </script>
+}

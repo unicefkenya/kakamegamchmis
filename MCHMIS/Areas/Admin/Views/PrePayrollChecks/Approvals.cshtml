@@ -1,0 +1,35 @@
+﻿@model MCHMIS.ViewModels.PrePayrollApprovalActionViewModel
+@{
+    ViewBag.Title = "Approvals";
+    Layout = "~/Views/Shared/_LayoutPopup.cshtml";
+}
+
+@using (Html.BeginForm("Approvals", "PrePayrollChecks", FormMethod.Post, new { @class = "form-vertical", role = "form" }))
+
+{
+    <div class="form-vertical">
+        <div class="col-md-12">
+            Approve Pre-Payroll Checks for <strong>@Model.PrePayrollCheck.PaymentCycle.Name</strong>?
+        </div>
+        <div class="col-md-12">
+            <strong>Date Created: </strong>@Model.PrePayrollCheck.DateCreated.ToString("dd-MM-yyyy")
+        </div>
+        <div class="col-md-12">
+            <strong>Created by: </strong>@Model.PrePayrollCheck.CreatedBy.Name
+        </div>
+        <hr />
+        <div class="form-group col-md-12 ">
+            <label asp-for="Notes" class="control-label"></label>
+            <span class="field-validation-valid notes-error text-danger">*This field is required.</span>
+            <textarea asp-for="Notes" class="form-control approval-notes" />
+        </div>
+        <div class="form-group col-md-12 padding-top">
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-success pull-right btn-approve">
+                <i class="glyphicon glyphicon-ok-sign"></i> Approve
+            </button>
+            <input type="hidden" name="Action" id="action" />
+        </div>
+        @Html.HiddenFor(m => m.Id)
+    </div>
+}

@@ -1,0 +1,44 @@
+﻿@model IEnumerable<MCHMIS.Models.ComplaintType>
+
+@{
+    ViewData["Title"] = "Complaint Types";
+}
+@section buttons{
+    <a asp-action="Create">Create New</a>
+}
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoryId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SLAResolutionTime)
+            </th>
+            <th class="fit">Edit</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category.Code)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SLAResolutionTime)
+                </td>
+                <td class="fit">
+                    <a asp-action="Edit" class="fa fa-pencil" asp-route-id="@item.Id"></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

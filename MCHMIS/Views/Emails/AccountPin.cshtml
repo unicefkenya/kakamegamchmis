@@ -1,0 +1,10 @@
+﻿@{
+    ViewBag.Title = "";
+    string url = $"{Model.RequestPath.Scheme}://{Model.RequestPath.Host}";
+}
+@section EmailHeader{Subject: MCH MIS Account PIN
+}
+
+<p>Hello @ViewBag.Name,</p>
+<p>Your PIN is <strong>@ViewBag.Password</strong></p>
+

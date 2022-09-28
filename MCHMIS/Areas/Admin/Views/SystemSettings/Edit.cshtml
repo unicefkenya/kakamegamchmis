@@ -1,0 +1,29 @@
+﻿@model MCHMIS.Models.SystemSetting
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="key" class="control-label"></label>
+                <input asp-for="key" class="form-control" />
+                <span asp-validation-for="key" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Value" class="control-label"></label>
+                <input asp-for="Value" class="form-control" />
+                <span asp-validation-for="Value" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <a asp-action="Index" class="btn btn-danger glyphicon glyphicon-step-backward pull-left"> Back</a>
+                <input type="submit" value="Save" class="btn btn-primary pull-right" />
+            </div>
+        </form>
+    </div>
+</div>
+

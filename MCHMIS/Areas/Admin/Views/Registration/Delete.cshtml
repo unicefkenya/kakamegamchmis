@@ -1,0 +1,93 @@
+﻿@model MCHMIS.Models.Registration
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Registration</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.MiddleName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MiddleName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Over18)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Over18)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IdentificationFormId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IdentificationFormId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.WardId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.WardId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Institution)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Institution)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Landmark)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Landmark)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Phone)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Phone)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.GuardianPhone)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.GuardianPhone)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FingerPrint)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FingerPrint)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.VerifyingFingerPrint)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.VerifyingFingerPrint)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

@@ -1,0 +1,214 @@
+﻿@using X.PagedList.Mvc.Core
+@model MCHMIS.Areas.Legacy.ViewModels.ListViewModel
+
+@{
+    ViewData["Title"] = "Legacy Data with Issues";
+    var tasks = User.FindFirst("UserRoles").Value;
+}
+<form asp-action="Index" class="form-paginated">
+    <button type="submit" class="btn btn-success pull-left btn-export inline">
+        <i class="fa fa-file-excel-o"></i> Export
+    </button>
+    <div class="form-group col-md-2">
+        <label asp-for="Reason" class="control-label"></label>
+        <select asp-for="Reason" class="form-control filter-list" asp-items="ViewBag.Reason">
+            <option value="">Select</option>
+        </select>
+    </div>
+    <div class="form-group col-md-2">
+        <label asp-for="ReasonValue" class="control-label"></label>
+        <input asp-for="ReasonValue" class="form-control" />
+    </div>
+    <div class="form-group col-md-2">
+        <label asp-for="Name" class="control-label"></label>
+        <input asp-for="Name" class="form-control" />
+    </div>
+    <div class="form-group col-md-1">
+        <label asp-for="IdNumber" class="control-label"></label>
+        <input asp-for="IdNumber" class="form-control" />
+    </div>
+    <div class="form-group col-md-1">
+        <label asp-for="PhoneNumber" class="control-label"></label>
+        <input asp-for="PhoneNumber" class="form-control" />
+    </div>
+    <div class="form-group col-md-1">
+        <label asp-for="StatusId" class="control-label"></label>
+        <select asp-for="StatusId" class="form-control" asp-items="ViewBag.StatusId">
+            <option value="">Select</option>
+        </select>
+    </div>
+    <div class="form-group col-md-1">
+        <label asp-for="ApprovalStatusId" class="control-label"></label>
+        <select asp-for="ApprovalStatusId" class="form-control" asp-items="ViewBag.ApprovalStatusId">
+            <option value="">Select</option>
+        </select>
+    </div>
+    <div class="col-md-2 pull-right">
+        <input asp-for="Option" type="hidden" />
+        <button type="submit" class="btn btn-success  btn-filter inline btn-filter-report">
+            <i class="glyphicon glyphicon-search"></i> Search
+        </button>
+        <button type="button" class="btn btn-default btn-reset btn-filter inline">
+            <i class="fa fa-eraser"></i> Clear
+        </button>
+    </div>
+    <input type="hidden" name="Page" id="pagination-page" value="1" />
+    <div class="clearfix"></div>
+    <hr />
+</form>
+<form asp-action="SendForApproval">
+    <div class="alert alert-success" role="alert">
+        <p>
+            <span class="text-gray">
+                Pending: @Model.Pending.ToString("##,##0") &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+            </span>
+            <span class="text-info">
+                Awaiting Approval: @Model.AwaitingApproval.ToString("##,##0") &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+            </span>
+            <span class="text-success">Approved: @Model.Approved.ToString("##,##0") &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>
+            <span class="text-success">Migrated: @Model.Migrated.ToString("##,##0") &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>
+            <span class="text-danger">Rejected: @Model.Rejected.ToString("##,##0")</span>
+        </p>
+    </div>
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Mother.M_Names)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Mother.M_IDNo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Mother.M_DOB)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.Mother.M_Ward)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Mother.M_Phoneno)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.Mother.Facility)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Mother.Dirty.Reason)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Mother.Dirty.Field)
+                </th>
+                <th>
+                   Date registered
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Mother.Dirty.Notes)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Mother.Dirty.Status)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Mother.Dirty.ApprovalStatusId)
+                </th>
+                <th>
+                    Send for approval?
+                </th>
+                <th class="fit">Edit</th>
+                @if (tasks.Contains("Legacy Data:Approve"))
+                {
+                    <th class="fit">Approve</th>
+                }
+
+                <th class="fit">Open</th>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.DirtyList)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Mother.M_Names)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Mother.M_IDNo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Mother.M_DOB)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Mother.M_Ward)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Mother.M_Phoneno)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Mother.Facility.names)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Reason)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Field)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Mother.date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Notes)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Status.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ApprovalStatus.Name)
+                    </td>
+                    <td class="text-center fit">
+                        @if ((item.StatusId == 2 || item.StatusId == 3) && item.ApprovalStatusId == null)
+                        {
+                            <input type="checkbox" id="@item.Id" class="ben-checkbox" name="Ids[]" value="@item.Id" @(item.StatusId == 2 ? "checked" : "") />
+                        }
+                    </td>
+                    <td class="text-center">
+                        @if (item.ApprovalStatusId == null || item.ApprovalStatusId == 6)
+                        {
+                            <a asp-action="Edit" class="fa fa-pencil" asp-route-id="@item.Id"></a>
+                        }
+                    </td>
+                    @if (tasks.Contains("Legacy Data:Approve"))
+                    {
+                        <td class="text-center">
+                            @if (item.ApprovalStatusId == 4)
+                            {
+                                <a asp-action="Approvals" target="_blank" class="fa fa-pencil" asp-route-id="@item.Id"></a>
+                            }
+                        </td>
+                    }
+
+                    <td class="text-center">
+                        <a asp-action="Details"  target="_blank" class="fa fa-eye" asp-route-id="@item.Id"></a>
+                    </td>
+                </tr>
+            }
+            @if (!Model.DirtyList.Any())
+            {
+                <tr>
+                    <td class="dataTables_empty" colspan="15">No data found.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="col-md-12 action-cont margin-top-10 ">
+        <div class="text-danger text-right">
+            <p>
+                <strong>Select the records to send for approval above. Unselect the ones not to be sent.</strong>
+            </p>
+        </div>
+
+        <button type="submit" class="btn btn-success pull-right">
+            <i class="glyphicon glyphicon-ok-sign"></i> Send for Approval
+        </button>
+    </div>
+    @Html.PagedListPager(Model.DirtyList, page => Url.Action("Index", new { page }))
+</form>

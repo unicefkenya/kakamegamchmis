@@ -1,0 +1,28 @@
+﻿@model MCHMIS.Models.HealthFacility
+
+@{
+    ViewData["Title"] = "Create a Health Facility";
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SubCountyId" class="control-label"></label>
+                <select asp-for="SubCountyId" class="form-control filter-list" asp-items="ViewBag.SubCountyId"></select>
+            </div>
+            <div class="form-group">
+                <a asp-action="Index" class="btn btn-danger glyphicon glyphicon-step-backward pull-left"> Back</a>
+                <button type="submit" class="btn btn-success pull-right">
+                    <i class="glyphicon glyphicon-ok-sign"></i> Save
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

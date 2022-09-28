@@ -1,0 +1,71 @@
+﻿@model MCHMIS.Models.FundRequest
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<h4>FundRequest</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="CycleId" class="control-label"></label>
+                <select asp-for="CycleId" class="form-control" asp-items="ViewBag.CycleId"></select>
+                <span asp-validation-for="CycleId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StatusId" class="control-label"></label>
+                <select asp-for="StatusId" class="form-control" asp-items="ViewBag.StatusId"></select>
+                <span asp-validation-for="StatusId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Notes" class="control-label"></label>
+                <input asp-for="Notes" class="form-control" />
+                <span asp-validation-for="Notes" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Amount" class="control-label"></label>
+                <input asp-for="Amount" class="form-control" />
+                <span asp-validation-for="Amount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Beneficiaries" class="control-label"></label>
+                <input asp-for="Beneficiaries" class="form-control" />
+                <span asp-validation-for="Beneficiaries" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateApproved" class="control-label"></label>
+                <input asp-for="DateApproved" class="form-control" />
+                <span asp-validation-for="DateApproved" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ApprovedById" class="control-label"></label>
+                <select asp-for="ApprovedById" class="form-control" asp-items="ViewBag.ApprovedById"></select>
+                <span asp-validation-for="ApprovedById" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateCreated" class="control-label"></label>
+                <input asp-for="DateCreated" class="form-control" />
+                <span asp-validation-for="DateCreated" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreatedById" class="control-label"></label>
+                <select asp-for="CreatedById" class="form-control" asp-items="ViewBag.CreatedById"></select>
+                <span asp-validation-for="CreatedById" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

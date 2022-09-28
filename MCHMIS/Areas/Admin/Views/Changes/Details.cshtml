@@ -1,0 +1,477 @@
+﻿@model MCHMIS.ViewModels.ChangeDetailsViewModel
+@{ ViewData["Title"] = "Details"; }
+
+<div class="col-md-6 col-sm-12 col-xs-12">
+    <div class="x_panel">
+        <div class="x_title">
+            <h2>Beneficiary Details</h2>
+            <div class="clearfix"></div>
+        </div>
+        <div class="x_content sectiona" style="min-height: 300px">
+            <div class="form-horizontal">
+                <table class="table table-bordered table-striped">
+                    <tr>
+                        <td width="200" class="text-bold">Unique Id:</td>
+                        <td>
+                            @Html.DisplayFor(model => model.Household.UniqueId)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-bold">Name:</td>
+                        <td>
+                            @Html.DisplayFor(model => model.Household.Mother.FullName)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-bold">
+                            @Html.DisplayNameFor(model => model.Household.Mother.IdNumber):
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Household.Mother.IdNumber)
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="text-bold">
+                            @Html.DisplayNameFor(model => model.Household.Phone):
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Household.Phone)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-bold">
+                            @Html.DisplayNameFor(model => model.Household.EDD):
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Household.EDD)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-bold">
+                            @Html.DisplayNameFor(model => model.Household.Village.Ward.SubCountyId):
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Household.Village.Ward.SubCounty.Name)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-bold">
+                            @Html.DisplayNameFor(model => model.Household.Village.WardId):
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Household.Village.Ward.Name)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-bold">
+                            @Html.DisplayNameFor(model => model.Household.Village.Name):
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Household.Village.Name)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-bold">
+                            @Html.DisplayNameFor(model => model.Household.StatusId):
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Household.Status.Name)
+                        </td>
+                    </tr>
+                </table>
+                <h2>Next of Kin Details</h2>
+                <hr />
+                <table class="table table-bordered table-striped">
+                    <tr>
+                        <td width="200">
+                            <strong> @Html.DisplayNameFor(model => model.FirstName):</strong>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Household.NOKFirstName)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong> @Html.DisplayNameFor(model => model.MiddleName):</strong>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Household.NOKFirstName)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong> @Html.DisplayNameFor(model => model.Surname):</strong>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Household.NOKSurname)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>Phone:</strong>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Household.NOKPhone)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>ID Number:</strong>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Household.NOKIdNumber)
+                        </td>
+                    </tr>
+                </table>
+                <h2>Nominee Details</h2>
+                <hr />
+                <table class="table table-bordered table-striped">
+                    <tr>
+                        <td width="200">
+                            <strong> @Html.DisplayNameFor(model => model.FirstName):</strong>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Household.NomineeFirstName)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong> @Html.DisplayNameFor(model => model.MiddleName):</strong>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Household.NomineeMiddleName)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong> @Html.DisplayNameFor(model => model.Surname):</strong>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Household.NomineeSurname)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>ID Number:</strong>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Household.NomineeIdNumber)
+                        </td>
+                    </tr>
+                </table>
+                <h2>Payment Details</h2>
+                <hr />
+                <table class="table table-bordered table-striped">
+                    <tr>
+                        <td width="200" class="text-bold">
+                            Recipient Names
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Household.RecipientNames)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-bold">
+                            ID Number
+                        </td>
+                        <td>
+                            @(Model.Household.HasProxy == true ? Html.DisplayFor(model => model.Household.NomineeIdNumber) : Html.DisplayFor(model => model.Household.Mother.IdNumber))
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-bold">
+                            @Html.DisplayNameFor(model => model.Household.Phone)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Household.Phone)
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-6 col-sm-12 col-xs-12">
+    <div class="x_panel">
+        <div class="x_title">
+            <h2>
+                Change Details
+            </h2>
+            <div class="clearfix"></div>
+        </div>
+        <div class="x_content sectiona" style="min-height: 300px">
+            <div class="form-horizontal">
+                <table class="table table-bordered table-striped">
+                    <tr>
+                        <td width="200" class="text-bold">
+                            @Html.DisplayNameFor(model => model.Change.ChangeTypeId):
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Change.ChangeType.Code)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-bold">
+                            @Html.DisplayNameFor(model => model.Change.NotificationDate):
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Change.NotificationDate)
+                        </td>
+                    </tr>
+                    @if (Model.Change.ChangeTypeId == 307)
+                    {
+                <tr>
+                    <td class="text-bold">
+                        @Html.DisplayNameFor(model => model.Change.ChildId):
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.Change.Child.Name)
+                    </td>
+                </tr>}
+                    @if (Model.Change.ChangeTypeId == 306 || Model.Change.ChangeTypeId == 307)
+                    {
+                <tr>
+                    <td class="text-bold">
+                        @Html.DisplayNameFor(model => model.Change.DeathDate):
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.Change.DeathDate)
+                    </td>
+                </tr>}
+                    @if (Model.Change.ChangeTypeId == 358) // Change of health Facility
+                    {
+                <tr>
+                    <td class="text-bold">
+                        @Html.DisplayNameFor(model => model.Change.CurrentHealthFacilityId):
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.Change.CurrentHealthFacility.Name)
+                    </td>
+                </tr>
+                                <tr>
+                                    <td class="text-bold">
+                                        @Html.DisplayNameFor(model => model.Change.DestinationHealthFacilityId):
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(model => model.Change.DestinationHealthFacility.Name)
+                                    </td>
+                                </tr>}
+                    <tr>
+                        <td class="text-bold">
+                            @Html.DisplayNameFor(model => model.Change.Phone):
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Change.Phone)
+                        </td>
+                    </tr>
+                    @if (Model.Change.ChangeTypeId == 303)
+                    {
+                <tr>
+                    <td class="text-bold">
+                        @Html.DisplayNameFor(model => model.Change.OwnsPhoneId):
+                    </td>
+                    <td>
+                        @(Model.Change.OwnsPhone ? "Yes" : "No")
+                    </td>
+                </tr>}
+                    <tr>
+                        <td class="text-bold">
+                            @Html.DisplayNameFor(model => model.Change.Notes):
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Change.Notes)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-bold">
+                            @Html.DisplayNameFor(model => model.Change.CreatedById):
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Change.CreatedBy.DisplayName)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-bold">
+                            @Html.DisplayNameFor(model => model.Change.DateCreated):
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Change.DateCreated)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-bold">
+                            @Html.DisplayNameFor(model => model.Change.ActionedById):
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Change.ActionedBy.DisplayName)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-bold">
+                            @Html.DisplayNameFor(model => model.Change.DateActioned):
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Change.DateActioned)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-bold">
+                            @Html.DisplayNameFor(model => model.Change.StatusId):
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Change.Status.Name)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-bold fit">Supporting Document:</td>
+                        <td>
+                            @if (Model.Change.SupportingDocument != null)
+                            {
+                <a href="~/uploads/changes/@Model.Change.SupportingDocument" target="_blank">
+                    <i class="fa fa-file-pdf-o"></i>
+                </a>}
+                        </td>
+                    </tr>
+                </table>
+                @if (Model.Change.ChangeTypeId == 303 && Model.Change.OwnsPhone == false || Model.Change.ChangeTypeId == 304)
+                {
+    <div class="form-group border-top border-bottom padding-top-10 padding-bottom-10">
+        <strong>Nominee Details</strong>
+    </div>
+                    <table class="table table-bordered table-striped">
+                        <tr>
+                            <td width="200" class="text-bold">
+                                @Html.DisplayNameFor(model => model.FirstName):
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => model.Change.NomineeFirstName)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-bold">
+                                @Html.DisplayNameFor(model => model.MiddleName):
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => model.Change.NomineeMiddleName)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-bold">
+                                @Html.DisplayNameFor(model => model.Surname):
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => model.Change.NomineeSurname)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-bold">
+                                @Html.DisplayNameFor(model => model.IdNumber):
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => model.Change.NomineeIdNumber)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-bold">
+                                @Html.DisplayNameFor(model => model.Change.Phone):
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => model.Change.Phone)
+                            </td>
+                        </tr>
+
+                        @*New or Change of Nominee, Death of a Mother,Change of  Recipient Phone Number and phone does not belong to the mother*@
+                        @if (Model.Change.RequiresIPRSCheck)
+                        {
+        <tr>
+            <td class="text-bold">
+                IPRS Verified?
+            </td>
+            <td>
+                @(Model.Change.IPRSVerified == true ? "Yes" : "No")
+            </td>
+        </tr>
+                            <tr>
+                                <td class="text-bold">
+                                    IPRS Verified Passed?
+                                </td>
+                                <td>
+                                    @(Model.Change.IPRSPassed == true ? "Yes" : "No")
+                                </td>
+                            </tr>}
+                        @if (Model.Change.RequiresMPESACheck)
+                        {
+        <tr>
+            <td class="text-bold">
+                M-Pesa Verified?
+            </td>
+            <td>
+                @(Model.Change.MPESACheckStatusId != null ? "Yes" : "No")
+            </td>
+        </tr>
+                            <tr>
+                                <td class="text-bold">
+                                    M-Pesa Verified Matched?
+                                </td>
+                                <td>
+                                    @(Model.Change.MPESACheckStatusId == 16 ? "Yes" : "No")
+                                </td>
+                            </tr>}
+                    </table>}
+                @if (Model.Change.ChangeTypeId == 305)
+                {
+    <div class="form-group border-top border-bottom padding-top-10 padding-bottom-10">
+        <strong>Next of Kin Details</strong>
+    </div>
+                    <table class="table table-bordered table-striped">
+                        <tr>
+                            <td width="300" class="text-bold">
+                                @Html.DisplayNameFor(model => model.Change.NOKFirstName):
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => model.Change.NOKFirstName)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-bold">
+                                @Html.DisplayNameFor(model => model.Change.NOKMiddleName):
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => model.Change.NOKMiddleName)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-bold">
+                                @Html.DisplayNameFor(model => model.Change.NOKSurname):
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => model.Change.NOKSurname)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-bold">
+                                @Html.DisplayNameFor(model => model.Change.NOKIdNumber):
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => model.Change.NOKIdNumber)
+                            </td>
+                        </tr>
+                    </table>}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-12">
+    <a asp-action="Index" class="btn btn-default glyphicon glyphicon-step-backward"> Back</a>
+</div>
+@section scripts{
+    @*<link rel="stylesheet" href="~/css/prettyPhoto.css" type="text/css" media="screen" charset="utf-8" />
+        <script src="~/js/jquery.prettyPhoto.js" type="text/javascript" charset="utf-8"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("a[rel^='prettyPhoto']").prettyPhoto();
+            });
+        </script>*@
+}

@@ -1,0 +1,85 @@
+﻿@using Newtonsoft.Json
+@using X.PagedList.Mvc.Core
+@model MCHMIS.ViewModels.ComplaintListViewModel
+
+@section buttons{
+    <a asp-action="ExportStatement" asp-route-id="@ViewBag.Id">
+        <i class="fa fa-file-pdf-o"></i> Export
+    </a>
+}
+<partial name="_Menu" />
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Complaint.ComplaintType.CategoryId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Complaint.ComplaintTypeId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Complaint.ComplaintDate)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Complaint.HealthFacility)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Complaint.Village.Ward.SubCountyId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Complaint.Village.Ward)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Complaint.Village)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Complaint.StatusId)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Complaints)
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category.Code)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ComplaintType.Name)
+                    @Html.DisplayFor(modelItem => item.OtherComplaintType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ComplaintDate)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.HealthFacility.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Village.Ward.SubCounty.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Village.Ward.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Village.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status.Name)
+                </td>
+            </tr>
+        }
+        @if (!Model.Complaints.Any())
+        {
+            <tr>
+                <td colspan="10" class="dataTables_empty">
+                    No data found.
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@Html.PagedListPager(Model.Complaints, page => Url.Action("Index", new { page }))

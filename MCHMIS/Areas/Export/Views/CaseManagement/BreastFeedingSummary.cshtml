@@ -1,0 +1,45 @@
+﻿@using MCHMIS.Areas.Reports.ViewModels
+
+@model MCHMIS.Areas.Reports.ViewModels.CaseManagementListViewModel
+
+@if (Model.WardSummaries != null)
+{
+    <table id="table-only" class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.WardSummary.Facility)
+                </th>
+                <th>
+                    No. of Children
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.WardSummaries)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Facility)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Beneficiaries)
+                    </td>
+                </tr>
+            }
+        </tbody>
+        @if (Model.WardSummaries.Any())
+        {
+            <tfoot>
+                <tr>
+                    <td>
+                        <strong>Total</strong>
+                    </td>
+                    <td>
+                        <strong>@Model.WardSummaries.Sum(i => i.Beneficiaries).ToString("##,###")</strong>
+                    </td>
+                </tr>
+            </tfoot>
+        }
+    </table>
+}

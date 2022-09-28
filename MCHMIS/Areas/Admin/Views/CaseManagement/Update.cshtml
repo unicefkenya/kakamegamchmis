@@ -1,0 +1,282 @@
+﻿@model MCHMIS.ViewModels.PregnancyDataUpdateViewModel
+
+@{
+    ViewData["Title"] = "Pregnancy Data";
+    int count = 1;
+}
+<style>    
+    .visit-date{cursor: pointer}
+</style>
+@Html.Partial("_Menu")
+<div class="row">
+    <form asp-action="Update">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <input asp-for="HouseholdId" type="hidden" />
+        <input asp-for="PregnancyId" type="hidden" />
+        <input asp-for="UpdatingClinicVisitId" type="hidden" />
+        <div class="col-md-6">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>ANTENATAL PROFILE</h2>
+                    @if (Model.StatusId == 1)
+                    {
+                        <a asp-action="UpdateAntenatal" class="fa fa-pencil modal-link" asp-route-id="@Model.PregnancyId"></a>
+                    }
+                    <div class="clearfix"></div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="x_content">
+                    <div class="form-group col-md-6">
+                        <label asp-for="BloodGroupId" class="control-label"></label>
+                        @if (ViewBag.ShowDisbabled != null && ViewBag.ShowDisbabled == "1")
+                        {
+                            <select asp-for="BloodGroupId" class="form-control" asp-items="ViewBag.BloodGroupId">
+                                <option value="">Select</option>
+                            </select>
+                        }
+                        else
+                        {
+                            <select asp-for="BloodGroupId" class="form-control" asp-items="ViewBag.BloodGroupId" disabled="disabled">
+                                <option value="">Select</option>
+                            </select>
+                        }
+
+                        <span asp-validation-for="BloodGroupId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="RhesusId" class="control-label"></label>
+                        @if (ViewBag.ShowDisbabled != null && ViewBag.ShowDisbabled == "1")
+                        {
+                            <select asp-for="RhesusId" class="form-control" asp-items="ViewBag.RhesusId">
+                                <option value="">Select</option>
+                            </select>
+                        }
+                        else
+                        {
+                            <select asp-for="RhesusId" class="form-control" asp-items="ViewBag.RhesusId" disabled="disabled">
+                                <option value="">Select</option>
+                            </select>
+                        }
+                        <span asp-validation-for="RhesusId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="SupportStatusId" class="control-label"></label>
+                    @if (Model.ClinicVisitId == 0 && Model.StatusId == 1)
+                    {
+                        <input class="form-control" disabled="disabled" value="xxx"/>
+                    }
+                    else
+                    {
+                        <select asp-for="SupportStatusId" class="form-control" asp-items="ViewBag.SupportStatusId" disabled="disabled">
+                            <option value="">Select</option>
+                        </select>
+                    }
+                        
+                        <span asp-validation-for="SupportStatusId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="PregnancyNo" class="control-label"></label>
+                        <input asp-for="PregnancyNo" class="form-control" disabled="disabled" />
+                        <span asp-validation-for="PregnancyNo" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label asp-for="InfantFeedingCounselingDoneId" class="control-label"></label>
+                        <select asp-for="InfantFeedingCounselingDoneId" class="form-control" asp-items="ViewBag.InfantFeedingCounselingDoneId" disabled="disabled">
+                            <option value="">Select</option>
+                        </select>
+                        <span asp-validation-for="InfantFeedingCounselingDoneId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="BreastfeedingCounselingDoneId" class="control-label"></label>
+                        <select asp-for="BreastfeedingCounselingDoneId" class="form-control" asp-items="ViewBag.BreastfeedingCounselingDoneId" disabled="disabled">
+                            <option value="">Select</option>
+                        </select>
+                        <span asp-validation-for="BreastfeedingCounselingDoneId" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>PRESENT PREGNANCY DATA</h2>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <div class="form-group col-md-6">
+                        <label asp-for="VisitDate" class="control-label"></label>
+                        <div class='input-group visit-date'>
+                            <input asp-for="VisitDate" type="text" class="form-control required no-typing visit-date" autocomplete="off" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                        <span asp-validation-for="VisitDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="ClinicVisitId" class="control-label"></label>
+                        <select asp-for="ClinicVisitId" class="form-control" asp-items="ViewBag.ClinicVisitId">
+                            <option value="">Select</option>
+                        </select>
+                        <span asp-validation-for="ClinicVisitId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="Weight" class="control-label"></label>
+                        <input asp-for="Weight" class="form-control" />
+                        <span asp-validation-for="Weight" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="BloodPressure" class="control-label"></label>
+                        <input asp-for="BloodPressure" class="form-control" />
+                        <span asp-validation-for="BloodPressure" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="PreventiveServices" class="control-label"></label>
+                        <select asp-for="PreventiveServices" class="form-control multiple" asp-items="ViewBag.PreventiveServiceId" multiple="multiple"></select>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="NextVisit" class="control-label"></label>
+                        <div class='input-group date-future'>
+                            <input asp-for="NextVisit" type="text" class="form-control required no-typing" autocomplete="off" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            @if (Model.ClinicVisitId == 0 && Model.StatusId == 1)
+            {
+                <button type="submit" class="btn btn-success pull-right">
+                    <i class="glyphicon glyphicon-ok-sign"></i> Save
+                </button>
+            }
+            else
+            {
+                <input asp-for="IsUpdating" type="hidden" />
+                <input asp-for="DateCreated" type="hidden" />
+                <input asp-for="CreatedById" type="hidden" />
+                <input asp-for="ClinicVisitId" type="hidden" />
+                @if (Model.StatusId == 1)
+                {
+                    <button type="submit" class="btn btn-success pull-right">
+                        <i class="glyphicon glyphicon-ok-sign"></i> Update
+                    </button>
+                }
+
+            }
+
+            <a asp-action="Index" class="btn btn-danger glyphicon glyphicon-step-backward pull-left"> Back</a>
+        </div>
+        <div class="col-md-12">
+            <h2 class="section-title">Previous Visits</h2>
+            <table class="table table-bordered table-striped">
+                <tr>
+                    <th>No. of Visits</th>
+                    <th>
+                        Date
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PregnancyData.ClinicVisitId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PregnancyData.Weight)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PregnancyData.BloodPressure)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PregnancyData.MotherPreventiveServices)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PregnancyData.NextVisit)
+                    </th>
+                    <th class="fit">
+                        @Html.DisplayNameFor(model => model.PregnancyData.MotherClinicVisit.RequiresFingerPrint)
+                    </th>
+                    <th class="fit">
+                        @Html.DisplayNameFor(model => model.PregnancyData.MotherClinicVisit.Verified)
+                    </th>
+                    @if (Model.StatusId == 1)
+                    {
+                        <th class="fit">Edit</th>
+                    }
+                </tr>
+                @foreach (var item in Model.PregnancyDataList)
+                {
+                    var services = "";
+                    foreach (var s in item.MotherPreventiveServices)
+                    {
+                        services += s.PreventiveService.Code + ",";
+                    }
+                    if (services.Length > 2)
+                    {
+                        services = services.Substring(0, services.Length - 1);
+                    }
+
+                    <tr class="@item.MotherClinicVisit?.RequiresFingerPrint @item.MotherClinicVisit?.Verified">
+                        <td>
+                            @count
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.VisitDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ClinicVisit.Name)
+                            @if (!string.IsNullOrEmpty(item.Notes))
+                            {
+                                <span>@Html.Raw(item.Notes) </span>
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Weight)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.BloodPressure)
+                        </td>
+                        <td>
+                            <ul>
+                                @foreach (var s in item.MotherPreventiveServices)
+                                {
+                                    <li>@s.PreventiveService.Code</li>
+                                    ;
+                                }
+                            </ul>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NextVisit)
+                        </td>
+                        <td class="text-center">
+                            @(item.MotherClinicVisit?.RequiresFingerPrint == true ? "Yes" : "No")
+                        </td>
+                        <td class="text-center">
+                            @(item.MotherClinicVisit?.Verified == true ? "Yes" : "No")
+                        </td>
+                        @if (Model.StatusId == 1)
+                        {
+                            <td class="text-center">
+                                <a asp-action="Update" class="fa fa-pencil" asp-route-id="@Model.PregnancyId" asp-route-ClinicVisitId="@item.ClinicVisitId"></a>
+                            </td>
+                        }
+                    </tr>
+                    count++;
+                }
+            </table>
+        </div>
+    </form>
+</div>
+
+@section scripts{
+
+    <script type="text/javascript" src="~/js/bootstrap-multiselect.js"></script>
+    <link rel="stylesheet" href="~/css/bootstrap-multiselect.css" type="text/css" />
+    <script>
+        $(document).ready(function () {
+            $('.multiple').multiselect();
+
+        });
+    </script>
+}

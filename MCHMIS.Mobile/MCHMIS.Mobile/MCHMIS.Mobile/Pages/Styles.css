@@ -1,0 +1,553 @@
+﻿.body {
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+}
+
+.container {
+    background-color: #ffffff;
+    flex-basis: 100%;
+    flex-direction: column;
+    margin-top: 0;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+
+.container-colored {
+    background-color: #a66e10;
+    flex-basis: 100%;
+    flex-direction: column;
+    margin-top: 0;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+
+    .container-colored label {
+        color: #ffffff;
+        padding: 120;
+        font-size: 24;
+    }
+
+.Indicator {
+    flex-shrink: 0;
+}
+
+.logo-holder {
+    background-color: #ffffff;
+    vertical-align: middle;
+    align-content: center;
+    padding-top: 20;
+    margin-top: 10;
+    flex-basis: 100%;
+    flex-direction: column;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+
+    .logo-holder > label {
+        font-size: 36;
+        text-align: center;
+        margin-top: 10;
+        flex-basis: 100%;
+        flex-grow: 1;
+    }
+
+    .logo-holder label + label {
+        font-size: 24;
+        color: #00009f
+    }
+
+    .logo-holder image,
+    .logo {
+        text-align: center;
+        width: 300;
+    }
+
+ActivityIndicator,
+label.ActivityIndicator {
+    vert-align: middle;
+    horiz-align: center;
+    padding: 16 0;
+}
+
+.three-quarter {
+    flex-basis: 75%;
+}
+
+.quarter {
+    flex-basis: 25%;
+}
+
+.third {
+    flex-basis: 33.33%;
+}
+
+.half {
+    flex-basis: 50%;
+}
+
+.tenth {
+    flex-basis: 10%;
+}
+
+.full {
+    flex-basis: 100%;
+}
+
+entry, editor {
+    color: #333;
+    border-bottom: #333333
+}
+
+button {
+    margin: 25 30;
+    flex-shrink: 0;
+    flex-grow: 1;
+}
+
+.Valid {
+    background-color: #fff;
+}
+
+.InValid {
+    background-color: #ff0000;
+}
+
+.large-padding {
+    padding: 50;
+}
+
+.KenyaGreen {
+    color: #1e8a2b;
+}
+
+.KakamegaBrown {
+    color: #1e8a2b;
+    background-color: #1e8a2b;
+}
+
+.KenyaRed {
+    color: #e30613;
+}
+
+.SauBlue {
+    color: #00009f;
+}
+
+.SauOrange {
+    color: #ff9900;
+}
+
+.SauMaroon {
+    color: #990000;
+}
+
+.KenyaGray {
+    color: #C8C7CC;
+}
+
+.White {
+    color: #FFFFFF;
+}
+
+.ButtonBorder {
+    color: #C8C7CC;
+}
+
+.ListSeparator {
+    color: #C8C7CC;
+}
+
+.BgKenyaGreen {
+    background-color: #1e8a2b;
+}
+
+.BgKenyaRed {
+    background-color: #e30613;
+}
+
+.BgSauBlue {
+    background-color: #00009f;
+}
+
+.BgSauOrange {
+    background-color: #ff9900;
+}
+
+.BgSauMaroon {
+    background-color: #990000;
+}
+
+.BgKenyaGray {
+    background-color: #C8C7CC;
+}
+
+.BgWhite {
+    background-color: #FFFFFF;
+}
+
+.BgButtonBorder {
+    background-color: #C8C7CC;
+}
+
+.BgListSeparator {
+    background-color: #C8C7CC;
+}
+
+.strip {
+    height: 3;
+    flex-basis: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.bg-black {
+    background: #000;
+    border-color: #000;
+}
+
+.border_top_green {
+    border-top: 2 solid #1e8a2b;
+}
+
+.bg-red {
+    background: #e30613;
+    border-color: #e30613;
+}
+
+.bg-green {
+    background: #1e8a2b;
+    border-color: #1e8a2b;
+}
+
+.menu-logo-holder {
+    background-color: #ffffff;
+    vertical-align: middle;
+    align-content: center;
+    margin-top: 30;
+    flex-basis: 100%;
+    flex-direction: column;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+
+    .menu-logo-holder > label {
+        font-size: 16;
+        text-align: center;
+        margin-top: 10;
+        flex-basis: 100%;
+        flex-grow: 1;
+        color: #00009f
+    }
+
+    .menu-logo-holder image {
+        align-content: center;
+        width: 300;
+    }
+
+listview {
+    background-color: #ffffff;
+}
+
+.menu-footer {
+    color: tomato;
+    margin-left: 20;
+}
+
+.twentypx {
+    margin-left: 20;
+}
+
+label.menutext.saugreen {
+    font-size: 24;
+    color: #1e8a2b;
+    margin: 10 0;
+}
+
+.menu-grid {
+    padding: 10;
+}
+
+.LoggedInUser {
+    font-size: 16;
+    font-weight: bold;
+    background-color: #efefef;
+}
+
+.cardpadding {
+    padding: 8 16;
+}
+
+.cardspacing {
+    margin: 20;
+}
+
+.Primary {
+    color: #1e8a2b;
+}
+
+.PrimaryDark {
+    color: #5D2ABB;
+}
+
+.PrimaryDarkTranslucent {
+    color: #992621;
+}
+
+.Accent {
+    color: #753BE4;
+}
+
+.NavigationText {
+    color: White;
+}
+
+.LabelSectionText {
+    color: #6D6D72;
+}
+
+.DetailTextColor {
+    color: #979797;
+}
+
+.LightBackgroundColor {
+    background-color: #FAFAFA;
+}
+
+.DarkBackgroundColor {
+    background-color: #EFEFEF;
+}
+
+.MediumGrayTextColor {
+    color: #4d4d4d;
+}
+
+.LightTextColor {
+    color: #999999;
+}
+
+.White {
+    color: #FFFFFF;
+}
+
+.ButtonBorder {
+    color: #C8C7CC;
+}
+
+.ListSeparator {
+    color: #C8C7CC;
+}
+
+.MenuPadding {
+    Padding: 2;
+}
+
+.MiniPadding {
+    Padding: 4;
+}
+
+.MediumPadding {
+    Padding: 8;
+}
+
+.StandardPadding {
+    Padding: 16;
+}
+
+.LargePadding {
+    Padding: 32;
+}
+
+.SmallSpacing {
+    margin: 4;
+}
+
+.SmallSpacing {
+    margin: 4;
+}
+
+.MediumSpacing {
+    margin: 8;
+}
+
+.StandardSpacing {
+    margin: 16;
+}
+
+.LargeSpacing {
+    margin: 32;
+}
+
+.syncheader, label.subTitle {
+    height: 100;
+    font-size: 24;
+    text-align: center;
+    vertical-align: middle;
+    align-content: center;
+}
+
+/*.walkthrough_bg_0 {
+    background-image: walkthrough_bg_0.jpg;
+}
+
+.walkthrough_bg_1 {
+    background-image: walkthrough_bg_1.jpg;
+}
+
+.walkthrough_bg_2 {
+    background-image: walkthrough_bg_2.jpg;
+}*/
+
+.ReferenceNo {
+    font-weight: bold;
+    font-size: 18;
+    background-color: #e30613;
+}
+
+label.boldLabel {
+    font-size: 18;
+    font-weight: bold;
+}
+
+label.medium {
+    font-size: 18;
+    font-weight: bold;
+}
+
+label.small {
+    font-size: 14;
+    font-weight: normal;
+}
+
+label.SubTitle, label.SubTitleDesc {
+    vertical-align: middle;
+    align-content: center;
+    text-align: center;
+    flex-basis: 100%;
+    margin: 10;
+}
+
+label.SubTitle {
+    font-size: 24;
+    color: #1e8a2b;
+    font-weight: bolder;
+}
+
+label.SubTitleDesc {
+    font-size: 16;
+    color: #ff9900;
+    font-weight: bold;
+}
+
+.editor-page label {
+    margin: 10;
+}
+
+entry.half,
+label.half {
+    flex-basis: 45%;
+    flex-direction: row;
+    align-items: start;
+    align-content: start;
+    justify-content: spacebetween;
+}
+
+.entry.full,
+label.full {
+    flex-basis: 100%;
+    flex-direction: row;
+}
+
+label.full,
+label.half {
+    flex-grow: 1;
+    flex-shrink: 0;
+    flex-direction: row;
+    height: 30;
+    margin: 10;
+}
+
+label.multiline {
+    height: 50;
+    flex-grow: 1;
+    flex-shrink: 0;
+    flex-direction: row;
+}
+
+label.liteLabel {
+    border-bottom-color: #efefef;
+    border-bottom-width: 3;
+}
+
+label.SauBlue {
+    color: #00009f;
+}
+
+listview#NsNpProgs {
+    margin: 0;
+    padding: 0;
+    height: 300;
+}
+
+picker {
+    flex-shrink: 0;
+    flex-grow: 1;
+    padding: 10;
+    height: 40;
+}
+
+picker, entry, editor {
+    color: #333;
+    border-bottom: #333333;
+    flex-shrink: 0;
+    flex-grow: 1;
+    padding: 10;
+    height: 40;
+}
+
+.border_bottom_green {
+    border-bottom: #333333;
+}
+
+label.litelabel {
+    font-size: 14;
+    color: #990000;
+}
+
+.homepage {
+    align-items: center;
+    align-content: center;
+    justify-content: space-between;
+}
+
+.dashicon {
+    /*padding: 50;
+    margin: 20;
+    height: 200;
+    width: 150;*/
+    flex-basis: 33%;
+    align-items: center;
+    align-content: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+    flex-grow: 1;
+    border: #1e8a2b;
+}
+
+.square100 {
+    align-items: center;
+    align-content: center;
+    justify-content: space-between;
+}
+
+/*label.dashLabel {
+    text-align: center;
+    flex-basis: 100%;
+    color: #1e8a2b;
+    font-size: 24;
+    font-weight: bold;
+    width: 150;
+    height: 50;
+    align-items: center;
+    align-content: center;
+}*/

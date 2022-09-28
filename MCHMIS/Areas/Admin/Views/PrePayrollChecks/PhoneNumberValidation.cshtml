@@ -1,0 +1,162 @@
+﻿@using X.PagedList.Mvc.Core
+@model MCHMIS.ViewModels.PrePayrollFilterViewModel
+
+@{
+    ViewData["Title"] = "Phone Number Validation";
+    var tasks = User.FindFirst("UserRoles").Value;
+}
+@section buttons{
+    @if (!Model.Imported)
+    {
+        if (tasks.Contains("Import Enrolment Lists"))
+        {
+            <a class="btn btn-primary" asp-action="Import" asp-route-id="@Model.Id">
+                <i class="fa fa-upload" aria-hidden="true"></i> Import
+            </a>
+        }
+        if (tasks.Contains("Download Enrolment List"))
+        {
+            <a class="btn btn-primary" asp-action="Export" asp-route-id="@Model.Id">
+                <i class="fa fa-file-excel-o" aria-hidden="true"></i> Download
+            </a>
+        }
+         
+    }
+    else
+    {
+
+        <a class="btn btn-primary" asp-action="ExportMismatch" asp-route-id="@Model.Id">
+            <i class="fa fa-file-excel-o" aria-hidden="true"></i> Download Mismatch
+        </a>
+    }
+   
+}
+<partial name="_menu" />
+<p>&nbsp;</p>
+<form asp-action="PhoneNumberValidation" class="form-paginated">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input asp-for="Id" type="hidden" />
+    <div class="form-group col-md-2">
+        <label asp-for="UniqueId" class="control-label"></label>
+        <input asp-for="UniqueId" class="form-control" />
+    </div>
+    <div class="form-group col-md-2">
+        <label asp-for="PhoneNumber" class="control-label"></label>
+        <input asp-for="PhoneNumber" class="form-control" />
+    </div>
+
+    <div class="form-group col-md-2">
+        <label asp-for="HealthFacilityId" class="control-label"></label>
+        <select asp-for="HealthFacilityId" class="form-control filter-list" asp-items="ViewBag.HealthFacilityId">
+            <option value="">Select</option>
+        </select>
+    </div>
+    <div class="col-md-2 form-group">
+        <label asp-for="PageSize" class="control-label"></label>
+        <select asp-for="PageSize" class="form-control filterSL" asp-items="ViewBag.PageSize">
+        </select>
+    </div>
+    <div class="col-md-2 pull-left">
+        <button type="submit" class="btn btn-success pull-left btn-filter inline">
+            <i class="glyphicon glyphicon-search"></i> Search
+        </button>
+        <button type="button" class="btn btn-default btn-reset pull-left btn-filter inline">
+            <i class="fa fa-eraser"></i> Clear
+        </button>
+    </div>
+    <input type="hidden" name="Page" id="pagination-page" value="1" />
+</form>
+<hr />
+<table class="table table-striped table-hover table-bordered">
+    <thead>
+    <tr>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Beneficiary.UniqueId)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Beneficiary.RecipientPhone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Beneficiary.RecipientName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PrePayrollChecksDetail.CustomerName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PrePayrollChecksDetail.CustomerType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PrePayrollChecksDetail.Exception)
+        </th>
+        <th>Action Taken</th>
+        <th>Date Actioned</th>
+        <th>Actioned By</th>
+        <th>Notes</th>
+    @if (Model.StatusId == 1)
+    {
+        <th>Action</th>
+    }
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model.Details)
+    {
+        <tr class="@Html.DisplayFor(modelItem => item.Exception.Name)">
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Beneficiary.UniqueId)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Beneficiary.RecipientPhone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Beneficiary.RecipientName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Exception.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Action.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.DateApproved)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.ApprovedBy.DisplayName)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Notes)
+            </td>
+            @if (Model.StatusId == 1)
+            {
+                <td>
+                    <a asp-action="Action" class="fa fa-pencil lnk-modal" asp-route-id="@item.Id"></a>
+                </td>
+            }
+           
+        </tr>
+    }
+
+    @if (!Model.Details.Any())
+    {
+        <tr>
+            <td colspan="20" class="no-data-found">No Data Found</td>
+        </tr>
+    }
+    </tbody>
+</table>
+<div class="row">
+    <div class="col-md-12 with-count">
+        Page @(Model.Details.PageCount < Model.Details.PageNumber ? 0 : Model.Details.PageNumber) of @Model.Details.PageCount, Showing @(((Model.Details.PageNumber-1)* Model.Details.PageSize) + @Model.Details.Count) of @Model.Details.TotalItemCount
+        @Html.PagedListPager(Model.Details, page => Url.Action("Index", new { page = page }))
+    </div>
+</div>

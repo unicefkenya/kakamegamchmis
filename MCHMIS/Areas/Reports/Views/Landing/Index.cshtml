@@ -1,0 +1,220 @@
+﻿@model IEnumerable<MCHMIS.Models.Report>
+
+@{
+    ViewBag.Title = "Reports";
+    var tasks = User.FindFirst("UserRoles").Value;
+    var count = 0;
+}
+@section buttons
+{
+    @if (tasks.Contains("Reports:Export"))
+    {
+        <a class="btn btn-primary" asp-controller="Export" asp-action="Index">Export Data</a>
+    }
+}
+<div class="row">
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Beneficiary Reports</h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <table class="table table-bordered table-hover">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Name)
+                        </th>
+
+                        <th class="text-center">View</th>
+                    </tr>
+
+                    @foreach (var item in Model.Where(i => i.ReportCategoryId == 1))
+                    {
+
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td class="text-center">
+
+                                <a class="fa fa fa-eye" href='~/@(item.Id>10?"reports/":"reports/")@item.Keyword'>
+                                </a>
+                            </td>
+                        </tr>
+                        count++;
+
+                    }
+                    @if (!Model.Any())
+                    {
+                        <tr>
+                            <td colspan="10" class="text-danger">No data found.</td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Case Management Reports</h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <table class="table table-bordered table-hover">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Name)
+                        </th>
+
+                        <th class="text-center">View</th>
+                    </tr>
+
+                    @foreach (var item in Model.Where(i => i.ReportCategoryId == 5))
+                    {
+
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td class="text-center">
+
+                                <a class="fa fa fa-eye" href='~/@(item.Id>10?"reports/":"reports/")@item.Keyword'>
+                                </a>
+                            </td>
+                        </tr>
+                        count++;
+
+                    }
+                    @if (!Model.Any())
+                    {
+                        <tr>
+                            <td colspan="10" class="text-danger">No data found.</td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Payment Reports</h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <table class="table table-bordered table-hover">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Name)
+                        </th>
+
+                        <th class="text-center">View</th>
+                    </tr>
+
+                    @foreach (var item in Model.Where(i => i.ReportCategoryId == 2))
+                    {
+
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td class="text-center">
+
+                                <a class="fa fa fa-eye" href='~/@(item.Id>10?"reports/":"reports/")@item.Keyword'>
+                                </a>
+                            </td>
+                        </tr>
+                        count++;
+
+                    }
+                    @if (!Model.Any())
+                    {
+                        <tr>
+                            <td colspan="10" class="text-danger">No data found.</td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Change Reports</h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <table class="table table-bordered table-hover">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Name)
+                        </th>
+
+                        <th class="text-center">View</th>
+                    </tr>
+
+                    @foreach (var item in Model.Where(i => i.ReportCategoryId == 4))
+                    {
+
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td class="text-center">
+
+                                <a class="fa fa fa-eye" href='~/@(item.Id>10?"reports/":"reports/")@item.Keyword'>
+                                </a>
+                            </td>
+                        </tr>
+                        count++;
+
+                    }
+                    @if (!Model.Any())
+                    {
+                        <tr>
+                            <td colspan="10" class="text-danger">No data found.</td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Complaint Reports</h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <table class="table table-bordered table-hover">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Name)
+                        </th>
+
+                        <th class="text-center">View</th>
+                    </tr>
+
+                    @foreach (var item in Model.Where(i => i.ReportCategoryId == 3))
+                    {
+
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td class="text-center">
+
+                                <a class="fa fa fa-eye" href='~/@(item.Id>10?"reports/":"reports/")@item.Keyword'>
+                                </a>
+                            </td>
+                        </tr>
+                        count++;
+
+                    }
+                    @if (!Model.Any())
+                    {
+                        <tr>
+                            <td colspan="10" class="text-danger">No data found.</td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

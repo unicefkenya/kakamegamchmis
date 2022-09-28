@@ -1,0 +1,44 @@
+﻿@model MCHMIS.Areas.Reports.ViewModels.PaymentsViewModel
+
+<form class="form-paginated" method="post" action="@Url.RouteUrl(this.ViewContext.RouteData.Values)">
+
+    <div class="form-group col-md-2">
+        <label asp-for="ReportTypeId" class="control-label"></label>
+        <select asp-for="ReportTypeId" class="form-control required" asp-items="ViewBag.ReportTypeId"></select>
+    </div>
+    <div class="form-group col-md-2">
+        <label asp-for="PaymentStageId" class="control-label"></label>
+        <select asp-for="PaymentStageId" class="form-control required" asp-items="ViewBag.PaymentStageId">
+            <option value="">Select</option>
+        </select>
+    </div>
+    <div class="form-group col-md-2">
+        <label asp-for="HealthFacilityId" class="control-label"></label>
+        <select asp-for="HealthFacilityId" class="form-control filter-list" asp-items="ViewBag.HealthFacilityId">
+            <option value="">Select</option>
+        </select>
+    </div>
+    <div class="form-group col-md-2">
+        <label asp-for="SubCountyId" class="control-label"></label>
+        <select asp-for="SubCountyId" class="form-control filter-list" ng-model="SubCountyId" asp-items="ViewBag.SubCountyId">
+            <option value="">Select</option>
+        </select>
+    </div>
+    <div class="form-group col-md-2">
+        <label asp-for="WardId" class="control-label"></label>
+        <select asp-for="WardId" class="form-control required" ng-model="WardId"
+                ng-options="item.Name for item in wards| filter: {SubCountyId: SubCountyId||'-1'} track by item.Id">
+            <option value="">Select</option>
+        </select>
+    </div>
+    <div class="col-md-2">
+        <button type="submit" class="btn btn-success pull-left btn-filter inline">
+            <i class="glyphicon glyphicon-search"></i> Filter
+        </button>
+        <button type="button" class="btn btn-default btn-reset pull-left btn-filter inline">
+            <i class="fa fa-eraser"></i> Clear
+        </button>
+    </div>
+    <input type="hidden" name="Page" id="pagination-page" value="1" />
+</form>
+<hr />

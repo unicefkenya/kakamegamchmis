@@ -1,0 +1,32 @@
+﻿@model IEnumerable<HouseholdRegMember>
+
+@{
+
+    ViewBag.Title = "Processing Payments";
+}
+
+
+
+<div class="action-cont col-md-12">
+    <div class="alert alert-info text-center">
+        <p> <strong>Processing payments!</strong></p>
+        <p> @TempData["Pending"] Pending records.</p>
+        <p>&nbsp;</p>
+        <a  id="RootUrl"  href="~/admin/payrolls/callback/@ViewBag.Id" class="btn btn-success">
+            <i class="glyphicon glyphicon-ok-sign"></i> Next
+        </a>
+    </div>
+    
+</div>
+
+@section scripts{
+    @*<script>
+        $(window).load(function () {
+        
+            setTimeout(function () {
+                var url = $('#RootUrl').attr('href');
+                window.location.href = url;
+            }, 80000);
+        });
+    </script>*@
+}

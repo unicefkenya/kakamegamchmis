@@ -1,0 +1,31 @@
+﻿@model MCHMIS.ViewModels.CommunityValidationApprovalsViewModel
+@{
+    ViewBag.Title = "Send for approval?";
+    Layout = "~/Views/Shared/_LayoutPopup.cshtml";
+}
+
+@using (Html.BeginForm("Send", "CommunityValidation", FormMethod.Post, new { @class = "form-vertical", role = "form" }))
+
+{
+    <div class="form-vertical">
+        <div class="col-md-12">
+            Send Fund Community Validation List for approval?
+        </div>
+        <div class="col-md-12">
+            <strong>No of Households: </strong>@Model.List.Households
+        </div>
+        <div class="col-md-12">
+            <strong>Date Created: </strong>@Model.List.DateCreated.ToString("dd-MM-yyyy")
+        </div>
+        <div class="col-md-12">
+            <strong>Created by: </strong>@Model.List.CreatedBy.Name
+        </div>
+
+        <div class="col-md-12">
+            <hr />
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+            <input type="submit" value="Send" class="btn pull-right btn-primary" />
+        </div>
+        @Html.HiddenFor(m => m.Id)
+    </div>
+}

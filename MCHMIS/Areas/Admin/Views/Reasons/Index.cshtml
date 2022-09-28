@@ -1,0 +1,39 @@
+﻿@model IEnumerable<MCHMIS.Models.Reason>
+
+@{
+    ViewData["Title"] = "Reasons";
+}
+
+@section buttons
+    {
+    <a class="btn btn-primary" asp-action="Create">Add New</a>
+}
+<table id="table-only" class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th class="fit">Edit</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td class="text-center">
+                    <a asp-action="Edit" class="fa fa-eye" asp-route-id="@item.Id"> </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

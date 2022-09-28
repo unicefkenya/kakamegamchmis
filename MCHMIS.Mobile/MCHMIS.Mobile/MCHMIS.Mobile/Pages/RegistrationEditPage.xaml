@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:MCHMIS.Mobile.Controls;assembly=MCHMIS.Mobile"
+    Title="{Binding Registration.Id, StringFormat='Household Condition Survey for Household #{0}'}"
+             x:Class="MCHMIS.Mobile.Pages.RegistrationEditPage">
+    <ContentPage.Resources>
+        <StyleSheet Source="Styles.css" />
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <controls:AlwaysScrollView>
+            <StackLayout StyleClass="body">
+                <StackLayout StyleClass="CardSpacing, CardPadding, container">
+                    <FlexLayout StyleClass="body" Wrap="Wrap" x:Name="Form">
+                        <StackLayout StyleClass="StandardSpacing, StandardPadding, full">
+                            <Label Text="SECTION II. DWELLING AND HOUSEHOLD"   HorizontalTextAlignment="Center" HorizontalOptions="Center" StyleClass="SubTitle"  />
+                            <Label Text="(This section is  answered by the Head of the Household)"  HorizontalTextAlignment="Center" HorizontalOptions="Center" StyleClass="SubTitleDesc" />
+                            <StackLayout  StyleClass="full" >
+                                <Label StyleClass="boldLabel,full,medium, multiline"  Text="How many Members are in this Household"   />
+                                <Entry StyleClass="liteLabel,full,medium"  x:Name="HouseholdMembers"   Text="{Binding Registration.HouseholdMembers}"      Keyboard="Numeric" />
+
+                                <Label StyleClass="boldLabel,full,medium, multiline"  Text="(2.01) How many habitable ROOMS does this dwelling unit contain?"   />
+                                <Entry StyleClass="liteLabel,full,medium"  x:Name="HabitableRooms"   Text="{Binding Registration.HabitableRooms}"      Keyboard="Numeric" />
+                                <Label StyleClass="boldLabel,full,medium,SauBlue, multiline" Text="(2.02) TENURE status of the dwelling unit and/or surrounding terrain/land"  />
+                                <Label StyleClass="boldLabel,full,medium, multiline"   Text="(a) Is dwelling unit and/or surrounding terrain/land Owner Occupied?"   />
+                                <Picker StyleClass="boldLabel,full,small" Title="Select" x:Name="IsOwnerOccupiedId" ItemsSource="{Binding LoadedOwnershipOptions}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding SelectedOwnershipOption}" />
+                                <Label StyleClass="boldLabel,full,medium" Text="(2.02 b) TENURE status" />
+                                <Picker StyleClass="boldLabel,full,medium" Title="Tenure status" x:Name="TenureStatusId" ItemsSource="{Binding LoadedTenureStatuses}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding SelectedTenureStatus}" />
+                                <Label StyleClass="full,SauBlue" Text="DOMINANT CONSTRUCTION MATERIAL OF THE MAIN DWELLING UNIT"   />
+                                <Label StyleClass="boldLabel,half,medium" Text="(2.03) ROOF ?"  />
+                                <Picker StyleClass="boldLabel,half,medium" Title="Status" x:Name="RoofConstructionMaterialId" ItemsSource="{Binding LoadedRoofConstructionMaterials}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding SelectedRoofConstructionMaterial}" />
+                                <Label StyleClass="boldLabel,half,medium" Text="(2.04) WALL ?"  />
+                                <Picker StyleClass="boldLabel,half,medium" Title="Status" x:Name="WallConstructionMaterialId" ItemsSource="{Binding LoadedWallConstructionMaterials}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding SelectedWallConstructionMaterial}" />
+                                <Label StyleClass="boldLabel,half,medium" Text="(2.04) FLOOR ?"  />
+                                <Picker StyleClass="boldLabel,half,medium" Title="Floor " x:Name="FloorConstructionMaterialId" ItemsSource="{Binding LoadedFloorConstructionMaterials}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding SelectedFloorConstructionMaterial}" />
+                                <Label StyleClass="boldLabel,full,medium"  Text="(2.06)The dwelling unit is at RISK of:?"  />
+                                <Picker Title="Select" x:Name="DwellingUnitRiskId" ItemsSource="{Binding LoadedDwellingRisks}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding SelectedDwellingRisk}" />
+                                <Label StyleClass="boldLabel,full,medium"  Text="(2.07)Main source of WATER?"  />
+                                <Picker Title="Select"  StyleClass="liteLabel,full,medium"  x:Name="WaterSourceId"    ItemsSource="{Binding LoadedWaterSources}"    ItemDisplayBinding="{Binding Description}"    SelectedItem="{Binding SelectedWaterSource}" />
+                                <Label StyleClass="boldLabel,full,medium"  Text="(2.08) Main mode of HUMAN WASTE DISPOSAL?"  />
+                                <Picker  Title="Select"  StyleClass="liteLabel,full,medium"  x:Name="WasteDisposalModeId"   ItemsSource="{Binding LoadedWasteDisposals}"    ItemDisplayBinding="{Binding Description}"    SelectedItem="{Binding SelectedWasteDisposal}" />
+                                <Label  StyleClass="boldLabel,full,medium"  Text="(2.09) Main type of COOKING FUEL"  />
+                                <Picker Title="Select"  StyleClass="liteLabel,full,medium"  x:Name="CookingFuelTypeId"    ItemsSource="{Binding LoadedCookingFuels}"    ItemDisplayBinding="{Binding Description}"    SelectedItem="{Binding SelectedCookingFuel}" />
+                                <Label StyleClass="boldLabel,full,medium"  Text="(2.10) Main type of LIGHTING FUEL:"  />
+                                <Picker   Title="Select"  StyleClass="liteLabel,full,medium"  x:Name="LightingFuelTypeId"   ItemsSource="{Binding LoadedLightingFuels}"    ItemDisplayBinding="{Binding Description}"    SelectedItem="{Binding SelectedLightingFuel}" />
+
+                                <Label StyleClass="full,medium, multiline  "  Text="Does the household OWN any of the following items?"  />
+
+                                <Label StyleClass="boldLabel,half,medium"    Text="(2.11) Television"  />
+                                <Picker   Title="Select"   StyleClass="liteLabel,half,medium"  x:Name="IsTelevisionId" ItemsSource="{Binding LoadedIsTelevisions}"    ItemDisplayBinding="{Binding Description}"    SelectedItem="{Binding SelectedIsTelevision}" />
+                                <Label StyleClass="boldLabel,half,medium"   Text="(2.12) Motorcycle"  />
+                                <Picker   Title="Select"   StyleClass="liteLabel,half,medium" x:Name="IsMotorcycleId" ItemsSource="{Binding LoadedIsMotorcycles}"    ItemDisplayBinding="{Binding Description}"    SelectedItem="{Binding SelectedIsMotorcycle}" />
+                                <Label StyleClass="boldLabel,half,medium"   Text="(2.13) Tuk-Tuk"  />
+                                <Picker   Title="Select"    StyleClass="liteLabel,half,medium" x:Name="IsTukTukId" ItemsSource="{Binding LoadedIsTukTuks}"    ItemDisplayBinding="{Binding Description}"    SelectedItem="{Binding SelectedIsTukTuk}" />
+                                <Label StyleClass="boldLabel,half,medium"   Text="(2.14) Refrigerator"  />
+                                <Picker   Title="Select"    StyleClass="liteLabel,full,medium" x:Name="IsRefrigeratorId" ItemsSource="{Binding LoadedIsRefrigerators}"    ItemDisplayBinding="{Binding Description}"    SelectedItem="{Binding SelectedIsRefrigerator}" />
+                                <Label StyleClass="boldLabel,half,medium"   Text="(2.15) Car"  />
+                                <Picker   Title="Select" StyleClass="liteLabel,half,medium" x:Name="IsCarId" ItemsSource="{Binding LoadedIsCars}"    ItemDisplayBinding="{Binding Description}"    SelectedItem="{Binding SelectedIsCar}" />
+                                <Label StyleClass="boldLabel,half,medium"   Text="(2.16) Mobile phone"  />
+                                <Picker   Title="Select" StyleClass="liteLabel,half,small" x:Name="IsMobilePhoneId" ItemsSource="{Binding LoadedIsMobilePhones}"    ItemDisplayBinding="{Binding Description}"    SelectedItem="{Binding SelectedIsMobilePhone}" />
+                                <Label StyleClass="boldLabel,half,medium"   Text="(2.17) Bicycle"  />
+                                <Picker   Title="Select"  StyleClass="liteLabel,half,medium" x:Name="IsBicycleId" ItemsSource="{Binding LoadedIsBicycles}"  ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding SelectedIsBicycle}" />
+
+                                <Label StyleClass="full,medium,multiline"  Text="How many of each of the following livestock are currently owned"    />
+
+                                <Label StyleClass="boldLabel,half,medium"    Text="(2.18)	Exotic cattle"  />
+                                <Entry StyleClass="liteLabel,half,small"   x:Name="ExoticCattle" Text="{Binding Registration.ExoticCattle}"  Keyboard="Numeric" />
+                                <Label StyleClass="boldLabel,half,medium"  Text="(2.19)	Indigenous cattle"  />
+                                <Entry StyleClass="liteLabel,half,small"  x:Name="IndigenousCattle" Text="{Binding Registration.IndigenousCattle}"  Keyboard="Numeric" />
+                                <Label StyleClass="boldLabel,half,medium"   Text="(2.20)	Sheep"  />
+                                <Entry StyleClass="liteLabel,half,small" x:Name="Sheep" Text="{Binding Registration.Sheep}"  Keyboard="Numeric" />
+                                <Label StyleClass="boldLabel,half,medium"   Text="(2.21)	Goats"  />
+                                <Entry StyleClass="liteLabel,half,small"  x:Name="Goats" Text="{Binding Registration.Goats}"  Keyboard="Numeric" />
+                                <Label StyleClass="boldLabel,half,medium"   Text="(2.22)	Camels"  />
+                                <Entry StyleClass="liteLabel,half,small"  x:Name="Camels" Text="{Binding Registration.Camels}"  Keyboard="Numeric" />
+                                <Label StyleClass="boldLabel,half,medium"   Text="(2.23)	Donkeys"  />
+                                <Entry StyleClass="liteLabel,half,small"  x:Name="Donkeys" Text="{Binding Registration.Donkeys}"  Keyboard="Numeric" />
+                                <Label StyleClass="boldLabel,half,medium"   Text="(2.24)	Pigs"  />
+                                <Entry StyleClass="liteLabel,half,small"  x:Name="Pigs" Text="{Binding Registration.Pigs}"  Keyboard="Numeric" />
+                                <Label StyleClass="boldLabel,half,medium"    Text="(2.25)	Chicken"  />
+                                <Entry StyleClass="liteLabel,half,small"  x:Name="Chicken" Text="{Binding Registration.Chicken}"  Keyboard="Numeric" />
+
+                                <Label StyleClass="boldLabel,full,medium, multiline"  Text="(2.26)	How many LIVE BIRTHS occurred in this household in the last 12 months?"  />
+                                <Entry StyleClass="liteLabel,full,small"  x:Name="LiveBirths" Text="{Binding Registration.LiveBirths}"   Keyboard="Numeric" />
+                                <Label StyleClass="boldLabel,full,medium, multiline"  Text="(2.27)	How many DEATHS occurred in this household in the last 12 months?"  />
+                                <Entry StyleClass="liteLabel,full,small" x:Name="Deaths" Text="{Binding Registration.Deaths}"  Keyboard="Numeric" />
+                                <Label StyleClass="boldLabel,full,medium, multiline"  Text="(2.28) Currently, the CONDITIONS of your household are ?"  />
+                                <Picker StyleClass="liteLabel,full,medium" Title="Status" x:Name="HouseHoldConditionId" ItemsSource="{Binding LoadedHouseholdConditions}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding SelectedHouseholdConditions}" />
+                                <Label StyleClass="boldLabel,full,medium, multiline" Text="(2.29) In the past 7 days, did anyone in this household cut the size of the meals or skip meals because of the lack of enough money?"  />
+                                <Picker  StyleClass="liteLabel,full,medium"  Title="Select" x:Name="IsSkippedId" ItemsSource="{Binding LoadedSkippedMeals}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding SelectedSkippedMeal}" />
+                                <Label StyleClass="boldLabel,full,medium, multiline" Text="(2.30) Is anyone in this household receiving benefits from any of the following National Safety Net Programmes?"  />
+                                <Picker StyleClass="liteLabel,full,medium" Title="Status" x:Name="OtherProgrammesId" ItemsSource="{Binding LoadedOtherProgrammes}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding SelectedOtherProgramme}" />
+                                <StackLayout   StyleClass="full"  Padding="0" Margin="0" IsVisible="{Binding IsOtherProgramme}">
+                                    <Label StyleClass="boldLabel,full,medium" Text="Select up to 3 Programmes "></Label>
+                                    <ListView x:Name="NsNpProgs" StyleClass="full" ItemsSource="{Binding LoadedProgrammes}">
+                                        <ListView.ItemTemplate >
+                                            <DataTemplate>
+                                                <ViewCell>
+                                                    <FlexLayout Wrap="Wrap" StyleClass="full"  HeightRequest="0"  Margin="0">
+                                                        <Switch StyleClass="tenth,SauBlue,pull-left" IsToggled="{Binding IsSelected}" />
+                                                        <Label  StyleClass="SauBlue,half,medium,pull=left" Margin="0"  Text="{Binding  Item.Description}"/>
+                                                    </FlexLayout>
+                                                </ViewCell>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </StackLayout>
+
+                                <Label StyleClass="boldLabel,full,medium, multiline" Text="(2.31) Is anyone in this household receiving benefits from any other Social Assistance Programme or any other external support?"  />
+                                <Picker  StyleClass="liteLabel,full,medium"  Title="Select" x:Name="IsReceivingSocialId" ItemsSource="{Binding LoadedIsReceivingSocials}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding SelectedIsReceivingSocial}" />
+
+                                <StackLayout   StyleClass="full" IsVisible="{Binding IsRecievingSocialItem}">
+                                    <Label StyleClass="boldLabel,full,medium" Text="(2.32)	Name of the Programmes Above "  />
+                                    <Entry StyleClass="liteLabel,full,small" x:Name="OtherProgrammeNames" Text="{Binding Registration.OtherProgrammeNames}"  />
+                                    <Label StyleClass="boldLabel,full,medium" Text="(2.33)	What type of BENEFIT do you receive?"  />
+                                    <Picker StyleClass="boldLabel,full,medium" Title="Status" x:Name="BenefitTypeId" ItemsSource="{Binding LoadedBenefitTypes}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding SelectedBenefitType}" />
+                                </StackLayout>
+
+                                <StackLayout   StyleClass="full"  IsVisible="{Binding IsNotInKind}">
+                                    <Label StyleClass="boldLabel,full,medium" Text="(2.34)	How MUCH was the benefit in the last receipt? (KSHs)"  />
+                                    <Entry StyleClass="liteLabel,full,small" x:Name="LastReceiptAmount" Text="{Binding Registration.LastReceiptAmount}"  Keyboard="Numeric" />
+                                </StackLayout>
+
+                                <StackLayout   StyleClass="full"  IsVisible="{Binding IsInKind }">
+                                    <Label StyleClass="boldLabel,full,medium" Text="(2.35)	Specify IN-KIND of benefit:"  />
+                                    <Entry StyleClass="liteLabel,full,small" x:Name="InKindBenefit" Text="{Binding Registration.InKindBenefit}"  />
+                                </StackLayout>
+
+                                <Label StyleClass="boldLabel,full,medium, multiline" Text="(2.36) Do you receive other kind of support from relatives or friends"  />
+                                <Picker  StyleClass="liteLabel,full,medium"  Title="Select" x:Name="IsReceivingFamilyId" ItemsSource="{Binding LoadedIsReceivingFamilys}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding SelectedIsReceivingFamily}" />
+
+                                <StackLayout   StyleClass="full" IsVisible="{Binding IsRecievingFamilyItem}">
+                                    <Label StyleClass="boldLabel,full,medium" Text="(2.36 b)	What type of BENEFIT do you receive?"  />
+                                    <Picker StyleClass="boldLabel,full,medium" Title="Status" x:Name="FamilyBenefitTypeId" ItemsSource="{Binding LoadedFamilyBenefitTypes}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding SelectedFamilyBenefitType}" />
+                                </StackLayout>
+                                <StackLayout StyleClass="StandardSpacing, StandardPadding" >
+                                    <Button 
+                                        IsEnabled="{Binding IsNotBusy}"
+                                        Text="Save Updated  Household Details" Command="{Binding  SaveHouseHoldCommand}" 
+                                            StyleClass="btn-success, full,BgKenyaGreen,White"  ></Button>
+                                    <ActivityIndicator IsRunning="{Binding IsBusy}" StyleClass="quarter" />
+                                    <Label Text="{Binding Message}" IsVisible="{Binding IsBusy}" VerticalOptions="Center"  HorizontalOptions="Center" StyleClass="three-quarter" />
+
+                                </StackLayout>
+
+
+           
+
+                            </StackLayout>
+                        </StackLayout>
+
+                    </FlexLayout>
+                </StackLayout>
+            </StackLayout>
+        </controls:AlwaysScrollView>
+    </ContentPage.Content>
+</ContentPage>

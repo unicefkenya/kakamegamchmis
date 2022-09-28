@@ -1,0 +1,759 @@
+﻿@model MCHMIS.ViewModels.DashboardViewModel
+@{
+    ViewData["Title"] = "At a Glance";
+}
+<div class="row landing-page">
+    <div class="col-md-12 ">
+        <div class="filter-cont">
+            <div class="row">
+                <div class="col-md-12 reporting-header text-center">
+                    <label class="ng-binding">Reporting Period Summary as at End of @ViewBag.PeriodName</label>
+                </div>
+                <div class="hidden">
+                    <div class="col-md-3">
+                        <label class="control-label">Reporting Period</label>
+                        <select id="PeriodId" class="form-control col-md-3" asp-items="ViewBag.PeriodId"></select>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="control-label">Health Facility</label>
+                        <select id="HealthFacilityId" class="form-control col-md-3 filter-list" asp-items="ViewBag.HealthFacilityId">
+                            <option value="">All</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="control-label">Ward</label>
+                        <select id="WardId" class="form-control col-md-3 filter-list" asp-items="ViewBag.WardId">
+                            <option value="">All</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row landing-page">
+    <div class="col-md-4 chart" id="registration-barchart">
+    </div>
+    <div class="col-md-4 chart" id="cv-barchart">
+    </div>
+    <div class="col-md-4 chart" id="enrolment-barchart">
+    </div>
+    <div class="col-md-4 chart" id="cases-barchart">
+    </div>
+    <div class="col-md-4 chart" id="payments-barchart">
+    </div>
+
+    <div class="col-md-4 chart" id="complaints-barchart">
+    </div>
+</div>
+
+@section scripts
+    {
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            var root = $('#RootUrl').val();
+
+            var scope = angular.element(document.querySelector('body')).scope();
+
+            setTimeout(function() {
+                $('#PeriodId').val('@ViewBag.CurrentPeriodId');
+                getData();
+            },100);
+            $('.btn-filter-dashboard').on('click', getData);
+        });
+
+        function getData() {
+            showLoader();
+            $.post('/dashboard/Landing/FirstChart', { 'Id': $('#PeriodId').val(), 'HealthFacilityId': $('#HealthFacilityId').val(), 'WardId': $('#WardId').val() })
+                .done(function(data) {
+                    hideLoader();
+                    var scope = angular.element(document.querySelector('body')).scope();
+                    scope.$apply(function(filter) {
+
+                        setTimeout(function() {
+
+                               BeneficiaryChatsLanding(data.registration);
+                                CommunityValidationChatsLanding(data.cv);
+                                EnrolmentChatsLanding(data.enrolment);
+                                EnrolmentChatsLanding(data.enrolment);
+                                CasesChatsLanding(data.cases);
+                                PaymentsChatsLanding(data.payments);
+                                ComplaintsChatsLanding(data.complaints);
+                            },
+                            10);
+
+                    });
+
+                })
+                .fail(ajaxError);
+        }
+        function BeneficiaryChatsLanding(data) {
+            var title = 'Registered Mothers';
+            //var period = $("#PeriodId option:selected").text();
+            //period = period === 'Select' ? '' : period;
+            //var indicator = $("#IndicatorId option:selected").val();
+            //var title = $("#IndicatorId option:selected").val() === '5'
+            //    ? $("#IndicatorId option:selected").text() + ' ' + period
+            //    : $("#IndicatorId option:selected").text() + ' ' + period;
+            //if (indicator === '1' || indicator === '2') {
+            //    title = $("#IndicatorId option:selected").text() + ' as at end of ' + period;
+            //}
+            //if (indicator === '8') {
+            //    title = 'Total number of beneficiaries deactivated / Deregistered as at end of ' + period;
+            //}
+
+            $('.lbltitle').text(title);
+
+            Highcharts.chart('registration-barchart', {
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: title,
+                    /* style: {
+                         fontWeight: 'bold',
+                         fontSize: '14px'
+                     }*/
+                },
+                colors: colors,
+                xAxis: {
+                    crosshair: true,
+                    categories: ['']
+                },
+                yAxis: {
+                    min: 0,
+                    labels: {
+                        formatter: function () {
+                            return this.value;
+                        }
+                    },
+
+                    stackLabels: {
+                        enabled: true,
+                        style: {
+                            fontWeight: 'bold',
+                            color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+                        }
+                    }
+                },
+                legend: {
+                    align: 'center',
+                    //x: -30,
+                    verticalAlign: 'bottom',
+                    y: 5,
+                    floating: false,
+                    backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
+                    borderColor: '#CCC',
+                    borderWidth: 1,
+                    shadow: false
+                },
+                tooltip: {
+                    headerFormat: ' ',
+                    pointFormat: '<b>{series.name}</b>: {point.y}'
+                },
+                plotOptions: {
+                    column: {
+                        pointWidth: 65,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'gray',
+                            formatter: function () {
+                                return (this.y);
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    name: 'Registered',
+                    data: [data.registered]
+                },
+                {
+                    name: 'Eligible Mothers',
+                    data: [data.eligible]
+                },
+                {
+                    name: 'Ineligible Mothers',
+                    data: [data.ineligible]
+                },
+
+                ]
+            });
+
+            setTimeout(function () {
+                $('.highcharts-container').addClass('hvr-glow');
+            }, 2000);
+        }
+        function CommunityValidationChatsLanding(data) {
+            var colors = ['#008000', '#ce9a00', '#dc3545', '#5B9BD4'];
+            var title = 'Community Validation';
+            //var period = $("#PeriodId option:selected").text();
+            //period = period === 'Select' ? '' : period;
+            //var indicator = $("#IndicatorId option:selected").val();
+            //var title = $("#IndicatorId option:selected").val() === '5'
+            //    ? $("#IndicatorId option:selected").text() + ' ' + period
+            //    : $("#IndicatorId option:selected").text() + ' ' + period;
+            //if (indicator === '1' || indicator === '2') {
+            //    title = $("#IndicatorId option:selected").text() + ' as at end of ' + period;
+            //}
+            //if (indicator === '8') {
+            //    title = 'Total number of beneficiaries deactivated / Deregistered as at end of ' + period;
+            //}
+
+            $('.lbltitle').text(title);
+
+            Highcharts.chart('cv-barchart', {
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: title,
+                    /* style: {
+                         fontWeight: 'bold',
+                         fontSize: '14px'
+                     }*/
+                },
+                colors: colors,
+                xAxis: {
+                    crosshair: true,
+                    categories: ['']
+                },
+                yAxis: {
+                    min: 0,
+                    labels: {
+                        formatter: function () {
+                            return this.value;
+                        }
+                    },
+
+                    stackLabels: {
+                        enabled: true,
+                        style: {
+                            fontWeight: 'bold',
+                            color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+                        }
+                    }
+                },
+                legend: {
+                    align: 'center',
+                    //x: -30,
+                    verticalAlign: 'bottom',
+                    y: 5,
+                    floating: false,
+                    backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
+                    borderColor: '#CCC',
+                    borderWidth: 1,
+                    shadow: false
+                },
+                tooltip: {
+                    headerFormat: ' ',
+                    pointFormat: '<b>{series.name}</b>: {point.y}'
+                },
+                plotOptions: {
+                    column: {
+                        pointWidth: 65,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'gray',
+                            formatter: function () {
+                                return (this.y);
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    name: 'Low Variance',
+                    data: [data.low]
+                },
+                {
+                    name: 'Medium Variance',
+                    data: [data.medium]
+                },
+                {
+                    name: 'High Variance',
+                    data: [data.high]
+                }]
+            });
+
+            setTimeout(function () {
+                $('.highcharts-container').addClass('hvr-glow');
+            }, 2000);
+        }
+
+        function EnrolmentChatsLanding(data) {
+            var title = 'Enrolled Mothers';
+            //var period = $("#PeriodId option:selected").text();
+            //period = period === 'Select' ? '' : period;
+            //var indicator = $("#IndicatorId option:selected").val();
+            //var title = $("#IndicatorId option:selected").val() === '5'
+            //    ? $("#IndicatorId option:selected").text() + ' ' + period
+            //    : $("#IndicatorId option:selected").text() + ' ' + period;
+            //if (indicator === '1' || indicator === '2') {
+            //    title = $("#IndicatorId option:selected").text() + ' as at end of ' + period;
+            //}
+            //if (indicator === '8') {
+            //    title = 'Total number of beneficiaries deactivated / Deregistered as at end of ' + period;
+            //}
+
+            $('.lbltitle').text(title);
+
+            Highcharts.chart('enrolment-barchart', {
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: title,
+                    /* style: {
+                         fontWeight: 'bold',
+                         fontSize: '14px'
+                     }*/
+                },
+                colors: colors,
+                xAxis: {
+                    crosshair: true,
+                    categories: ['']
+                },
+                yAxis: {
+                    min: 0,
+                    labels: {
+                        formatter: function () {
+                            return this.value;
+                        }
+                    },
+
+                    stackLabels: {
+                        enabled: true,
+                        style: {
+                            fontWeight: 'bold',
+                            color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+                        }
+                    }
+                },
+                legend: {
+                    align: 'center',
+                    //x: -30,
+                    verticalAlign: 'bottom',
+                    y: 5,
+                    floating: false,
+                    backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
+                    borderColor: '#CCC',
+                    borderWidth: 1,
+                    shadow: false
+                },
+                tooltip: {
+                    headerFormat: ' ',
+                    pointFormat: '<b>{series.name}</b>: {point.y}'
+                },
+                plotOptions: {
+                    column: {
+                        pointWidth: 65,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'gray',
+                            formatter: function () {
+                                return (this.y);
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    name: 'Enrolled in the Period',
+                    data: [data.enrolled]
+                },
+                {
+                    name: 'On Waiting List',
+                    data: [data.waiting]
+                },
+                //{
+                //    name: 'Peak Mothers Enrolled',
+                //    data: [data.total]
+                //}
+                ]
+            });
+
+            setTimeout(function () {
+                $('.highcharts-container').addClass('hvr-glow');
+            }, 2000);
+        }
+        function PaymentsChatsLanding(data) {
+            var period = $("#PeriodId option:selected").text();
+            period = period === 'Select' ? '' : period;
+            var title = 'Payments';
+
+            $('.lbltitle').text(title);
+
+            Highcharts.chart('payments-barchart', {
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: title,
+                    /* style: {
+                         fontWeight: 'bold',
+                         fontSize: '14px'
+                     }*/
+                },
+                colors: colors,
+                xAxis: {
+                    crosshair: true,
+                    categories: ['']
+                },
+                yAxis: {
+                    allowDecimals: false,
+                    min: 0,
+                    labels: {
+                        formatter: function () {
+                            return this.value;
+                        }
+                    },
+
+                    stackLabels: {
+                        enabled: true,
+                        style: {
+                            fontWeight: 'bold',
+                            color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+                        }
+                    }
+                },
+                legend: {
+                    align: 'center',
+                    //x: -30,
+                    verticalAlign: 'bottom',
+                    y: 5,
+                    floating: false,
+                    backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
+                    borderColor: '#CCC',
+                    borderWidth: 1,
+                    shadow: false
+                },
+                tooltip: {
+                    headerFormat: ' ',
+                    pointFormat: '<b>Payment Point {series.name}</b>: {point.y}'
+                },
+                plotOptions: {
+                    column: {
+                        pointWidth: 65,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'gray',
+                            formatter: function () {
+                                return (this.y).toLocaleString();
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    name: '1st ANC',
+                    data: [data.stage1]
+                },
+               {
+                   name: 'Delivery',
+                   data: [data.stage2]
+               },
+               {
+                   name: '6th Week',
+                   data: [data.stage3]
+               },
+               {
+                   name: '6th Month',
+                   data: [data.stage4]
+               },
+               {
+                   name: '9th Month',
+                   data: [data.stage5]
+               },
+               {
+                   name: '18th Month',
+                   data: [data.stage6]
+               }
+
+                ]
+            });
+
+            setTimeout(function () {
+                $('.highcharts-container').addClass('hvr-glow');
+            }, 2000);
+        }
+        function CasesChatsLanding(data) {
+            var title = 'Clinic Visits';
+
+            $('.lbltitle').text(title);
+
+            Highcharts.chart('cases-barchart', {
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: title,
+                    /* style: {
+                         fontWeight: 'bold',
+                         fontSize: '14px'
+                     }*/
+                },
+                colors: colors,
+                xAxis: {
+                    crosshair: true,
+                    categories: ['']
+                },
+                yAxis: {
+                    min: 0,
+                    labels: {
+                        formatter: function () {
+                            return this.value;
+                        }
+                    },
+
+                    stackLabels: {
+                        enabled: true,
+                        style: {
+                            fontWeight: 'bold',
+                            color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+                        }
+                    }
+                },
+                legend: {
+                    align: 'center',
+                    //x: -30,
+                    verticalAlign: 'bottom',
+                    y: 5,
+                    floating: false,
+                    backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
+                    borderColor: '#CCC',
+                    borderWidth: 1,
+                    shadow: false
+                },
+                tooltip: {
+                    headerFormat: ' ',
+                    pointFormat: '<b>{series.name}</b>: {point.y}'
+                },
+                plotOptions: {
+                    column: {
+                        pointWidth: 65,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'gray',
+                            formatter: function () {
+                                return (this.y);
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    name: 'Updated',
+                    data: [data.updated]
+                },
+                {
+                    name: 'Not Updated',
+                    data: [data.missed]
+                }]
+            });
+
+            setTimeout(function () {
+                $('.highcharts-container').addClass('hvr-glow');
+            }, 2000);
+        }
+        function ComplaintsChatsLanding(data) {
+            var title = 'Complaints';
+
+            $('.lbltitle').text(title);
+
+            Highcharts.chart('complaints-barchart', {
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: title,
+                    /* style: {
+                         fontWeight: 'bold',
+                         fontSize: '14px'
+                     }*/
+                },
+                colors: colors,
+                xAxis: {
+                    crosshair: true,
+                    categories: ['']
+                },
+                yAxis: {
+                    min: 0,
+                    labels: {
+                        formatter: function () {
+                            return this.value;
+                        }
+                    },
+
+                    stackLabels: {
+                        enabled: true,
+                        style: {
+                            fontWeight: 'bold',
+                            color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+                        }
+                    }
+                },
+                legend: {
+                    align: 'center',
+                    //x: -30,
+                    verticalAlign: 'bottom',
+                    y: 5,
+                    floating: false,
+                    backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
+                    borderColor: '#CCC',
+                    borderWidth: 1,
+                    shadow: false,
+                    itemStyle: { "fontSize": "11px" }
+                },
+                tooltip: {
+                    headerFormat: ' ',
+                    pointFormat: '<b>{series.name}</b>: {point.y}'
+                },
+                plotOptions: {
+                    column: {
+                        pointWidth: 65,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'gray',
+                            formatter: function () {
+                                return (this.y);
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    name: 'Open Within SLA',
+                    data: [data.openWithinSLA]
+                }, {
+                    name: 'Open Outside SLA',
+                    data: [data.openOutsideSLA]
+                }, {
+                    name: 'Resolved Within SLA',
+                    data: [data.resolvedWithinSLA]
+                },
+                {
+                    name: 'Resolved Outside SLA',
+                    data: [data.resolvedOutsideSLA]
+                }]
+            });
+
+            setTimeout(function () {
+                $('.highcharts-container').addClass('hvr-glow');
+            }, 2000);
+        }
+    </script>
+}
+
+@*<div class="row dashboard-row">
+        <div class="col-md-12">
+            <div class="x_panel">
+
+                <div class="row x_title">
+                    <div class="col-md-6">
+                        <h3>Updates</h3>
+                    </div>
+                    <div class="col-md-6">
+                    </div>
+                </div>
+                <div class="x_content">
+                    <div class="row">
+                        <div class="animated flipInY col-md-3">
+                            <a href="~/admin/changes?statusId=1" class="tile-stats bg-danger">
+                                <div class="icon">
+                                    <i class="fa fa-envelope-open-o"></i>
+                                </div>
+                                <div class="count">@Model.PendingUpdates</div>
+                                <h3>Pending</h3>
+                            </a>
+                        </div>
+                        <div class="animated flipInY col-md-3">
+                            <a href="~/admin/changes?statusId=2" class="tile-stats bg-warning">
+                                <div class="icon">
+                                    <i class="fa fa-plus-square"></i>
+                                </div>
+                                <div class="count">@Model.ActionedUpdates</div>
+                                <h3>Actioned</h3>
+                            </a>
+                        </div>
+                        <div class="animated flipInY col-md-3">
+                            <a href="~/admin/changes?statusId=4" class="tile-stats bg-danger">
+                                <div class="icon">
+                                    <i class="fa fa-times"></i>
+                                </div>
+                                <div class="count">@Model.RejectedUpdates</div>
+                                <h3>Rejected</h3>
+                            </a>
+                        </div>
+                        <div class="animated flipInY col-md-3">
+                            <a href="~/admin/changes?statusId=4" class="tile-stats bg-info">
+                                <div class="icon">
+                                    <i class="fa fa-thumbs-up"></i>
+                                </div>
+                                <div class="count">@Model.ApprovedUpdates</div>
+                                <h3>Approved</h3>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="x_panel">
+
+                <div class="row x_title">
+                    <div class="col-md-6">
+                        <h3>Complaints</h3>
+                    </div>
+                    <div class="col-md-6">
+                    </div>
+                </div>
+                <div class="x_content">
+                    <div class="row">
+                        <div class="animated flipInY col-md-3">
+                            <a href="~/admin/complaints?statusId=1" class="tile-stats bg-danger">
+                                <div class="icon">
+                                    <i class="fa fa-envelope-open-o"></i>
+                                </div>
+                                <div class="count">@Model.OpenComplaints</div>
+                                <h3>Open</h3>
+                            </a>
+                        </div>
+                        <div class="animated flipInY col-md-3">
+                            <a href="~/admin/complaints?statusId=2" class="tile-stats bg-warning">
+                                <div class="icon">
+                                    <i class="fa fa-plus-square"></i>
+                                </div>
+                                <div class="count">@Model.PendingUpdates</div>
+                                <h3>Actioned</h3>
+                            </a>
+                        </div>
+
+                        <div class="animated flipInY col-md-3">
+                            <a href="~/admin/complaints?statusId=3" class="tile-stats bg-info">
+                                <div class="icon">
+                                    <i class="fa fa-thumbs-up"></i>
+                                </div>
+                                <div class="count">@Model.ApprovedUpdates</div>
+                                <h3>Resolved</h3>
+                            </a>
+                        </div>
+                        <div class="animated flipInY col-md-3">
+                            <a href="~/admin/complaints?statusId=4" class="tile-stats bg-success" style="background-color: #036103">
+                                <div class="icon">
+                                    <i class="fa fa-check-square-o"></i>
+                                </div>
+                                <div class="count">@Model.ClosedComplaints</div>
+                                <h3>Closed</h3>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>*@

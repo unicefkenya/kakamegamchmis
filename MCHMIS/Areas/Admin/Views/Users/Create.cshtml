@@ -1,0 +1,82 @@
+﻿@model MCHMIS.ViewModels.RegisterViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="Create">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group col-md-6 col-xs-6">
+                <label asp-for="Role" class="control-label"></label>
+                <select asp-for="Role" class="form-control required" asp-items="ViewBag.Role">
+                    <option value="">Select</option>
+                </select>
+                <span asp-validation-for="Role" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-6 col-xs-6">
+                <label asp-for="HealthFacilityId" class="control-label"></label>
+                <select asp-for="HealthFacilityId" class="form-control filter-list" asp-items="ViewBag.HealthFacilityId">
+                    <option value="">Select</option>
+                </select>
+                <span asp-validation-for="HealthFacilityId" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-6 col-xs-6">
+                <label asp-for="SubCountyId" class="control-label"></label>
+                <select asp-for="SubCountyId" class="form-control filter-list" asp-items="ViewBag.SubCountyId">
+                    <option value="">Select</option>
+                </select>
+                <span asp-validation-for="SubCountyId" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-6 col-xs-6">
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="clearfix"></div>
+            <div class="form-group col-md-6 col-xs-6">
+                <label asp-for="MiddleName" class="control-label"></label>
+                <input asp-for="MiddleName" class="form-control" />
+                <span asp-validation-for="MiddleName" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-6 col-xs-6">
+                <label asp-for="Surname" class="control-label"></label>
+                <input asp-for="Surname" class="form-control" />
+                <span asp-validation-for="Surname" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-6 col-xs-6">
+                <label asp-for="PhoneNumber" class="control-label"></label>
+                <input asp-for="PhoneNumber" class="form-control" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-6 col-xs-6">
+                <label asp-for="IdNumber" class="control-label"></label>
+                <input asp-for="IdNumber" class="form-control" />
+                <span asp-validation-for="IdNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-6 col-xs-6">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-6 col-xs-6">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-6 col-xs-6">
+                <label asp-for="ConfirmPassword" class="control-label"></label>
+                <input asp-for="ConfirmPassword" class="form-control" />
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-12 col-xs-12">
+                <a asp-action="Index" class="btn btn-danger glyphicon glyphicon-step-backward pull-left"> Back</a>
+                <button type="submit" class="btn btn-success pull-right margin-top-25">
+                    <i class="glyphicon glyphicon-ok-sign"></i> Save
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

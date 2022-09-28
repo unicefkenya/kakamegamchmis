@@ -1,0 +1,54 @@
+﻿@model IEnumerable<MCHMIS.Models.SMS>
+
+@{
+    ViewData["Title"] = "SMS";
+}
+@section buttons
+    {
+    <a class="btn btn-primary" asp-action="Create">Add New</a>
+}
+<table id="table-filter" class="table table-striped table-bordered table-hover">
+    <thead>
+        <tr>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Message)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Order)
+            </th>
+            <th>
+                Triger
+            </th>
+            <th class="fit">Edit</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Message)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Order)
+            </td>
+            <td>
+                
+                @if (item.ClinicVisit != null && !string.IsNullOrEmpty(item.TriggerEvent))
+                {
+                  <span>@item.ClinicVisit.Name - @item.TriggerEvent</span>
+                }
+                else
+                {
+                    <span>@(item.ClinicVisit == null ? item.TriggerEvent : item.ClinicVisit.Name)</span>
+                }
+            </td>
+            <td class="text-center">
+                <a asp-action="Edit" class="fa fa-pencil" asp-route-id="@item.Id"> </a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

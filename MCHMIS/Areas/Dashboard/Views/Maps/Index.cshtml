@@ -1,0 +1,83 @@
+﻿@{
+    ViewData["Title"] = "Maps";
+}
+<div class="row">
+    <div class="col-md-12 ">
+        <div class="filter-cont">
+            <div class="row">
+                <div class="col-md-3">
+                    <label class="control-label">Reporting Period</label>
+                    <select id="PeriodId" class="form-control col-md-3" asp-items="ViewBag.PeriodId"></select>
+                </div>
+                <div class="col-md-4">
+                    <label class="control-label">Indicator</label>
+                    <select id="IndicatorId" class="form-control col-md-3" asp-items="ViewBag.IndicatorId"></select>
+                </div>
+                <div class="col-md-3">
+                    <label class="control-label">Health Facility</label>
+                    <select id="HealthFacilityId" class="form-control col-md-3 filter-list" asp-items="ViewBag.HealthFacilityId">
+                        <option value="">All</option>
+                    </select>
+                </div>
+
+                <div class="col-md-2 pull-left">
+                    <button type="submit" class="btn btn-success btn-filter-dashboard">
+                        <i class="glyphicon glyphicon-search"></i> Filter
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<p class="text-center map-info-label">Hover on a ward to see the details. Use Mouse Wheel to zoom in and out. This will display ward names which are not visible.</p>
+<div id="map-container"></div>
+<input type="hidden" id="geojson" />
+
+@section scripts
+    {
+    <script src="~/maps/highmaps.js"></script>
+    <script src="~/maps/modules/data.js"></script>
+    <script src="~/maps/modules/exporting.js"></script>
+    <script src="~/js/maps.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+            $('.btn-filter-dashboard').on('click', getData);
+
+            var root = $('#RootUrl').val();
+
+            var scope = angular.element(document.querySelector('body')).scope();
+
+            setTimeout(function() {
+                $('#PeriodId').val('@ViewBag.CurrentPeriodId');
+                $('#IndicatorId').val('@ViewBag.CurrentIndicatorId');
+                showLoader();
+                $.getJSON('/maps/shape-files/kk_CASWard.json', function(geojson) {
+                    $('#geojson').val(JSON.stringify(geojson));
+                    getData();
+                });
+
+            },100);
+
+        });
+        function getData() {
+            showLoader();
+            $.post('Maps/FirstChart', { 'Id': $('#PeriodId').val(), 'IndicatorId': $('#IndicatorId').val(), 'HealthFacilityId': $('#HealthFacilityId').val() })
+                .done(function(data) {
+                    hideLoader();
+                    var scope = angular.element(document.querySelector('body')).scope();
+                    scope.$apply(function(filter) {
+                        scope.data = data;
+                        scope.peak = data.peak;
+                        setTimeout(function() {
+                                BeneficiariesMaps(data);
+                            },
+                            10);
+
+                    });
+
+                })
+                .fail(ajaxError);
+        }
+    </script>
+}

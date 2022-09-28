@@ -1,0 +1,118 @@
+﻿@model IEnumerable<HouseholdRegMember>
+
+@{
+    ViewData["Title"] = "Household Demographics";
+
+}
+
+<ul class="nav nav-tabs">
+    <li>
+        <a asp-action="Dwelling" asp-route-id="@ViewBag.CVListDetailsId">
+            <i class="fa fa-home"></i> DWELLING AND HOUSEHOLD
+        </a>
+    </li>
+    <li class="active">
+        <a asp-action="Demographics" asp-route-id="@ViewBag.CVListDetailsId">
+            <i class="fa fa-group"></i> HOUSEHOLD DEMOGRAPHICS
+        </a>
+    </li>
+</ul>
+<hr />
+@section buttons{
+    <a class="btn btn-primary lnk-modal" asp-route="CVAddMemberRoute" asp-route-householdId="@ViewBag.HouseHoldId" asp-route-id="">Add Member</a>
+}
+<div class="cont-instructions">
+    <p><strong>NOTE:</strong></p>
+    <ol>
+        <li>Head of the household: the most responsible/respectable member of the household who makes key decisions of the household on a day to day basis and whose authority is recognized by all members of the household</li>
+        <li>Add members of the household by nuclear family; starting with the head and his wife and children, beginning with the eldest and working down to the youngest</li>
+    </ol>
+</div>
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Relationship)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MiddleName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Surname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DOB)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Gender)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MaritalStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdentificationFormId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdNumber)
+            </th>
+            <th>Edit</th>
+            <th>View</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Relationship.Code)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MiddleName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Surname)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.DOB)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Gender.Code)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MaritalStatus.Code)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdentificationForm.Code)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdNumber)
+                </td>
+                <td class="fit">
+                    <a class="fa fa-pencil lnk-modal" asp-route="CVAddMemberRoute" asp-route-id="@item.Id" asp-route-householdId="@ViewBag.HouseHoldId"></a>
+                </td>
+                <td class="fit">
+                    <a asp-action="MemberDetails" class="fa fa-eye lnk-modal" asp-route-id="@item.Id"></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a asp-action="Index" class="btn btn-danger glyphicon glyphicon-step-backward pull-left"> Back</a>
+@if (ViewBag.StatusId != null && ViewBag.StatusId.Equals(1))
+{
+    <form asp-action="SaveHousehold">
+        <input type="hidden" name="Id" value="@ViewBag.HouseHoldId" />
+        <button type="submit" class="btn btn-success pull-right">
+            <i class="glyphicon glyphicon-ok-sign"></i> Save
+        </button>
+    </form>
+
+}

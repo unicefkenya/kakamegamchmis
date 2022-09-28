@@ -1,0 +1,135 @@
+﻿@using X.PagedList.Mvc.Core
+@model MCHMIS.ViewModels.AuditTrailListViewModel
+
+@{
+    ViewData["Title"] = "Audit Trail";
+}
+<form asp-action="Index" class="form-paginated">
+    <button type="submit" class="btn btn-success pull-left btn-export inline">
+        <i class="fa fa-file-excel-o"></i> Export
+    </button>
+    <div class="col-md-2">
+        <label asp-for="UserId" class="control-label"></label>
+        <select asp-for="UserId" class="form-control filter-list" asp-items="ViewBag.UserId">
+            <option value="">Select</option>
+        </select>
+    </div>
+    <div class="col-md-2">
+        <label asp-for="ChangeType" class="control-label"></label>
+        <select asp-for="ChangeType" class="form-control" asp-items="ViewBag.ChangeType">
+            <option value="">Select</option>
+        </select>
+    </div>
+    <div class="col-md-2">
+        <label asp-for="TableName" class="control-label"></label>
+        <select asp-for="TableName" class="form-control filter-list" asp-items="ViewBag.Table">
+            <option value="">Select</option>
+        </select>
+    </div>
+    <div class="col-md-1">
+        <label asp-for="FieldName" class="control-label"></label>
+        <input type="text" asp-for="FieldName" class="form-control" />
+    </div>
+    <div class="col-md-3">
+    <div class="row">
+        <div class="col-md-6">
+            <label asp-for="StartDate" class="control-label"></label>
+            <div class='input-group date'>
+
+                @Html.EditorFor(model => model.StartDate, new {htmlAttributes = new {@class = "form-control"}})
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <label asp-for="EndDate" class="control-label"></label>
+            <div class='input-group date'>
+
+                @Html.EditorFor(model => model.EndDate, new {htmlAttributes = new {@class = "form-control"}})
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+            </div>
+        </div>
+        </div>
+    </div>
+    <div class="col-md-2 pull-left">
+        <button type="submit" class="btn btn-success  btn-filter-report pull-left btn-filter inline">
+            <i class="glyphicon glyphicon-search"></i> Search
+        </button>
+        <button type="button" class="btn btn-default btn-reset pull-left btn-filter inline">
+            <i class="fa fa-eraser"></i> Clear
+        </button>
+    </div>
+    <input asp-for="Option" type="hidden" value="filter" />
+    <input type="hidden" name="Page" id="pagination-page" value="1" />
+</form>
+<hr />
+<table class="table table-striped table-bordered">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.AuditTrail.User.UserName)
+        </th>
+        <th>
+            Name
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.AuditTrail.ChangeType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AuditTrail.TableName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AuditTrail.RecordId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AuditTrail.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AuditTrail.Date)
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model.AuditTrails)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.UserName)
+            </td>
+            <td class="fit">
+                @Html.DisplayFor(modelItem => item.User.DisplayName)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.ChangeType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TableName)
+            </td>
+            <td class="fit">
+                @Html.DisplayFor(modelItem => item.RecordId)
+            </td>
+            <td>
+                @Html.Raw(item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                <a asp-action="Details" class="fa fa-eye" asp-route-id="@item.Id"></a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+<div class="row">
+    <div class="col-md-12">
+        Page @(Model.AuditTrails.PageCount < Model.AuditTrails.PageNumber ? 0 : Model.AuditTrails.PageNumber) of @Model.AuditTrails.PageCount, Showing @(((Model.AuditTrails.PageNumber-1)* Model.AuditTrails.PageSize) + @Model.AuditTrails.Count) of @Model.AuditTrails.TotalItemCount
+        @Html.PagedListPager(Model.AuditTrails, page => Url.Action("Index", new {page = page}))
+    </div>
+</div>

@@ -1,0 +1,155 @@
+﻿@model MCHMIS.Areas.Dashboard.ViewModels.TrendsViewModel
+@{
+    ViewData["Title"] = "Trends";
+}
+
+<div class="row">
+    <div class="col-md-12 ">
+        <div class="filter-cont">
+            <div class="row">
+                <div class="col-md-4  col-xs-4">
+                    <label class="control-label">Indicator</label>
+                    <select id="IndicatorId" class="form-control col-md-3" asp-items="ViewBag.IndicatorId"></select>
+                </div>
+                <div class="col-md-2  col-xs-4">
+                    <label class="control-label">Health Facility</label>
+                    <select id="HealthFacilityId" class="form-control col-md-3 filter-list" asp-items="ViewBag.HealthFacilityId">
+                        <option value="">All</option>
+                    </select>
+                </div>
+                <div class="col-md-2 col-xs-4">
+                    <label class="control-label">Start Period</label>
+                    <select asp-for="StartPeriodId" class="form-control filter-list" asp-items="ViewBag.PeriodId">
+                        <option value="">All</option>
+                    </select>
+                </div>
+
+                <div class="col-md-2  col-xs-4">
+                    <label class="control-label">End Period</label>
+                    <select asp-for="EndPeriodId" class="form-control filter-list" asp-items="ViewBag.PeriodId">
+                        <option value="">All</option>
+                    </select>
+                </div>
+                <div class="col-md-2 pull-left">
+                    <button type="submit" class="btn btn-success btn-filter-dashboard">
+                        <i class="glyphicon glyphicon-search"></i> Filter
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row dashboard-row">
+
+    <div class="row dashboard-row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="dashboard">
+
+                <div class=" top_tiles">
+
+                    <div class="col-md-12 chart" id="linechat">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+
+<script>
+
+    $(document).ready(function () {
+        $('.btn-filter-dashboard').on('click', getData);
+        Highcharts.setOptions({
+            lang: {
+                thousandsSep: ','
+            },
+            credits: {
+                enabled: false
+            }
+        });
+        getData();
+        var colors = ['#1e8a2b', '#03A9F4', '#ff0707', '#e400ff', '#8B6529', '#839118', '#5b9f35', '#98918F'];
+
+        function getData() {
+
+            showLoader();
+            $.post('Trends/FirstChart',
+                {
+                    'IndicatorId': $('#IndicatorId').val(),
+                    'HealthFacilityId': $('#HealthFacilityId').val(),
+                    'StartPeriodId': $('#StartPeriodId').val(),
+                    'EndPeriodId': $('#EndPeriodId').val()
+                })
+                .done(function (data) {
+                    hideLoader();
+                    var scope = angular.element(document.querySelector('body')).scope();
+                    scope.$apply(function (filter) {
+                        scope.data = data;
+                        scope.peak = data.peak;
+                        setTimeout(function () {
+                            registrationCharts(data);
+
+                        },
+                            10);
+
+                    });
+
+                })
+                .fail(ajaxError);
+        }
+
+        function registrationCharts(data) {
+            //console.log(data);
+            var myData = data.data;
+            var mySeries = [];
+            for (var i = 0; i < myData.length; i++) {
+                mySeries.push({ name: myData[i].category, data: myData[i].values });
+            }
+
+            var title = $("#IndicatorId option:selected").text() + ' Trends';
+
+            $('.lbltitle').text(title);
+            Highcharts.chart('linechat',
+                {
+                    chart: {
+                        type: 'spline'
+                    },
+
+                    title: {
+                        text: title
+                    },
+                    colors: colors,
+
+                    plotOptions: {
+                        series: {
+                            animation: {
+                                duration: 3000
+                            }
+                        }
+                    },
+                    yAxis: {
+
+                        plotLines: [{
+                            value: 0,
+                            width: 1
+                        }]
+                    },
+                    xAxis: {
+                        categories: data.categories
+                    },
+                    series:
+                        mySeries
+
+                });
+
+            setTimeout(function () {
+                $('.highcharts-container').addClass('hvr-glow');
+            },
+                2000);
+        }
+    });
+</script>
+}

@@ -1,0 +1,201 @@
+﻿@using Newtonsoft.Json
+@using X.PagedList.Mvc.Core
+@model MCHMIS.ViewModels.BeneficiaryListViewModel
+@{
+    ViewData["Title"] = "Beneficiaries";
+    var tasks = User.FindFirst("UserRoles").Value;
+}
+@section buttons
+    {
+
+    @if (tasks.Contains("Generate Enrolment Lists"))
+    {
+        <a class="btn btn-primary lnk-modal margin-right-10" asp-action="GenerateList">Generate Enrolment List</a>
+    }
+    @if (tasks.Contains("View Enrolment Lists"))
+    {
+        <a class="btn btn-primary" asp-action="lists">View Enrolment Lists</a>
+    }
+}
+<form asp-action="Index" class="form-paginated">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="form-group col-md-2">
+        <label asp-for="UniqueId" class="control-label"></label>
+        <input asp-for="UniqueId" class="form-control" />
+    </div>
+    <div class="form-group col-md-2">
+        <label asp-for="IdNumber" class="control-label"></label>
+        <input asp-for="IdNumber" class="form-control" />
+    </div>
+    <div class="form-group col-md-2">
+        <label asp-for="Name" class="control-label"></label>
+        <input asp-for="Name" class="form-control" />
+    </div>
+    <div class="form-group col-md-1">
+        <label asp-for="HealthFacilityId" class="control-label"></label>
+        <select asp-for="HealthFacilityId" class="form-control filter-list" asp-items="ViewBag.HealthFacilityId">
+            <option value="">Select</option>
+        </select>
+    </div>
+    <div class="form-group col-md-1">
+        <label asp-for="SubCountyId" class="control-label"></label>
+        <select asp-for="SubCountyId" class="form-control filter-list" ng-model="SubCountyId" asp-items="ViewBag.SubCountyId">
+            <option value="">Select</option>
+        </select>
+    </div>
+    <div class="form-group col-md-1">
+        <label asp-for="WardId" class="control-label"></label>
+        <select asp-for="WardId" class="form-control filter-list" ng-model="WardId">
+            <option value="">Select</option>
+            <option ng-repeat="item in wards | filter: {SubCountyId: SubCountyId}" value="{{item.Id}}">
+                {{item.Name}}
+            </option>
+        </select>
+    </div>
+    <div class="form-group col-md-1">
+        <label asp-for="StatusId" class="control-label"></label>
+        <select asp-for="StatusId" class="form-control" asp-items="ViewBag.StatusId">
+            <option value="">Select</option>
+        </select>
+    </div>
+    <div class="col-md-2 pull-left">
+        <button type="submit" class="btn btn-success pull-left btn-filter inline">
+            <i class="glyphicon glyphicon-search"></i> Search
+        </button>
+        <button type="button" class="btn btn-default btn-reset pull-left btn-filter inline">
+            <i class="fa fa-eraser"></i> Clear
+        </button>
+    </div>
+    <input type="hidden" name="Page" id="pagination-page" value="1" />
+</form>
+<hr />
+<p>@Model.Beneficiaries.TotalItemCount.ToString("##,##0") @Model.Status  Mothers</p>
+<div class="scrollable">
+
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+
+                <th>Unique ID</th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Beneficiary.BeneficiaryName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Beneficiary.RecipientName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Beneficiary.RecipientPhone)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Beneficiary.HealthFacilityId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Beneficiary.IdNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Beneficiary.DOB)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Beneficiary.EDD)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Beneficiary.Village.Ward.SubCountyId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Beneficiary.Village.Ward)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Beneficiary.Village.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Beneficiary.DateEnrolled)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Beneficiary.Status)
+                </th>
+                <th>View</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Beneficiaries)
+            {
+                <tr>
+
+                    <td> @Html.DisplayFor(model => item.UniqueId)</td>
+
+                    <td>
+                        @Html.DisplayFor(model => item.BeneficiaryName)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(model => item.RecipientName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => item.RecipientPhone)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => item.HealthFacility.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => item.IdNumber)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(model => item.DOB)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => item.EDD)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => item.Village.Ward.SubCounty.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => item.Village.Ward.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => item.Village.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => item.DateEnrolled)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => item.Status.Name)
+                    </td>
+                    <td class="text-center">
+                        <a asp-action="Statement" asp-area="Reports" asp-controller="Beneficiary" class="fa fa-eye" asp-route-id="@item.HouseholdId"></a>
+                    </td>
+                </tr>
+
+            }
+            @if (!Model.Beneficiaries.Any())
+            {
+                <tr>
+                    <td class="dataTables_empty" colspan="21">
+                        No data found.
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div class="row">
+    <div class="col-md-12 with-count">
+        Page @(Model.Beneficiaries.PageCount < Model.Beneficiaries.PageNumber ? 0 : Model.Beneficiaries.PageNumber) of @Model.Beneficiaries.PageCount, Showing @(((Model.Beneficiaries.PageNumber-1)* Model.Beneficiaries.PageSize) + @Model.Beneficiaries.Count) of @Model.Beneficiaries.TotalItemCount
+        @Html.PagedListPager(Model.Beneficiaries, page => Url.Action("Index", new { page = page }))
+    </div>
+</div>
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            var scope = angular.element(document.querySelector('body')).scope();
+            scope.$apply(function (filter) {
+                scope.Wards = @Html.Raw(JsonConvert.SerializeObject(Model.Wards));
+                scope.WardId = '@Model.WardId';
+            });
+            setTimeout(function() {
+                $('#WardId').val('@Model.WardId');
+            },100);
+        });
+    </script>
+}

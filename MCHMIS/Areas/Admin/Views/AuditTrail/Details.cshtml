@@ -1,0 +1,68 @@
+﻿@model MCHMIS.Models.AuditTrail
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<table class="table table-bordered action-complaint-details">
+    <tr>
+        <td width="200">@Html.LabelFor(model => model.TableName)</td>
+        <td><span>@Model.TableName</span></td>
+    </tr>
+    <tr>
+        <td width="200">Username</td>
+        <td><span>@Model.User.UserName</span></td>
+    </tr>
+    <tr>
+        <td width="200">@Html.LabelFor(model => model.UserId)</td>
+        <td><span>@Model.User.FullName</span></td>
+    </tr>
+    <tr>
+        <td width="200">@Html.LabelFor(model => model.PCName)</td>
+        <td><span>@Model.PCName</span></td>
+    </tr>
+    <tr>
+        <td width="200">@Html.LabelFor(model => model.ChangeType)</td>
+        <td><span>@Model.ChangeType</span></td>
+    </tr>
+    <tr>
+        <td width="200">@Html.LabelFor(model => model.Description)</td>
+        <td><span>@Html.Raw(Model.Description)</span></td>
+    </tr>
+
+    <tr>
+        <td width="200">@Html.LabelFor(model => model.RecordId)</td>
+        <td><span>@Model.RecordId</span></td>
+    </tr>
+    <tr>
+        <td width="200">@Html.LabelFor(model => model.NewValue)</td>
+        <td>
+            @if (!string.IsNullOrEmpty(Model.NewValue))
+            {
+                <span>
+                    @Html.Raw(Model.NewValue.Replace(",\"", ",<br />\"").Replace("{", "{<br />").Replace("}", "<br />}"))
+                </span>
+            }
+        </td>
+        </ tr>
+        @*<tr>
+                <td width="200">@Html.LabelFor(model => model.OldValue)</td>
+                <td><span>@Html.Raw(Model.OldValue) </span></td>
+            </tr>*@
+    <tr>
+        <td width="200">@Html.LabelFor(model => model.RequestIpAddress)</td>
+        <td><span>@Model.RequestIpAddress</span></td>
+    </tr>
+    <tr>
+        <td width="200">@Html.LabelFor(model => model.UserAgent)</td>
+        <td><span>@Model.UserAgent</span></td>
+    </tr>
+    <tr>
+        <td width="200">@Html.LabelFor(model => model.Date)</td>
+        <td><span>@Model.Date</span></td>
+    </tr>
+</table>
+
+<a asp-action="Index" class="btn btn-danger">
+    <i class="glyphicon glyphicon-step-backward"></i> Back
+</a>

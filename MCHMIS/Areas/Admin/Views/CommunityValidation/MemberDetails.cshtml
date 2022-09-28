@@ -1,0 +1,104 @@
+﻿@model MCHMIS.Models.HouseholdRegMember
+
+@{
+    ViewData["Title"] = "Member Details";
+    Layout = "~/Views/Shared/_LayoutPopupBig.cshtml";
+}
+<div class="row">
+    <div class="col-md-6">
+        <table class="table table-bordered">
+            <tr>
+                <td><strong> @Html.DisplayNameFor(model => model.Relationship)</strong></td>
+                <td> @Html.DisplayFor(model => model.Relationship.Code)</td>
+            </tr>
+            <tr>
+                <td> <strong>@Html.DisplayNameFor(model => model.FirstName)</strong></td>
+                <td> @Html.DisplayFor(model => model.FirstName)</td>
+            </tr>
+            <tr>
+                <td> <strong>@Html.DisplayNameFor(model => model.MiddleName)</strong></td>
+                <td> @Html.DisplayFor(model => model.MiddleName)</td>
+            </tr>
+            <tr>
+                <td> <strong>@Html.DisplayNameFor(model => model.Surname)</strong></td>
+                <td> @Html.DisplayFor(model => model.Surname)</td>
+            </tr>
+            <tr>
+                <td> <strong>@Html.DisplayNameFor(model => model.Gender)</strong></td>
+                <td> @Html.DisplayFor(model => model.Gender.Code)</td>
+            </tr>
+            <tr>
+                <td> <strong>@Html.DisplayNameFor(model => model.IdentificationFormId)</strong></td>
+                <td> @Html.DisplayFor(model => model.IdentificationForm.Code)</td>
+            </tr>
+            <tr>
+                <td class="fit"> <strong>@Html.DisplayNameFor(model => model.IdNumber)</strong></td>
+                <td> @Html.DisplayFor(model => model.IdNumber)</td>
+            </tr>
+            <tr>
+                <td> <strong>@Html.DisplayNameFor(model => model.MaritalStatus)</strong></td>
+                <td> @Html.DisplayFor(model => model.MaritalStatus.Code)</td>
+            </tr>
+            <tr>
+                <td> <strong>@Html.DisplayNameFor(model => model.DOB)</strong></td>
+                <td> @Html.DisplayFor(model => model.DOB)</td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-md-6">
+        <table class="table table-bordered">
+            <tr>
+                <td><strong> @Html.DisplayNameFor(model => model.SpouseInHouseholdId)</strong></td>
+                <td> @Html.DisplayFor(model => model.SpouseInHousehold.Code)</td>
+            </tr>
+            <tr>
+                <td><strong> @Html.DisplayNameFor(model => model.FatherAliveId)</strong></td>
+                <td> @Html.DisplayFor(model => model.FatherAlive.Code)</td>
+            </tr>
+            <tr>
+                <td><strong> @Html.DisplayNameFor(model => model.MotherAliveId)</strong></td>
+                <td> @Html.DisplayFor(model => model.MotherAlive.Code)</td>
+            </tr>
+            <tr>
+                <td><strong> @Html.DisplayNameFor(model => model.ChronicIllnessId)</strong></td>
+                <td> @Html.DisplayFor(model => model.ChronicIllness.Code)</td>
+            </tr>
+            <tr>
+                <td><strong> @Html.DisplayNameFor(model => model.DisabilityType)</strong></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><strong> @Html.DisplayNameFor(model => model.DisabilityRequires24HrCareId)</strong></td>
+                <td> @Html.DisplayFor(model => model.DisabilityRequires24HrCare.Code)</td>
+            </tr>
+            <tr>
+                <td><strong> @Html.DisplayNameFor(model => model.DisabilityCaregiver)</strong></td>
+                <td> @Html.DisplayFor(model => model.DisabilityCaregiver.FullName)</td>
+            </tr>
+            <tr>
+                <td><strong> @Html.DisplayNameFor(model => model.EducationAttendanceId)</strong></td>
+                <td> @Html.DisplayFor(model => model.EducationAttendance.Code)</td>
+            </tr>
+            <tr>
+                <td><strong> @Html.DisplayNameFor(model => model.EducationLevelId)</strong></td>
+                <td> @Html.DisplayFor(model => model.EducationLevel.Code)</td>
+            </tr>
+            <tr>
+                <td><strong> @Html.DisplayNameFor(model => model.SchoolTypeId)</strong></td>
+                <td> @Html.DisplayFor(model => model.SchoolType.Code)</td>
+            </tr>
+            <tr>
+                <td><strong> @Html.DisplayNameFor(model => model.OccupationTypeId)</strong></td>
+                <td> @Html.DisplayFor(model => model.OccupationType.Code)</td>
+            </tr>
+            <tr>
+                <td class="fit"><strong> @Html.DisplayNameFor(model => model.FormalJobTypeId)</strong></td>
+                <td> @Html.DisplayFor(model => model.FormalJobType.Code)</td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-md-12 padding-top">
+        <hr />
+        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+    </div>
+</div>

@@ -1,0 +1,24 @@
+﻿<ul class="nav nav-tabs">
+    <li class="unusualamounts">
+        <a asp-action="UnusualAmounts" asp-route-id="@ViewBag.PrePayrollCheckId"><i class="fa fa-money"></i> Unusual Amounts</a>
+    </li>
+    <li class="recipientchange">
+        <a asp-action="RecipientChange" asp-route-id="@ViewBag.PrePayrollCheckId">
+            <i class="fa fa-group" aria-hidden="true"></i> Change of Recipient
+        </a>
+    </li>
+    <li class="duplicatesphones">
+        <a asp-action="DuplicatesPhones" asp-route-id="@ViewBag.PrePayrollCheckId">
+            <i class="fa fa-group" aria-hidden="true"></i> Duplicate Recipient Phone Numbers
+        </a>
+    </li>
+
+    <li class="duplicatesids">
+        <a asp-action="DuplicatesIds" asp-route-id="@ViewBag.PrePayrollCheckId"><i class="fa fa-group"></i> Duplicate National Ids</a>
+    </li>
+    <li class="phonenumbervalidation">
+        <a asp-action="PhoneNumberValidation" asp-route-id="@ViewBag.PrePayrollCheckId">
+            <i class="fa fa-mobile-phone"></i> Phone Numbers Validation
+        </a>
+    </li>
+</ul>

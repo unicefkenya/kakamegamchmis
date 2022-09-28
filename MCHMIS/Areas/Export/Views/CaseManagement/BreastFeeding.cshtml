@@ -1,0 +1,95 @@
+﻿@using Newtonsoft.Json
+
+@model MCHMIS.Areas.Reports.ViewModels.CaseManagementListViewModel
+
+@{
+}
+
+@if (Model.ChildrenBreastFeeding != null)
+{
+    <table class="table table-striped table-bordered ">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.BreastFeeding.ChildName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BreastFeeding.DOB)
+                </th>
+                <th>Mother's Unique ID</th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BreastFeeding.MotherName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BreastFeeding.CommonName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BreastFeeding.Phone)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.BreastFeeding.SubCounty)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BreastFeeding.Ward)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BreastFeeding.Village)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.ChildrenBreastFeeding)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ChildName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DOB)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UniqueId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MotherName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CommonName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Phone)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SubCounty)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ward)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Village)
+                    </td>
+                </tr>
+            }
+            @if (!Model.ChildrenBreastFeeding.Any())
+            {
+                <tr>
+                    <td colspan="9" class="dataTables_empty">No data found.</td>
+                </tr>
+            }
+        </tbody>
+        @if (Model.ChildrenBreastFeeding.Any())
+        {
+            <tfoot>
+                <tr>
+                    <td colspan="8">
+                        <strong>Total</strong>
+                    </td>
+                    <td>
+                       <strong>@Html.DisplayFor(modelItem => modelItem.Total)</strong>
+                    </td>
+                </tr>
+            </tfoot>
+        }
+    </table>
+}

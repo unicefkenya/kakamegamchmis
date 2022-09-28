@@ -1,0 +1,62 @@
+﻿@model IEnumerable<MCHMIS.Models.CommunityArea>
+
+@{
+    ViewData["Title"] = "Community Areas";
+}
+
+@section buttons{
+
+    <a asp-action="Create" class="margin-right-10">Create New</a>
+}
+
+<table id="table-filter" class="table table-striped table-bordered">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Code)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Village)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Village.Ward)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Village.Ward.SubCounty)
+        </th>
+        <th class="fit">Community Areas</th>
+        <th class="fit">Edit</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Code)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Village.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Village.Ward.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Village.Ward.SubCounty.Name)
+            </td>
+            <td class="text-center">
+                <a asp-controller="CommunityAreas" class="fa fa-eye" asp-action="Index" asp-route-id="@item.Id"></a>
+            </td>
+            <td class="text-center">
+                <a asp-action="Edit" class="fa fa-pencil" asp-route-id="@item.Id"></a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

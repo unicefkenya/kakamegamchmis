@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+             xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+             x:Class="MCHMIS.Mobile.Pages.ConfirmNoOneAtHome">
+    <pages:PopupPage.Resources>
+        <StyleSheet  Source="Styles.css" />
+    </pages:PopupPage.Resources>
+    <pages:PopupPage.Animation>
+        <animations:ScaleAnimation
+            PositionIn="Center"
+            PositionOut="Center"
+            ScaleIn="1.2"
+            ScaleOut="0.8"
+            DurationIn="400"
+            DurationOut="300"
+            EasingIn="SinOut"
+            EasingOut="SinIn"
+            HasBackgroundAnimation="True" />
+    </pages:PopupPage.Animation>
+    <StackLayout BackgroundColor="White"
+                 VerticalOptions="Center"
+                 HorizontalOptions="Center"
+                 Padding="20" Margin="10">
+        <Label StyleClass="boldLabel,full,medium, multiline"   Text="Do you confirm that no one was at home?" />
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Button Grid.Row="0" Grid.Column="0" Text="Close" StyleClass="btn-danger, full,BgKenyaGreen,White" Clicked="btnCloseClickedAsync" HorizontalOptions="Start"></Button>
+            <Button Grid.Row="0" Grid.Column="1"  StyleClass="btn-success, full,BgKenyaGreen,White" Text="Yes"  Command="{Binding EmptyHouseholdCommand}"   HorizontalOptions="End"></Button>
+        </Grid>
+        <ActivityIndicator IsRunning="{Binding IsBusy}" StyleClass="quarter" />
+        <Label Text="{Binding Message}" IsVisible="{Binding IsBusy}" VerticalOptions="Center"  HorizontalOptions="Center" StyleClass="three-quarter" />
+    </StackLayout>
+</pages:PopupPage>

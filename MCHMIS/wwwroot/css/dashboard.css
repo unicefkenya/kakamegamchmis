@@ -1,0 +1,53 @@
+﻿.x_panel {
+    background: #F5F5F5;
+}
+
+.chart {
+    height: 450px;
+    margin-bottom: 20px;
+}
+
+.landing .chart {
+    height: 350px;
+}
+
+.filter-cont {
+    background: #fff;
+    float: left;
+    width: 100%;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-top: none;
+}
+
+.landing-page .filter-cont {
+    margin-bottom: 0;
+    border-bottom: 0;
+}
+
+.landing-page .reporting-header label {
+    font-size: 14px;
+}
+
+.highcharts-container {
+    border: 1px solid #ddd;
+}
+
+.landing-page .highcharts-title tspan {
+    font-size: 14px;
+}
+
+.map-info-label {
+    color: #d58512;
+    font-weight: bold;
+    padding: 10px;
+}
+
+#map-container {
+    height: 600px;
+}
+
+.btn-filter-dashboard {
+    margin-top: 23px
+}

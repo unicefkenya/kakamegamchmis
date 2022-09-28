@@ -1,0 +1,53 @@
+﻿@model MCHMIS.ViewModels.EnrolmentGenerateListViewModel
+@{
+    ViewBag.Title = "Generate Enrolment List?";
+    Layout = "~/Views/Shared/_LayoutPopup.cshtml";
+}
+
+@using (Html.BeginForm("GenerateListConfirmed", "Enrolment", FormMethod.Post, new { @class = "form-vertical form-generate-enrolment", role = "form" }))
+
+{
+    <div class="form-vertical">
+        @if (ViewBag.Count > 0)
+        {
+            <div class="row">
+                <div class="form-group  col-md-12">
+                    Eligible Mothers: @ViewBag.Count <input type="hidden" name="StatusIds" value="1" />
+                    @*<ul class="no-list-style">
+
+                              <li>
+                            <input type="checkbox" name="StatusIds" value="2" /><span> Mothers whose phone numbers were inactive or names didn't match MPESA registered names in previous enrolments but have been updated via Case Management: @ViewBag.Updated</span>
+                        </li>
+                            </ul>*@
+                </div>
+                <div class="form-group col-md-12">
+                    <label asp-for="NoToGenerate" class="control-label"></label>
+                    <input asp-for="NoToGenerate" class="form-control" min="1" max="@ViewBag.Count" />
+                    <span asp-validation-for="NoToGenerate" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-12">
+                    <label asp-for="Notes" class="control-label"></label>
+                    <input asp-for="Notes" class="form-control" />
+                    <span asp-validation-for="Notes" class="text-danger"></span>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="col-md-12 text-danger">
+                No mothers ready for enrolment found.
+            </div>
+        }
+
+        <div class="col-md-12">
+            <hr />
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+            @if (ViewBag.Count > 0)
+            {
+                <button type="submit" class="btn btn-success pull-right">
+                    <i class="glyphicon glyphicon-ok-sign"></i> Generate
+                </button>
+            }
+        </div>
+    </div>
+}

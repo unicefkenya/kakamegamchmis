@@ -1,0 +1,111 @@
+﻿@model MCHMIS.ViewModels.ChangesListViewModel
+@{
+    ViewData["Title"] = "Enrolment List Details";
+}
+<form asp-action="MPesaDetails" class="form-paginated">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="Option" />
+    <div class="form-group col-md-2">
+        <label asp-for="UniqueId" class="control-label"></label>
+        <input asp-for="UniqueId" class="form-control" />
+    </div>
+    <div class="form-group col-md-2">
+        <label asp-for="IdNumber" class="control-label"></label>
+        <input asp-for="IdNumber" class="form-control" />
+    </div>
+    <div class="form-group col-md-2">
+        <label asp-for="Name" class="control-label"></label>
+        <input asp-for="Name" class="form-control" />
+    </div>
+    <div class="form-group col-md-1">
+        <label asp-for="HealthFacilityId" class="control-label"></label>
+        <select asp-for="HealthFacilityId" class="form-control filter-list" asp-items="ViewBag.HealthFacilityId">
+            <option value="">Select</option>
+        </select>
+    </div>
+    <div class="form-group col-md-1">
+        <label asp-for="SubCountyId" class="control-label"></label>
+        <select asp-for="SubCountyId" class="form-control filter-list" ng-model="SubCountyId" asp-items="ViewBag.SubCountyId">
+            <option value="">Select</option>
+        </select>
+    </div>
+    <div class="form-group col-md-1">
+        <label asp-for="WardId" class="control-label"></label>
+        <select asp-for="WardId" class="form-control filter-list" ng-model="WardId">
+            <option value="">Select</option>
+            <option ng-repeat="item in wards | filter: {SubCountyId: SubCountyId}" value="{{item.Id}}">
+                {{item.Name}}
+            </option>
+        </select>
+    </div>
+    <div class="form-group col-md-1">
+        <label asp-for="StatusId" class="control-label"></label>
+        <select asp-for="StatusId" class="form-control required" asp-items="ViewBag.StatusId">
+            <option value="">Select</option>
+        </select>
+    </div>
+    <div class="col-md-2 pull-left">
+        <button type="submit" class="btn btn-success pull-left btn-filter inline">
+            <i class="glyphicon glyphicon-search"></i> Search
+        </button>
+        <button type="button" class="btn btn-default btn-reset pull-left btn-filter inline">
+            <i class="fa fa-eraser"></i> Clear
+        </button>
+    </div>
+    <input type="hidden" name="Page" id="pagination-page" value="1" />
+</form>
+<hr />
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Change.Household.UniqueId)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Change.Phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Change.RecipientNames)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Change.CustomerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Change.CustomerType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Change.MPESACheckStatusId)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Changes)
+        {
+            <tr class="@Html.DisplayFor(modelItem => item.MPESACheckStatus.Name)">
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Household.UniqueId)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RecipientNames)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustomerName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustomerType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MPESACheckStatus.Name)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a asp-action="Index" class="btn btn-danger glyphicon glyphicon-step-backward pull-left"> Back</a>

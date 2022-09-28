@@ -1,0 +1,111 @@
+﻿@model MCHMIS.ViewModels.PreventiveServicesViewModel
+
+@{
+    ViewData["Title"] = "Pregnancy Data";
+}
+
+@Html.Partial("_Menu")
+
+<div class="x_panel no-border-top">
+    <div class="x_content">
+        <form asp-action="PreventiveServices">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input asp-for="PregnancyId" type="hidden" />
+
+            @*@foreach (var item in Model.Services)
+                {
+                }*@
+            <div class="row">
+                <div class="form-group col-md-3">
+                    <label asp-for="PreventiveServiceId" class="control-label"></label>
+                    <select asp-for="PreventiveServiceId" class="form-control" asp-items="ViewBag.PreventiveServiceId">
+                        <option value="">Select</option>
+                    </select>
+                </div>
+
+                <div class="form-group col-md-3">
+                    <label asp-for="DateGiven" class="control-label"></label>
+                    <div class='input-group date'>
+                        <input asp-for="DateGiven" type="text" class="form-control required no-typing date" autocomplete="off" />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="NextVisit" class="control-label"></label>
+                    <div class='input-group date-future'>
+                        <input asp-for="NextVisit" type="text" class="form-control required no-typing" autocomplete="off" />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    @if (Model.PreventiveServiceId == 0)
+                    {
+                        <button type="submit" class="btn btn-success pull-left btn-inline ">
+                            <i class="glyphicon glyphicon-ok-sign"></i> Save
+                        </button>
+                    }
+                    else
+                    {
+                        <input name="UpdatingPreventiveServiceId" value="@Model.PreventiveServiceId" type="hidden" />
+                        <input asp-for="IsUpdating" type="hidden" />
+                        <button type="submit" class="btn btn-success pull-left btn-inline ">
+                            <i class="glyphicon glyphicon-ok-sign"></i> Update
+                        </button>
+
+                    }
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-12">
+        <h2 class="lbl-title">PREVIOUS PREVENTIVE SERVICES GIVEN</h2>
+        <hr />
+    </div>
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.MotherPreventiveService.PreventiveServiceId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DateGiven)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NextVisit)
+                </th>
+                <th class="fit">Edit</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.MotherPreventiveServices)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PreventiveService.Code)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateGiven)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NextVisit)
+                    </td>
+                    <td>
+                        <a asp-action="PreventiveServices" class="fa fa-pencil" asp-route-id="@item.PregnancyId" asp-route-preventiveServiceId="@item.PreventiveServiceId"></a>
+                    </td>
+                </tr>
+            }
+            @if (!Model.MotherPreventiveServices.Any())
+            {
+                <tr>
+                    <td colspan="4" class="dataTables_empty">No data found</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a asp-action="Index" class="btn btn-danger glyphicon glyphicon-step-backward pull-left"> Back</a>
+</div>

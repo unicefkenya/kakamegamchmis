@@ -1,0 +1,41 @@
+﻿@model MCHMIS.Models.DevelopmentMilestone
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NormalLimits" class="control-label"></label>
+                <input asp-for="NormalLimits" class="form-control" />
+                <span asp-validation-for="NormalLimits" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UpperLimit" class="control-label"></label>
+                <input asp-for="UpperLimit" class="form-control" />
+                <span asp-validation-for="UpperLimit" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LimitTag" class="control-label"></label>
+                <input asp-for="LimitTag" class="form-control" />
+                <span asp-validation-for="LimitTag" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

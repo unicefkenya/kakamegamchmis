@@ -1,0 +1,83 @@
+﻿@using Microsoft.AspNetCore.Http
+<!DOCTYPE html>
+<html>
+<head>
+    @{
+        //var routeData = Request.RequestContext.RouteData;
+        //string controllerName = routeData.GetRequiredString("controller").ToLower();
+        //var user = db.Users.Find(User.Identity.GetUserId());
+
+        // var rootUrl = HttpContext.Request.Url.GetLeftPart(UriPartial.Authority) + Url.Content("~/");
+        var rootUrl = "https://localhost:44334/";
+    }
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewBag.Title - SAGE MIS</title>
+    @* <link href="@rootUrl/Content/bootstrap.css" rel="stylesheet" />
+        <link href="@rootUrl/Content/hover.css" rel="stylesheet" />
+              <link href="@rootUrl/Content/site.css" rel="stylesheet" />*@
+    <link href="~/css/export.css" rel="stylesheet" />
+
+    <style type="text/css">
+        body {
+            margin: 0;
+            padding: 0
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        header, .row {
+            width: 100%;
+            display: block;
+            float: left
+        }
+
+        span.text-center {
+            text-align: center;
+            width: 100%;
+            display: inline-block;
+        }
+
+        h3 {
+            text-transform: uppercase
+        }
+
+        table {
+            page-break-inside: auto
+        }
+
+        tr {
+            page-break-inside: avoid;
+            page-break-after: auto
+        }
+
+        thead {
+            display: table-header-group
+        }
+
+        tfoot {
+            display: table-footer-group
+        }
+    </style>
+</head>
+<body>
+
+    <div class="text-center">
+        <img src="~/images/logo.png" width="150" alt="MCH MIS Logo" />
+
+        <h1>KAKAMEGA COUNTY</h1>
+        <h2>IMARISHA AFYA YA MAMA NA MTOTO</h2>
+        <h3>@ViewBag.Title</h3>
+        <p style="margin-bottom:0px">&nbsp;</p>
+    </div>
+
+    @RenderBody()
+    <p><strong>Downloaded on:</strong> @DateTime.Now.ToString("dd-MM-yyyy hh:mm tt") </p>
+    @if (ViewBag.Name != null)
+    {
+        <p><strong>Downloaded by:</strong> @ViewBag.Name </p>
+    }
+</body>
+</html>

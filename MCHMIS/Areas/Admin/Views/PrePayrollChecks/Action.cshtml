@@ -1,0 +1,67 @@
+﻿@using Newtonsoft.Json
+@model MCHMIS.ViewModels.PrePayrollActionViewModel
+@{
+    Layout = "~/Views/Shared/_LayoutPopup.cshtml";
+    ViewBag.Title = "Pre-Payroll Check Exception";
+
+}
+
+@using (Html.BeginForm("ActionSave", "PrePayrollChecks", FormMethod.Post, new { @class = "form-vertical", role = "form" }))
+
+{
+    <div class="form-vertical">
+        <strong>@Model.ExceptionDetail.Exception.Name</strong>
+
+        @if (Model.ExceptionDetail.Exception.Id == 3)
+        {
+            <p><strong>Amount: </strong>@(((decimal)Model.ExceptionDetail.Amount).ToString("##,###"))</p>
+        }
+
+        <hr />
+        <div class="col-md-6">
+            <strong>Name: </strong>@Model.Beneficiary.BeneficiaryName
+        </div>
+        @if (Model.ExceptionDetail.Exception.Id == 6)
+        {
+            <div class="col-md-6">
+                <strong>Registered Name: </strong>@Model.ExceptionDetail.CustomerName
+            </div>
+        }
+        <div class="col-md-6">
+            <strong>National ID: </strong>@Html.DisplayFor(modelItem => Model.Beneficiary.IdNumber)
+        </div>
+        <div class="col-md-6">
+            <strong>Recipient Phone: </strong>@Html.DisplayFor(modelItem => Model.Beneficiary.RecipientPhone)
+        </div>
+        <div class="col-md-6">
+            <strong>Health Facility: </strong>
+            @Html.DisplayFor(modelItem => Model.Beneficiary.HealthFacility.Name)
+        </div>
+        <div class="col-md-6">
+            <strong>Sub County: </strong> @Html.DisplayFor(modelItem => Model.Beneficiary.Village.Ward.SubCounty.Name)
+            
+        </div>
+        <div class="col-md-6">
+            <strong>Ward: </strong>@Html.DisplayFor(modelItem => Model.Beneficiary.Village.Ward.Name)
+        </div>
+        <hr />
+        <div class="form-group col-md-12 ">
+            <label class="control-label">Action</label>
+            @Html.DropDownList("PayrollActionId", null, htmlAttributes: new { @class = "form-control postback" })
+        </div>
+        <div class="form-group col-md-12 ">
+            <label class="control-label">Notes</label>
+            <span class="field-validation-valid notes-error text-danger">*This field is required.</span>
+            @Html.EditorFor(model => model.Notes, new { htmlAttributes = new { @class = "form-control approval-notes" } })
+        </div>
+        <div class="form-group col-md-12 padding-top">
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-success pull-right btn-save-with-notes">
+                <i class="glyphicon glyphicon-ok-sign"></i> Save
+            </button>
+        </div>
+
+        @Html.HiddenFor(m => m.Id)
+        @Html.HiddenFor(m => m.Page)
+    </div>
+}

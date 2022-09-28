@@ -1,0 +1,14 @@
+﻿body {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.navbar-default {
+    background-color: #A66E10;
+    border-color: #e7e7e7;
+    border: 0;
+}
+
+    .navbar-default .navbar-nav > li > a {
+        color: #ffffff;
+    }

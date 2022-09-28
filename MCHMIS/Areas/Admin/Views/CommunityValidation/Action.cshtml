@@ -1,0 +1,43 @@
+﻿@model MCHMIS.ViewModels.CommunityValidationApprovalsViewModel
+@{
+    ViewBag.Title = "Approvals";
+    Layout = "~/Views/Shared/_LayoutPopup.cshtml";
+}
+
+@using (Html.BeginForm("ActionSave", "CommunityValidation", FormMethod.Post, new { @class = "form-vertical", role = "form" }))
+
+{
+    <div class="form-vertical">
+        <div class="col-md-12">
+            Approve Community Validation List for approval?
+        </div>
+        <div class="col-md-12">
+            <strong>No of Households: </strong>@Model.List.Households
+        </div>
+        <div class="col-md-12">
+            <strong>Date Created: </strong>@Model.List.DateCreated.ToString("dd-MM-yyyy")
+        </div>
+        <div class="col-md-12">
+            <strong>Created by: </strong>@Model.List.CreatedBy.Name
+        </div>
+
+        <hr />
+
+        <div class="form-group col-md-12 ">
+            <label asp-for="Notes" class="control-label"></label>
+            <span class="field-validation-valid notes-error text-danger">*This field is required.</span>
+            <textarea asp-for="Notes" class="form-control approval-notes" />
+        </div>
+        <div class="form-group col-md-12 padding-top">
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-success pull-right btn-approve">
+                <i class="glyphicon glyphicon-ok-sign"></i> Approve
+            </button>
+            @*<button type="submit" class="btn btn-danger pull-right btn-reject">
+                <i class="glyphicon glyphicon-remove"></i> Reject
+            </button>*@
+            <input type="hidden" name="Action" id="action" />
+        </div>
+        @Html.HiddenFor(m => m.Id)
+    </div>
+}

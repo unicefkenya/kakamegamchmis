@@ -1,0 +1,53 @@
+﻿<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header bg-success preloader">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModal-label">@ViewBag.Title</h4>
+        </div>
+        <div class="modal-body">
+
+            @RenderBody()
+        </div>
+        @if (ViewBag.ShowFooter != null)
+        {
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        }
+    </div>
+</div>
+@RenderSection("footer", required: false)
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+<script>
+    $('body').on("click", ".btn-approve-status", function () {
+        $('#action').val('4');
+    });
+    $('body').on("click", ".btn-reject-status", function () {
+        if ($('#Notes').val() === '') {
+            $('.notes-error').fadeIn();
+            return false;
+        }
+        $('.notes-error').fadeOut();
+        $('#action').val('5');
+    });
+    $('body').on("click", ".btn-save-with-notes", function () {
+        if ($(this).parents('form').find('#Notes').val() === '') {
+            $('.notes-error').fadeIn();
+            return false;
+        }
+        $('.notes-error').fadeOut();
+        $('#action').val('3');
+    });
+    $('body').on("click", ".btn-approve", function () {
+        $('#action').val('3');
+    });
+    $('body').on("click", ".btn-reject", function () {
+        if ($('#Notes').val() === '') {
+            $('.notes-error').fadeIn();
+            return false;
+        }
+        $('.notes-error').fadeOut();
+        $('#action').val('4');
+    });
+</script>

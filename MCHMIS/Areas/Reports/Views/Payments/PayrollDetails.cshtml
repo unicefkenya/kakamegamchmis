@@ -1,0 +1,134 @@
+﻿@using Newtonsoft.Json
+@using X.PagedList.Mvc.Core
+@model MCHMIS.Areas.Reports.ViewModels.PaymentsViewModel
+
+<partial name="_Search" />
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Payment.Beneficiary.UniqueId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Payment.IdNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Payment.BeneficiaryName)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Payment.RecipientName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Payment.RecipientPhone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Payment.HealthFacilityId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Payment.SubCountyId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Payment.Ward)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Payment.Beneficiary.Village.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Payment.Reconciled)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Payment.StatusId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Payment.TransactionReceipt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Payment.Amount)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Details)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Beneficiary.UniqueId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BeneficiaryName)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.RecipientName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RecipientPhone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HealthFacility.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SubCounty.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Beneficiary.Village.Ward.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Beneficiary.Village.Name)
+                </td>
+                <td>
+                    @(item.Reconciled ? "Yes" : "No")
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status.Name)
+                </td> 
+                <td>
+                    @Html.DisplayFor(modelItem => item.TransactionReceipt)
+                </td>
+                <td>
+                    @if (item.Amount > 2000)
+                    {
+                        <a asp-action="Details" class="text-blue" asp-controller="FundRequests" asp-route-id="@item.FundRequestId" asp-route-UniqueId="@item.Beneficiary.UniqueId">
+                            @Html.DisplayFor(modelItem => item.Amount)
+                        </a>
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(modelItem => item.Amount)
+                    }
+                </td>
+            </tr>
+        }
+        @if (!Model.Details.Any())
+        {
+            <tr>
+                <td colspan="15" class="dataTables_empty">No data found.</td>
+            </tr>
+        }
+    </tbody>
+    @if (Model.Details.Any())
+    {
+        <tfoot>
+            <tr>
+                <td colspan="12">
+                    <strong>Total</strong>
+                </td>
+                <td>
+                    <strong>@Model.Total.ToString("##,###")</strong>
+                </td>
+            </tr>
+        </tfoot>
+    }
+</table>
+<input type="hidden" name="Page" id="pagination-page" value="1" />
+
+<a asp-action="Index" class="btn btn-danger glyphicon glyphicon-step-backward pull-left"> Back</a>
+@Html.PagedListPager(Model.Details, page => Url.Action("Index", new { page }))
+
+@section scripts{
+    <partial name="_Scripts" />
+}

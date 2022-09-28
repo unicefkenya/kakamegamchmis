@@ -1,0 +1,62 @@
+﻿@model MCHMIS.ViewModels.EnrolmentApprovalsViewModel
+@{
+    ViewBag.Title = "Send for approval?";
+    Layout = "~/Views/Shared/_LayoutPopup.cshtml";
+}
+
+@using (Html.BeginForm("Send", "Enrolment", FormMethod.Post, new { @class = "form-vertical", role = "form" }))
+
+{
+    <div class="form-vertical">
+
+        @if (!Model.Option.Equals("import"))
+        {
+            <div class="col-md-12">
+                <strong>No of Households: </strong>
+                @Html.DisplayFor(modelItem => Model.Enrolment.HouseholdsGenerated)
+            </div>
+            <div class="col-md-12">
+                <strong>Date Created: </strong>@Html.DisplayFor(modelItem => Model.Enrolment.DateCreated)
+            </div>
+            <div class="col-md-12">
+                <strong>Created by: </strong> @Html.DisplayFor(modelItem => Model.Enrolment.CreatedBy.Name)
+            </div>
+        }
+        else
+        {
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="col-md-12">
+                        <strong>@Html.DisplayNameFor(modelItem => Model.NotRegistered): </strong> @Html.DisplayFor(modelItem => Model.NotRegistered)
+                    </div>
+                    <div class="col-md-12">
+                        <strong>@Html.DisplayNameFor(modelItem => Model.NamesMismatch): </strong> @Html.DisplayFor(modelItem => Model.NamesMismatch)
+                    </div>
+                    <div class="col-md-12">
+                        <strong>@Html.DisplayNameFor(modelItem => Model.Validated): </strong> @Html.DisplayFor(modelItem => Model.Validated)
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="col-md-12">
+                        <strong>No of Households: </strong>
+                        @Html.DisplayFor(modelItem => Model.Enrolment.HouseholdsGenerated)
+                    </div>
+                    <div class="col-md-12">
+                        <strong>Date Imported: </strong>@Html.DisplayFor(modelItem => Model.Enrolment.DateImported)
+                    </div>
+                    <div class="col-md-12">
+                        <strong>Imported by: </strong> @Html.DisplayFor(modelItem => Model.Enrolment.ImportedBy.Name)
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div class="col-md-12">
+            <hr />
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+            <input type="submit" value="Send" class="btn pull-right btn-primary" />
+        </div>
+        @Html.HiddenFor(m => m.Id)
+        @Html.HiddenFor(m => m.Option)
+    </div>
+}

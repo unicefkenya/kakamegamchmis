@@ -1,0 +1,52 @@
+﻿@if (ViewBag.Message != null)
+{
+    <input type="hidden" id="modal" value="#successModal" />
+    @Html.Partial("_Success", (string)ViewBag.Message)
+
+}
+@if (ViewBag.Error != null)
+{
+    <input type="hidden" id="modal" value="#errorModal" />
+    @Html.Partial("_Error", (string)ViewBag.Error)
+
+}
+@if (ViewBag.Info != null)
+{
+    <input type="hidden" id="modal" value="#infoModal" />
+    @Html.Partial("_Info", (string)ViewBag.Info)
+
+}
+@*Temp Checks*@
+@if (TempData["Message"] != null)
+{
+    <input type="hidden" id="modal" value="#successModal" />
+    @Html.Partial("_Success", (string)TempData["Message"])
+
+}
+@if (TempData["Success"] != null)
+{
+    <input type="hidden" id="modal" value="#successModal" />
+    @Html.Partial("_Success", (string)TempData["Success"])
+
+}
+@if (TempData["Error"] != null)
+{
+    <input type="hidden" id="modal" value="#errorModal" />
+    @Html.Partial("_Error", (string)TempData["Error"])
+
+}
+@if (TempData["Info"] != null)
+{
+    <input type="hidden" id="modal" value="#infoModal" />
+    @Html.Partial("_Info", (string)TempData["Info"])
+
+}
+
+<script>
+    $(window).load(function() {
+        var showModal = $('#modal').val();
+        if (typeof showModal !== 'undefined') {
+            $(showModal).modal('show');
+        }
+    });
+</script>

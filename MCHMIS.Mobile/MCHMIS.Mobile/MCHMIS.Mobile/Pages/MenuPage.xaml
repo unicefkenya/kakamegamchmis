@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MCHMIS.Mobile.Views.MenuPage"
+             Title="Menu">
+    <ContentPage.Resources>
+        <StyleSheet Source="Styles.css" />
+    </ContentPage.Resources>
+    <StackLayout StyleClass="Menu" VerticalOptions="FillAndExpand">
+        <StackLayout StyleClass="menu-logo-holder" VerticalOptions="FillAndExpand">
+            <Image   Source="logo.png" />
+            <Label  Text="{Binding AppVersion}" />
+        </StackLayout>
+        <StackLayout VerticalOptions="FillAndExpand">
+            <ListView x:Name="ListViewMenu" HasUnevenRows="True">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                            <Grid StyleClass="menu-grid">
+                            <Label StyleClass="Menutext, SauGreen" Text="{Binding Title}" />
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        </StackLayout>
+        <FlexLayout StyleClass="menu-footer" VerticalOptions="FillAndExpand">
+            <Label StyleClass="full,LoggedInUser"  Text="{Binding DisplayName, StringFormat='Logged in: {0}'}" />
+           
+        </FlexLayout>
+    </StackLayout>
+</ContentPage>

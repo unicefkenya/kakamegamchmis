@@ -1,0 +1,50 @@
+﻿@model MCHMIS.Areas.Reports.ViewModels.PaymentsViewModel
+
+<form class="form-paginated" method="post" action="@Url.RouteUrl(this.ViewContext.RouteData.Values)">
+
+    <div class="form-group col-md-2 col-xs-3 ">
+        <label asp-for="ReportTypeId" class="control-label"></label>
+        <select asp-for="ReportTypeId" class="form-control" asp-items="ViewBag.ReportTypeId"></select>
+    </div>
+    <div class="form-group col-md-2 col-xs-3 ">
+        <label asp-for="PayrollId" class="control-label"></label>
+        <select asp-for="PayrollId" class="form-control" asp-items="ViewBag.PayrollId"></select>
+    </div>
+
+    <div class="form-group col-md-2 col-xs-3 ">
+        <label asp-for="HealthFacilityId" class="control-label"></label>
+        <select asp-for="HealthFacilityId" class="form-control filter-list" asp-items="ViewBag.HealthFacilityId">
+            <option value="">All</option>
+        </select>
+    </div>
+    <div class="form-group col-md-2 col-xs-3 ">
+        <label asp-for="SubCountyId" class="control-label"></label>
+        <select asp-for="SubCountyId" class="form-control filter-list" ng-model="SubCountyId" asp-items="ViewBag.SubCountyId">
+            <option value="">All</option>
+        </select>
+    </div>
+    <div class="form-group col-md-2 col-xs-3 ">
+        <label asp-for="WardId" class="control-label"></label>
+        <select asp-for="WardId" class="form-control" ng-model="WardId"
+                ng-options="item.Name for item in wards| filter: {SubCountyId: SubCountyId||'-1'} track by item.Id">
+            <option value="">All</option>
+        </select>
+
+        <input asp-for="Option" type="hidden" />
+    </div>
+    <div class="col-md-2">
+        <button type="submit" class="btn btn-success pull-left btn-filter inline btn-filter-report">
+            <i class="glyphicon glyphicon-search"></i> Filter
+        </button>
+        <button type="button" class="btn btn-default btn-reset pull-left btn-filter inline">
+            <i class="fa fa-eraser"></i> Clear
+        </button>
+
+        <input asp-for="Option" type="hidden" />
+    </div>
+    <input type="hidden" name="Page" id="pagination-page" value="1" />
+    <button type="submit" class="btn btn-success pull-left btn-export inline">
+        <i class="fa fa-file-pdf-o"></i> Export
+    </button>
+</form>
+<hr />

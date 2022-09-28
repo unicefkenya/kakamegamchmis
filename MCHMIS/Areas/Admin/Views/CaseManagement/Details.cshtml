@@ -1,0 +1,758 @@
+﻿@model MCHMIS.ViewModels.CaseManagementDetailsViewModel
+@{
+    ViewData["Title"] = "Mother: " + Model.Household.Mother.FullName + ", Unique ID: " + Model.Household.UniqueId;
+    int count = 1;
+    var motherDrugsAdministered = "";
+    var babyDrugsAdministered = "";
+}
+<div class="case-management-details">
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#home">ANTENATAL PROFILE</a></li>
+        <li><a data-toggle="tab" href="#menu1">PREGNANCY DATA</a></li>
+        <li><a data-toggle="tab" href="#menu2">PMTCT INTERVENTIONS</a></li>
+
+        <li><a data-toggle="tab" href="#menu3">DELIVERY</a></li>
+        <li><a data-toggle="tab" href="#menu4">FAMILY PLANNING</a></li>
+        <li><a data-toggle="tab" href="#menu5">POST NATAL EXAMINATION</a></li>
+        <li><a data-toggle="tab" href="#menu6">CHILD HEALTH MONITORING</a></li>
+    </ul>
+
+    <div class="tab-content">
+        <div id="home" class="tab-pane fade in active">
+            <table class="table table-bordered table-striped">
+                <tr>
+                    <td width="25%">
+                        <strong>@Html.DisplayNameFor(model => model.Pregnancy.BloodGroupId)</strong>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.Pregnancy.BloodGroup.Code)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>@Html.DisplayNameFor(model => model.Pregnancy.RhesusId)</strong>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.Pregnancy.Rhesus.Code)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>@Html.DisplayNameFor(model => model.Pregnancy.PregnancyNo)</strong>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.Pregnancy.PregnancyNo)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>@Html.DisplayNameFor(model => model.Pregnancy.InfantFeedingCounselingDoneId)</strong>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.Pregnancy.InfantFeedingCounselingDone.Code)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="fit">
+                        <strong>@Html.DisplayNameFor(model => model.Pregnancy.BreastfeedingCounselingDoneId)</strong>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.Pregnancy.BreastfeedingCounselingDone.Code)
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div id="menu1" class="tab-pane fade">
+
+            <table class="table table-bordered table-striped">
+
+                <tr>
+                    <th>No. of Visits</th>
+                    <th>
+                        Date
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PregnancyData.ClinicVisitId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PregnancyData.Weight)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PregnancyData.BloodPressure)
+                    </th>
+                </tr>
+
+                @foreach (var item in Model.PregnancyDataList)
+                {
+                <tr>
+                    <td width="25%">
+                        @count
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.VisitDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ClinicVisit.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Weight)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BloodPressure)
+                    </td>
+                </tr>
+                count++;
+                }
+            </table>
+        </div>
+
+        <div id="menu2" class="tab-pane fade">
+            @{
+            var motherServices = Model.PMTCTServices.Where(i => i.RecipientTypeId == 295).ToList();
+            var infantServices = Model.PMTCTServices.Where(i => i.RecipientTypeId == 296).ToList();
+            }
+
+            <p>&nbsp;</p>
+            <h2>PMTCT INTERVENTIONS FOR HIV POSITIVE MOTHERS AND THEIR EXPOSED INFANTS</h2>
+            <hr />
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="x_panel">
+
+                        <div class="x_content">
+                            <h3>MOTHER</h3>
+                            <hr />
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.PMTCTIntervention.InterventionId)
+                                        </th>
+                                        <th class="fit">
+                                            Date Started / Date Given
+                                        </th>
+                                        <th class="fit">Edit</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    @foreach (var item in motherServices)
+                                    {
+                                    <tr>
+                                        <td>
+                                            <ul>
+                                                @foreach (var s in item.PMTCTInterventions)
+                                                {
+                                                <li>
+                                                    @Model.PMTCTInterventions.First(i => i.InterventionId == s.InterventionId).Intervention.Code
+                                                </li>
+
+                                                }
+                                            </ul>
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.DateGiven)
+                                        </td>
+                                        <td>
+                                            <a asp-action="PMTCTInterventions" class="fa fa-pencil" asp-route-id="@item.PregnancyId" asp-route-serviceId="@item.Id"></a>
+                                        </td>
+                                    </tr>
+                                    }
+
+                                    @if (!motherServices.Any())
+                                    {
+                                    <tr>
+                                        <td colspan="4" class="dataTables_empty">No data found</td>
+                                    </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="x_panel">
+
+                        <div class="x_content">
+                            <h3>HIV EXPOSED INFANT</h3>
+                            <hr />
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.PMTCTIntervention.InterventionId)
+                                        </th>
+                                        <th class="fit">
+                                            Date Started / Date Given
+                                        </th>
+                                        <th class="fit">Edit</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in infantServices)
+                                    {
+                                    <tr>
+                                        <td>
+                                            <ul>
+                                                @foreach (var s in item.PMTCTInterventions)
+                                                {
+                                                <li>
+                                                    @Model.PMTCTInterventions.First(i => i.InterventionId == s.InterventionId).Intervention.Code
+                                                </li>
+                                                }
+                                            </ul>
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.DateGiven)
+                                        </td>
+                                        <td>
+                                            <a asp-action="PMTCTInterventions" class="fa fa-pencil" asp-route-id="@item.PregnancyId" asp-route-serviceId="@item.Id"></a>
+                                        </td>
+                                    </tr>
+                                    }
+                                    @if (!infantServices.Any())
+                                    {
+                                    <tr>
+                                        <td colspan="4" class="dataTables_empty">No data found</td>
+                                    </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="menu3" class="tab-pane fade">
+            <div class="row">
+                @if (Model.Delivery != null)
+                {
+                <div class="col-md-12">
+
+                    <strong>MOTHER</strong>
+                    <table class="table table-bordered table-striped">
+                        <tr>
+                            <td width="33.3%">
+                                <strong>@Html.DisplayNameFor(model => model.Delivery.PregnancyOutcomeId): </strong>
+                                @Html.DisplayFor(modelItem => modelItem.Delivery.PregnancyOutcome.Code)
+                            </td>
+                            <td width="33.3%">
+                                <strong>@Html.DisplayNameFor(model => model.Delivery.PregnancyDuration): </strong>
+                                @Html.DisplayFor(modelItem => modelItem.Delivery.PregnancyDuration) Weeks
+                            </td>
+                            <td width="33.3%">
+                                <strong>@Html.DisplayNameFor(model => model.Delivery.DeliveryModeId): </strong>
+                                @Html.DisplayFor(modelItem => modelItem.Delivery.DeliveryMode.Code)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>@Html.DisplayNameFor(model => model.Delivery.DeliveryDate): </strong>
+                                @Html.DisplayFor(modelItem => modelItem.Delivery.DeliveryDate)
+                            </td>
+                            <td>
+                                <strong>@Html.DisplayNameFor(model => model.Delivery.BloodLossId): </strong>
+                                @Html.DisplayFor(modelItem => modelItem.Delivery.BloodLoss.Code)
+                            </td>
+                            <td>
+                                <strong>@Html.DisplayNameFor(model => model.Delivery.ObstructedLabourId): </strong>
+                                @Html.DisplayFor(modelItem => modelItem.Delivery.ObstructedLabour.Code)
+                            </td>
+                        </tr>
+                        <tr>
+
+                            <td>
+                                <strong>@Html.DisplayNameFor(model => model.Delivery.MotherCondition): </strong>
+                                @Html.DisplayFor(modelItem => modelItem.Delivery.MotherCondition)
+                            </td>
+                            <td>
+                                <strong>@Html.DisplayNameFor(model => model.Delivery.RescuscitationDoneId): </strong>
+                                @Html.DisplayFor(modelItem => modelItem.Delivery.RescuscitationDone.Code)
+                            </td>
+                            <td>
+                                <strong>@Html.DisplayNameFor(model => model.Delivery.MeconiumStainedLiquorId): </strong>
+                                @Html.DisplayFor(modelItem => modelItem.Delivery.MeconiumStainedLiquor.Code)
+                            </td>
+                        </tr>
+                        <tr>
+
+                            <td>
+                                <strong>@Html.DisplayName("Uterotonics"):<br /> </strong>
+                                @if (Model.MotherDrugsAdministered != null)
+                                {
+                                <span>
+                                    @foreach (var item in Model.MotherDrugsAdministered)
+                                    {
+                                    motherDrugsAdministered += item.Drug.Code + ",";
+                                    }
+                                    @if (motherDrugsAdministered.Length > 1)
+                                    {
+                                    @motherDrugsAdministered.Substring(0, motherDrugsAdministered.Length - 1)
+                                    }
+                                </span>
+                                }
+                            </td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-md-12">
+
+                    @foreach (var child in Model.Children)
+                    {
+                    <strong>BABY - @child.DisplayName</strong>
+                    <table class="table table-bordered table-striped">
+                        <tr>
+                            <td colspan="3">
+                                <strong>@Html.DisplayName("Drugs administered at delivery"): </strong>
+
+                                @if (Model.BabyDrugsAdministered != null)
+                                {
+                                <span>
+
+                                    @foreach (var item in Model.BabyDrugsAdministered)
+                                    {
+                                    babyDrugsAdministered += item.Drug.Code + ",";
+                                    }
+                                    @if (babyDrugsAdministered.Length > 1)
+                                    {
+                                    @babyDrugsAdministered.Substring(0, babyDrugsAdministered.Length - 1)
+                                    }
+                                </span>
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="33.3%">
+                                <strong>@Html.DisplayNameFor(model => model.Child.BirthWeight): </strong>
+                                @Html.DisplayFor(modelItem => child.BirthWeight)
+                            </td>
+                            <td width="33.3%">
+                                <strong>@Html.DisplayNameFor(model => model.Child.BirthLength): </strong>
+                                @Html.DisplayFor(modelItem => child.BirthLength)
+                            </td>
+                            <td width="33.3%">
+                                <strong>@Html.DisplayNameFor(model => model.Child.HeadCircumference): </strong>
+                                @Html.DisplayFor(modelItem => child.HeadCircumference)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>@Html.DisplayNameFor(model => model.Child.DeliveryPlaceId): </strong>
+                                @Html.DisplayFor(modelItem => child.DeliveryPlace.Code)
+                            </td>
+                            <td>
+                                <strong>@Html.DisplayNameFor(model => model.Child.DeliveryAssistantId): </strong>
+                                @Html.DisplayFor(modelItem => child.DeliveryAssistant.Code)
+                                @Html.DisplayFor(modelItem => child.OtherDeliveryAssistant)
+                            </td>
+                            <td></td>
+                        </tr>
+                    </table>
+                    }
+                </div>
+                }
+                else
+                {
+                <table class="table table-bordered table-striped">
+                    <tr>
+                        <td><span class="dataTables_empty">No data found.</span></td>
+                    </tr>
+                </table>
+
+                }
+            </div>
+        </div>
+        <div id="menu4" class="tab-pane fade">
+            @if (Model.FamilyPlanning != null)
+            {
+            <table class="table table-bordered  table-striped">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.FamilyPlanning.VisitDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.FamilyPlanning.Notes)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.FamilyPlanning.NextVisit)
+                        </th>
+                        @*
+                        <th>
+                            @Html.DisplayNameFor(model => model.FamilyPlanning.DateCreated)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.FamilyPlanning.CreatedBy)
+                        </th>*@
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.FamilyPlannings)
+                    {
+                    <tr>
+                        <td width="25%">
+                            @Html.DisplayFor(modelItem => item.VisitDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Notes)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NextVisit)
+                        </td>
+                        @*
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateCreated)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreatedBy.DisplayName)
+                        </td>*@
+                    </tr>
+                    }
+                    @if (!Model.FamilyPlannings.Any())
+                    {
+                    <tr>
+                        <td colspan="6" class="dataTables_empty">
+                            No data found.
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+            }
+            else
+            {
+            <table class="table table-bordered table-striped">
+                <tr>
+                    <td><span class="dataTables_empty">No data found.</span></td>
+                </tr>
+            </table>
+
+            }
+        </div>
+        <div id="menu5" class="tab-pane fade">
+            @if (Model.PostNatalExaminations.Any())
+            {
+            <table class="table table-bordered table-striped">
+                <tr>
+                    <td colspan="4">
+                        <strong>A) MOTHER</strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="25%">
+                        @Html.DisplayNameFor(model => model.PostNatalExamination.VisitDate)
+                    </td>
+                    @foreach (var item in Model.PostNatalExaminations)
+                    {
+                    <td>@Html.DisplayFor(modelItem => item.VisitDate)</td>
+                    }
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.PostNatalExamination.BloodPressure)</td>
+                    @foreach (var item in Model.PostNatalExaminations)
+                    {
+                    <td>@Html.DisplayFor(modelItem => item.BloodPressure)</td>
+                    }
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.PostNatalExamination.SupportStatusId)</td>
+                    @foreach (var item in Model.PostNatalExaminations)
+                    {
+                    <td>
+                        xxx
+                        @*@Html.DisplayFor(modelItem => item.BloodPressure)*@
+                    </td>
+                    }
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.PostNatalExamination.FPCounselingId)</td>
+                    @foreach (var item in Model.PostNatalExaminations)
+                    {
+                    <td>@Html.DisplayFor(modelItem => item.FPCounseling.Code)</td>
+                    }
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.PostNatalExamination.FPMethodId)</td>
+                    @foreach (var item in Model.PostNatalExaminations)
+                    {
+                    <td>@Html.DisplayFor(modelItem => item.FPMethod.Code)</td>
+                    }
+                </tr>
+
+                @foreach (var child in Model.Children)
+                {
+                var details = Model.PostNatalExaminationDetails.Where(i => i.ChildId == child.Id);
+                <tr>
+                    <td colspan="4"><strong>B) BABY - @child.DisplayName</strong></td>
+                </tr>
+                <tr>
+                    <td width="25%">
+                        @Html.DisplayNameFor(model => model.PostNatalExaminationDetail.BabyGeneralCondition)
+                    </td>
+
+                    @foreach (var item in details)
+                    {
+                    <td>@Html.DisplayFor(modelItem => item.BabyGeneralCondition)</td>
+                    }
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayNameFor(model => model.PostNatalExaminationDetail.FeedingMethodId)
+                    </td>
+                    @foreach (var item in details)
+                    {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FeedingMethod.Code)
+                    </td>
+                    }
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayNameFor(model => model.PostNatalExaminationDetail.ImmunizationStartedId)
+                    </td>
+                    @foreach (var item in details)
+                    {
+                    <td>@Html.DisplayFor(modelItem => item.ImmunizationStarted.Code)</td>
+                    }
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayNameFor(model => model.PostNatalExaminationDetail.ARTProphylaxisGivenId)
+                    </td>
+                    @foreach (var item in details)
+                    {
+                    <td>@Html.DisplayFor(modelItem => item.ARTProphylaxisGiven.Code)</td>
+                    }
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayNameFor(model => model.PostNatalExaminationDetail.CPInitiatedId)
+                    </td>
+                    @foreach (var item in details)
+                    {
+                    <td>@Html.DisplayFor(modelItem => item.CPInitiated.Code)</td>
+                    }
+                </tr>
+                }
+            </table>
+            }
+            else
+            {
+            <table class="table table-bordered table-striped">
+                <tr>
+                    <td><span class="dataTables_empty">No data found.</span></td>
+                </tr>
+            </table>
+
+            }
+        </div>
+        <div id="menu6" class="tab-pane fade">
+            @if (Model.Children != null && Model.Children.Any())
+            {
+            foreach (var child in Model.Children)
+            {
+            var healthRecord = Model.HealthRecords.SingleOrDefault(i => i.ChildId == child.Id);
+            var civilRegistration = Model.CivilRegistrations.SingleOrDefault(i => i.ChildId == child.Id);
+            var feedingInformation = Model.FeedingInformation.SingleOrDefault(i => i.ChildId == child.Id);
+            <div class="row">
+                <div class="col-md-6">
+                    <hr />
+                    <strong>A. Particulars of the child</strong>
+                    <table class="table table-bordered table-striped">
+                        <tr>
+                            <td>
+                                <strong>@Html.DisplayNameFor(model => model.Child.Name): </strong>
+                                @Html.DisplayFor(modelItem => child.Name)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>@Html.DisplayNameFor(model => model.Child.GenderId): </strong>
+                                @Html.DisplayFor(modelItem => child.Gender.Code)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>@Html.DisplayNameFor(model => model.Child.DOB): </strong>
+                                @Html.DisplayFor(modelItem => child.DOB)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>@Html.DisplayNameFor(model => model.Child.GestationAtBirth): </strong>
+                                @Html.DisplayFor(modelItem => child.GestationAtBirth)
+                                <strong>@Html.DisplayNameFor(model => model.Child.BirthWeight): </strong>
+                                @Html.DisplayFor(modelItem => child.BirthWeight)
+                                <strong>@Html.DisplayNameFor(model => model.Child.BirthLength): </strong>
+                                @Html.DisplayFor(modelItem => child.BirthLength)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>@Html.DisplayNameFor(model => model.Child.OtherBirthCharacteristics): </strong>
+                                @Html.DisplayFor(modelItem => child.OtherBirthCharacteristics)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>@Html.DisplayNameFor(model => model.Child.BirthOrder): </strong>
+                                @Html.DisplayFor(modelItem => child.BirthOrder)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>@Html.DisplayNameFor(model => model.Child.DateFirstSeen): </strong>
+                                @Html.DisplayFor(modelItem => child.DateFirstSeen)
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="col-md-6">
+                    <hr />
+                    <strong>B. Health record of child</strong>
+                    <table class="table table-bordered table-striped">
+                        <tr>
+                            <td>
+                                <strong>@Html.DisplayNameFor(model => model.HealthRecord.DeliveryPlaceId): </strong>
+                                @Html.DisplayFor(modelItem => healthRecord.DeliveryPlace.Code)
+                                @Html.DisplayFor(modelItem => healthRecord.OtherDeliveryPlace)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>@Html.DisplayNameFor(model => model.HealthRecord.BirthNotificationNumber): </strong>
+                                @Html.DisplayFor(modelItem => healthRecord.BirthNotificationNumber)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>@Html.DisplayNameFor(model => model.HealthRecord.PermanentRegisterNumber): </strong>
+                                @Html.DisplayFor(modelItem => healthRecord.PermanentRegisterNumber)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>@Html.DisplayNameFor(model => model.HealthRecord.CWCNumber): </strong>
+                                @Html.DisplayFor(modelItem => healthRecord.CWCNumber)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>@Html.DisplayNameFor(model => model.HealthRecord.HealthFacilityId): </strong>
+                                @Html.DisplayFor(modelItem => healthRecord.HealthFacility.Name)
+                                @Html.DisplayFor(modelItem => healthRecord.HealthFacilityName)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>@Html.DisplayNameFor(model => model.HealthRecord.MFLNumber): </strong>
+                                @Html.DisplayFor(modelItem => healthRecord.MFLNumber)
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="clearfix"></div>
+                <div class="col-md-6">
+                    <hr />
+                    <strong>C. Civil registration - Child Details</strong>
+
+                    <table class="table table-bordered table-striped">
+                        <tr>
+                            <td>
+                                <strong>@Html.DisplayNameFor(model => model.CivilRegistration.BirthCertificateNumber): </strong>
+                                @Html.DisplayFor(modelItem => civilRegistration.BirthCertificateNumber)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>@Html.DisplayNameFor(model => model.CivilRegistration.RegistrationDate): </strong>
+                                @Html.DisplayFor(modelItem => civilRegistration.RegistrationDate)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>@Html.DisplayNameFor(model => model.CivilRegistration.RegistrationPlace): </strong>
+                                @Html.DisplayFor(modelItem => civilRegistration.RegistrationPlace)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>@Html.DisplayNameFor(model => model.CivilRegistration.SpecialBirth): </strong>
+                                @Html.DisplayFor(modelItem => civilRegistration.SpecialBirth)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>@Html.DisplayNameFor(model => model.CivilRegistration.BirthMark): </strong>
+                                @Html.DisplayFor(modelItem => civilRegistration.BirthMark)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>@Html.DisplayNameFor(model => model.CivilRegistration.CongenitalAbnormalities): </strong>
+                                @Html.DisplayFor(modelItem => civilRegistration.CongenitalAbnormalities)
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="clearfix"></div>
+                <div class="col-md-6">
+
+                    <strong>F. Feeding information from parent / guardian</strong>
+                    <table class="table table-bordered table-striped">
+                        <tr>
+                            <td>
+                                <strong>@Html.DisplayNameFor(model => feedingInformation.BreastfeedingId): </strong>
+                                @Html.DisplayFor(modelItem => modelItem.ChildFeedingInformation.Breastfeeding.Code)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>@Html.DisplayNameFor(model => feedingInformation.OtherFoodIntroducedId): </strong>
+                                @Html.DisplayFor(modelItem => modelItem.ChildFeedingInformation.OtherFoodIntroduced.Code)
+                                @if (Html.DisplayFor(modelItem => modelItem.ChildFeedingInformation.OtherFoodIntroduced.Code).Equals("Yes"))
+                                {
+                                <span>
+                                    <br />
+                                    <strong>@Html.DisplayNameFor(model => feedingInformation.OtherFoodIntroducedAge): </strong>
+                                    @feedingInformation.OtherFoodIntroducedAge
+                                </span>
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>@Html.DisplayNameFor(model => feedingInformation.ComplimentaryFoodIntroducedId): </strong>
+                                @Html.DisplayFor(modelItem => modelItem.ChildFeedingInformation.ComplimentaryFoodIntroduced.Code)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>@Html.DisplayNameFor(model => feedingInformation.FeedRetention): </strong>
+                                @Html.DisplayFor(modelItem => modelItem.ChildFeedingInformation.FeedRetention)
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            }
+            }
+            else
+            {
+            <table class="table table-bordered table-striped">
+                <tr>
+                    <td><span class="dataTables_empty">No data found.</span></td>
+                </tr>
+            </table>
+
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,46 @@
+﻿@model MCHMIS.ViewModels.ChangePasswordViewModel
+@{
+    ViewData["Title"] = "My Profile";
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="ChangePassword">
+           
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="OldPassword" class="control-label"></label>
+                <input asp-for="OldPassword" class="form-control"/>
+                <span asp-validation-for="OldPassword" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control"/>
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ConfirmPassword" class="control-label"></label>
+                <input asp-for="ConfirmPassword" class="form-control"/>
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <a asp-action="Index" class="btn btn-danger glyphicon glyphicon-step-backward pull-left"> Back</a>
+                <button type="submit" class="btn btn-success pull-right margin-top-25">
+                    <i class="glyphicon glyphicon-ok-sign"></i> Save
+                </button>
+            </div>
+
+        </form>
+    </div>
+    <div class="col-md-6">
+        <p>&nbsp;</p>
+        <div class="bg-info" style="background-color: #d9edf7;padding: 10px;border-radius: 5px;">
+            <p>Password must:</p>
+            <p>1. Have a minimum length of 6 characters</p>
+            <p>2. Have at least one upper case character (A-Z)</p>
+            <p>3. Have at least one lower case character (a-z)</p>
+            <p>4. Have at least one numeric character (0-9)</p>
+            <p>5. Have at least one special character (!, @@, #, $, %, ^, &, or *)</p>
+        </div>
+    </div>
+</div>

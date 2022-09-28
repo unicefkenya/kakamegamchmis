@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             NavigationPage.HasNavigationBar="True"
+             Title="Welcome to MCHMIS Validation Tool "             
+             x:Class="MCHMIS.Mobile.Pages.HomePage">
+    <ContentPage.Resources>
+        <StyleSheet Source="Styles.css" />
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout StyleClass="container,LargeMargin,LargePadding">
+                <FlexLayout StyleClass="container,LargeMargin,LargePadding" Wrap="Wrap" x:Name="Form1bn">
+                    <StackLayout StyleClass="logo-holder" CompressedLayout.IsHeadless="true" VerticalOptions="FillAndExpand">
+                        <Label Text=""></Label>
+                        <Label Text=""></Label>
+                        <Label Text=""></Label>
+                    </StackLayout>
+                </FlexLayout>
+                <FlexLayout StyleClass="body" Wrap="Wrap" x:Name="Form2v">
+                <StackLayout StyleClass="logo-holder" CompressedLayout.IsHeadless="true" VerticalOptions="FillAndExpand">
+                    <Image StyleClass="logo" Source="logo.png" />
+                        <Label  StyleClass=""   Text="MCHMIS Household Validation Tool"></Label>
+                </StackLayout>
+             </FlexLayout>
+                <FlexLayout StyleClass="container,LargeMargin,LargePadding" Wrap="Wrap" x:Name="Form1c">
+                    <StackLayout StyleClass="logo-holder" CompressedLayout.IsHeadless="true" VerticalOptions="FillAndExpand">
+                        <Label Text=""></Label>
+                        <Label Text=""></Label>
+                        <Label StyleClass="SauGreen" Text="Login=> Download=>Fill HTM => Upload =>||"></Label>
+                    </StackLayout>
+                </FlexLayout>
+
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

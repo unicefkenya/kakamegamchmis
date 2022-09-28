@@ -1,0 +1,204 @@
+﻿@model MCHMIS.ViewModels.PMTCTInterventionViewModel
+
+@{
+    ViewData["Title"] = "PMTCT INTERVENTIONS FOR HIV POSITIVE MOTHERS AND THEIR EXPOSED INFANTS";
+    var motherServices = Model.PMTCTServices.Where(i => i.RecipientTypeId == 295).ToList();
+    var infantServices = Model.PMTCTServices.Where(i => i.RecipientTypeId == 296).ToList();
+}
+
+@Html.Partial("_Menu")
+
+<div class="x_panel no-border-top">
+    @if (Model.StatusId == 1)
+    {
+        <div class="x_content">
+            <form asp-action="PMTCTInterventions">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <input asp-for="PregnancyId" type="hidden" />
+                @*@foreach (var item in Model.Services)
+                    {
+                    }*@
+                <div class="row">
+                    <div class="form-group col-md-3">
+                        <label asp-for="RecipientTypeId" class="control-label"></label>
+                        <select asp-for="RecipientTypeId" class="form-control" asp-items="ViewBag.RecipientTypeId" ng-model="RecipientTypeId">
+                            <option value="">Select</option>
+                        </select>
+                        <span asp-validation-for="RecipientTypeId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-3" ng-show="RecipientTypeId==295">
+                        <label asp-for="PMTCTMotherId" class="control-label"></label>
+                        <select asp-for="PMTCTMotherId" class="form-control multiple" multiple name="InterventionIds[]" asp-items="ViewBag.PMTCTMotherId"></select>
+                    </div>
+                    <div class="form-group col-md-3" ng-show="RecipientTypeId==296">
+                        <label asp-for="PMTCTInfantId" class="control-label"></label>
+                        <select asp-for="PMTCTInfantId" class="form-control multiple" multiple name="InterventionIds[]" asp-items="ViewBag.PMTCTInfantId"></select>
+                    </div>
+                    <div class="form-group col-md-3" ng-show="RecipientTypeId==295 ||RecipientTypeId==296">
+                        <label asp-for="DateGiven" class="control-label"></label>
+                        <div class='input-group date'>
+                            <input asp-for="DateGiven" type="text" class="form-control required no-typing date" autocomplete="off" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                        <span asp-validation-for="DateGiven" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group col-md-3" ng-show="RecipientTypeId==295 ||RecipientTypeId==296">
+
+                        @if (Model.IsUpdating == false)
+                        {
+                            <button type="submit" class="btn btn-success margin-top-25 pull-left">
+                                <i class="glyphicon glyphicon-ok-sign"></i> Save
+                            </button>
+                        }
+                        else
+                        {
+                            <input name="UpdatingInterventionId" value="@Model.InterventionId" type="hidden" />
+                            <input asp-for="IsUpdating" type="hidden" />
+                            <button type="submit" class="btn btn-success margin-top-25 pull-left">
+                                <i class="glyphicon glyphicon-ok-sign"></i> Update
+                            </button>
+
+                        }
+                    </div>
+                </div>
+            </form>
+        </div>
+    }
+    <div class="col-md-12">
+        <hr />
+        <h2 class="lbl-title">PREVIOUS PMTCT INTERVENTIONS GIVEN</h2>
+    </div>
+    <div class="col-md-6">
+        <div class="x_panel">
+
+            <div class="x_content">
+                <h3>MOTHER</h3>
+                <hr />
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+
+                            <th>
+                                @Html.DisplayNameFor(model => model.PMTCTIntervention.InterventionId)
+                            </th>
+                            <th class="fit">
+                                @Html.DisplayNameFor(model => model.DateGiven)
+                            </th>
+                            @if (Model.StatusId == 1)
+                            {
+                                <th class="fit">Edit</th>
+                            }
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var item in motherServices)
+                        {
+                            <tr>
+                                <td>
+                                    <ul>
+                                        @foreach (var s in item.PMTCTInterventions)
+                                        {
+                                            <li>@s.Intervention.Code</li>
+                                            ;
+                                        }
+                                    </ul>
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DateGiven)
+                                </td>
+                                @if (Model.StatusId == 1)
+                                {
+                                    <td>
+                                        <a asp-action="PMTCTInterventions" class="fa fa-pencil" asp-route-id="@item.PregnancyId" asp-route-serviceId="@item.Id"></a>
+                                    </td>
+                                }
+                            </tr>
+                        }
+
+                        @if (!motherServices.Any())
+                        {
+                            <tr>
+                                <td colspan="4" class="dataTables_empty">No data found</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="x_panel">
+
+            <div class="x_content">
+                <h3>HIV EXPOSED INFANT</h3>
+                <hr />
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+
+                            <th>
+                                @Html.DisplayNameFor(model => model.PMTCTIntervention.InterventionId)
+                            </th>
+                            <th class="fit">
+                                @Html.DisplayNameFor(model => model.DateGiven)
+                            </th>
+                            @if (Model.StatusId == 1)
+                            {
+                                <th class="fit">Edit</th>
+                            }
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in infantServices)
+                        {
+                            <tr>
+                                <td>
+                                    <ul>
+                                        @foreach (var s in item.PMTCTInterventions)
+                                        {
+                                            <li>@s.Intervention.Code</li>;
+                                        }
+                                    </ul>
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DateGiven)
+                                </td>
+                                @if (Model.StatusId == 1)
+                                {
+                                    <td>
+                                        <a asp-action="PMTCTInterventions" class="fa fa-pencil" asp-route-id="@item.PregnancyId" asp-route-serviceId="@item.Id"></a>
+                                    </td>
+                                }
+                            </tr>
+                        }
+                        @if (!infantServices.Any())
+                        {
+                            <tr>
+                                <td colspan="4" class="dataTables_empty">No data found</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script type="text/javascript" src="~/js/bootstrap-multiselect.js"></script>
+    <link rel="stylesheet" href="~/css/bootstrap-multiselect.css" type="text/css" />
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var scope = angular.element(document.querySelector('body')).scope();
+            scope.$apply(function (filter) {
+                scope.RecipientTypeId = '@Model.RecipientTypeId';
+            });
+            $('.multiple').multiselect();
+        });
+    </script>
+}

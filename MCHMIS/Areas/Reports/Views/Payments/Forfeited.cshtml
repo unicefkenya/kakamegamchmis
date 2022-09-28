@@ -1,0 +1,67 @@
+﻿@using MCHMIS.Areas.Reports.ViewModels
+@using X.PagedList.Mvc.Core
+@model MCHMIS.Areas.Reports.ViewModels.PaymentsViewModel
+
+<partial name="_SearchNoPayrol" />
+@if (Model.Disbursements != null)
+{
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Disbursement.Facility)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.Disbursement.Beneficiaries)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Disbursement.Amount)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Disbursements)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Facility)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Beneficiaries)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Amount)
+                    </td>
+                </tr>
+            }
+            @if (!Model.Disbursements.Any())
+            {
+                <tr>
+                    <td colspan="15" class="dataTables_empty">No data found.</td>
+                </tr>
+            }
+        </tbody>
+        @if (Model.Disbursements.Any())
+        {
+            <tfoot>
+                <tr>
+                    <td>
+                        <strong>Total</strong>
+                    </td>
+                    <td>
+                        <strong>@Model.Disbursements.Sum(i => i.Beneficiaries).ToString("##,###")</strong>
+                    </td>
+                    <td>
+                        <strong>@Model.Disbursements.Sum(i => i.Amount).ToString("##,###")</strong>
+                    </td>
+                </tr>
+            </tfoot>
+        }
+    </table>
+
+}
+@section scripts{
+    <partial name="_Scripts" />
+}

@@ -1,0 +1,578 @@
+﻿@using Newtonsoft.Json
+@model MCHMIS.ViewModels.ChildHealthMonitoringViewModel
+
+@{
+    ViewData["Title"] = "CHILD HEALTH MONITORING";
+}
+
+@Html.Partial("_Menu")
+<div class="row delivery-data">
+
+    <div class="col-md-12 margin-top-10">
+        <div class="panel-group" id="accordion">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+                            A. Particulars of the child
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapse1" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <div class="x_content">
+                            <form asp-action="ChildParticulars" enctype="multipart/form-data">
+                                <input asp-for="PregnancyId" type="hidden" />
+                                <input asp-for="BirthCertificate" type="hidden" />
+                                <div asp-validation-summary="All" class="text-danger"></div>
+
+                                <div class="form-group col-md-6">
+                                    <label asp-for="ChildId" class="control-label"></label>
+                                    <select asp-for="ChildId" class="form-control" asp-items="ViewBag.ChildId"></select>
+                                    <span asp-validation-for="ChildId" class="text-danger"></span>
+                                    <a id="ChangesRootUrl" asp-action="ChildHealthMonitoring" asp-route-id="@Model.PregnancyId"></a>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label asp-for="Name" class="control-label"></label>
+                                    <input asp-for="Name" class="form-control" />
+                                    <span asp-validation-for="Name" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label asp-for="GenderId" class="control-label"></label>
+                                    <select asp-for="GenderId" class="form-control" asp-items="ViewBag.ChildGenderId">
+                                        <option value="">Select</option>
+                                    </select>
+                                    <span asp-validation-for="GenderId" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label asp-for="DOB" class="control-label"></label>
+                                    <div class='input-group date margin-bottom-10'>
+                                        <input asp-for="DOB" type="text" class="form-control required no-typing" autocomplete="off" />
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                    <span asp-validation-for="DOB" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label asp-for="GestationAtBirth" class="control-label"></label>
+                                    <input asp-for="GestationAtBirth" class="form-control" min="0" max="42" />
+                                    <span asp-validation-for="GestationAtBirth" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label asp-for="BirthWeight" class="control-label"></label>
+                                    <input asp-for="BirthWeight" min="0" max="6" class="form-control numeric" />
+                                    <span asp-validation-for="BirthWeight" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label asp-for="BirthLength" class="control-label"></label>
+                                    <input  asp-for="BirthLength" min="40" max="55" class="form-control numeric" />
+                                    <span asp-validation-for="BirthLength" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    <label asp-for="OtherBirthCharacteristics" class="control-label"></label>
+                                    <input asp-for="OtherBirthCharacteristics" class="form-control" />
+                                    <span asp-validation-for="OtherBirthCharacteristics" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label asp-for="BirthOrder" class="control-label"></label>
+                                    <input asp-for="BirthOrder" class="form-control" />
+                                    <span asp-validation-for="BirthOrder" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label asp-for="DateFirstSeen" class="control-label"></label>
+                                    <div class='input-group date'>
+                                        <input asp-for="DateFirstSeen" type="text" class="form-control required no-typing date" autocomplete="off" />
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                    <span asp-validation-for="DateFirstSeen" class="text-danger"></span>
+                                </div>
+
+                                @if (Model.StatusId == 1)
+                                {
+                                    <div class="form-group col-md-12">
+                                        <button type="submit" class="btn btn-success pull-right">
+                                            <i class="glyphicon glyphicon-ok-sign"></i> Save
+                                        </button>
+                                    </div>
+                                }
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+                            B. Health Record of Child
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapse2" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <div class="x_content">
+                            <form asp-action="HealthRecord" enctype="multipart/form-data">
+                                <input asp-for="PregnancyId" type="hidden" />
+                                <input asp-for="BirthCertificate" type="hidden" />
+                                <input asp-for="ChildId" type="hidden" />
+                                <div asp-validation-summary="All" class="text-danger"></div>
+                                <div class="form-group col-md-6">
+                                    <label asp-for="DeliveryPlaceId" class="control-label"></label>
+                                    <select asp-for="DeliveryPlaceId" class="form-control" asp-items="ViewBag.DeliveryPlaceId">
+                                        <option value="">Select</option>
+                                    </select>
+                                    <span asp-validation-for="DeliveryPlaceId" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-6" ng-show="DeliveryPlaceId==260">
+                                    <label asp-for="OtherDeliveryPlace" class="control-label"></label>
+                                    <input asp-for="OtherDeliveryPlace" class="form-control" />
+                                    <span asp-validation-for="OtherDeliveryPlace" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label asp-for="BirthNotificationNumber" class="control-label"></label>
+                                    <input asp-for="BirthNotificationNumber" class="form-control" />
+                                    <span asp-validation-for="BirthNotificationNumber" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label asp-for="PermanentRegisterNumber" class="control-label"></label>
+                                    <input asp-for="PermanentRegisterNumber" class="form-control" />
+                                    <span asp-validation-for="PermanentRegisterNumber" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label asp-for="CWCNumber" class="control-label"></label>
+                                    <input asp-for="CWCNumber" class="form-control" />
+                                    <span asp-validation-for="CWCNumber" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label asp-for="HealthFacilityId" class="control-label"></label>
+                                    <select asp-for="HealthFacilityId" class="form-control" asp-items="ViewBag.HealthFacilityId" ng-model="HealthFacilityId">
+                                        <option value="">Select</option>
+                                    </select>
+                                    <span asp-validation-for="HealthFacilityId" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-6" ng-show="HealthFacilityId==26">
+                                    <label asp-for="HealthFacilityName" class="control-label"></label>
+                                    <input asp-for="HealthFacilityName" class="form-control" />
+                                    <span asp-validation-for="HealthFacilityName" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label asp-for="MFLNumber" class="control-label"></label>
+                                    <input asp-for="MFLNumber" class="form-control" />
+                                    <span asp-validation-for="MFLNumber" class="text-danger"></span>
+                                </div>
+
+                                @if (Model.StatusId == 1)
+                                {
+                                    <div class="form-group col-md-12">
+                                        <button type="submit" class="btn btn-success pull-right">
+                                            <i class="glyphicon glyphicon-ok-sign"></i> Save
+                                        </button>
+                                    </div>
+                                }
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
+                            C. Civil Registration
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapse3" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <div class="x_content">
+                            <form asp-action="CivilRegistration" enctype="multipart/form-data">
+                                <input asp-for="PregnancyId" type="hidden" />
+                                <input asp-for="BirthCertificate" type="hidden" />
+                                <input asp-for="ChildId" type="hidden" />
+                                <div asp-validation-summary="All" class="text-danger"></div>
+                                <div class="form-group col-md-12 ">
+                                    <div class="checkbox checkbox-inline checkbox-only checkbox-cont">
+                                        <label>
+                                            <input asp-for="BirthCertificateAvailable" id="BirthCertificateAvailable" value="true" type="checkbox" />
+                                            Do you have the child's Birth Certificate?
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-md-6 birth-cert-field">
+                                    <label asp-for="BirthCertificateNumber" class="control-label"></label>
+                                    <input asp-for="BirthCertificateNumber" class="form-control" />
+                                    <span asp-validation-for="BirthCertificateNumber" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-6 birth-cert-field">
+                                    <label asp-for="RegistrationDate" class="control-label"></label>
+                                    <div class='input-group date'>
+                                        <input asp-for="RegistrationDate" type="text" class="form-control required no-typing" autocomplete="off" />
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                    <span asp-validation-for="RegistrationDate" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group col-md-6 birth-cert-field">
+                                    <label asp-for="RegistrationPlace" class="control-label"></label>
+                                    <input asp-for="RegistrationPlace" class="form-control" />
+                                    <span asp-validation-for="RegistrationPlace" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group col-md-6 birth-cert-field">
+                                    <label asp-for="BirthCertificateFile" class="control-label"></label>
+                                    <a target="_blank" href="~/uploads/birthcertificates/@Model.BirthCertificate">@Model.BirthCertificate</a>
+                                    <input type="file" asp-for="BirthCertificateFile" class="form-control" />
+                                    <span asp-validation-for="BirthCertificateFile" class="text-danger"></span>
+                                    <span class="text-danger field-validation-error form-error">
+                                        <span class="">*Attach Birth Certificate in PDF format.</span>
+                                    </span>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label asp-for="SpecialBirth" class="control-label"></label>
+                                    <input asp-for="SpecialBirth" class="form-control" />
+                                    <span asp-validation-for="SpecialBirth" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    <label asp-for="CongenitalAbnormalities" class="control-label"></label>
+                                    <input asp-for="CongenitalAbnormalities" class="form-control" />
+                                    <span asp-validation-for="CongenitalAbnormalities" class="text-danger"></span>
+                                </div>
+
+                                @if (Model.StatusId == 1 || string.IsNullOrEmpty(Model.BirthCertificateFile))
+                                {
+                                    <div class="form-group col-md-12">
+                                        <button type="submit" class="btn btn-success pull-right">
+                                            <i class="glyphicon glyphicon-ok-sign"></i> Save
+                                        </button>
+                                    </div>
+                                }
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">
+                            D. Feeding information from parent / guardian
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapse5" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <div class="x_content">
+                            <form asp-action="FeedingInformation" enctype="multipart/form-data">
+                                <input asp-for="PregnancyId" type="hidden" />
+                                <input asp-for="BirthCertificate" type="hidden" />
+                                <input asp-for="ChildId" type="hidden" />
+                                <div asp-validation-summary="All" class="text-danger"></div>
+                                <div class="form-group col-md-6">
+                                    <label asp-for="BreastfeedingId" class="control-label"></label>
+                                    <select asp-for="BreastfeedingId" class="form-control" asp-items="ViewBag.BreastfeedingId">
+                                        <option value="">Select</option>
+                                    </select>
+                                    <span asp-validation-for="BreastfeedingId" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label asp-for="OtherFoodIntroducedId" class="control-label"></label>
+                                    <select asp-for="OtherFoodIntroducedId" class="form-control" asp-items="ViewBag.OtherFoodIntroducedId" ng-model="OtherFoodIntroducedId">
+                                        <option value="">Select</option>
+                                    </select>
+                                    <span asp-validation-for="OtherFoodIntroducedId" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-6" ng-show="OtherFoodIntroducedId==269">
+                                    <label asp-for="OtherFoodIntroducedAge" class="control-label"></label>
+                                    <input asp-for="OtherFoodIntroducedAge" class="form-control" />
+                                    <span asp-validation-for="OtherFoodIntroducedAge" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label asp-for="ComplimentaryFoodIntroducedId" class="control-label"></label>
+                                    <select asp-for="ComplimentaryFoodIntroducedId" class="form-control" asp-items="ViewBag.ComplimentaryFoodIntroducedId">
+                                        <option value="">Select</option>
+                                    </select>
+                                    <span asp-validation-for="ComplimentaryFoodIntroducedId" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label asp-for="FeedRetention" class="control-label"></label>
+                                    <input asp-for="FeedRetention" class="form-control" />
+                                    <span asp-validation-for="FeedRetention" class="text-danger"></span>
+                                </div>
+                                @if (Model.StatusId == 1)
+                                {
+                                    <div class="form-group col-md-12">
+                                        <button type="submit" class="btn btn-success pull-right">
+                                            <i class="glyphicon glyphicon-ok-sign"></i> Save
+                                        </button>
+                                    </div>
+                                }
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse6">
+                            E. Development Milestones
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapse6" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <div class="x_content">
+                            <form asp-action="DevelopmentMilestones" enctype="multipart/form-data">
+                                <input asp-for="PregnancyId" type="hidden" />
+                                <input asp-for="ChildId" type="hidden" />
+                                <input asp-for="BirthCertificate" type="hidden" />
+                                <div asp-validation-summary="All" class="text-danger"></div>
+                                <table class="table table-bordered">
+                                    <thead style="background: #F4F4F4">
+                                        <tr>
+                                            <th>
+                                            </th>
+                                            <th>
+                                                Age Achieved
+                                            </th>
+                                            <th>
+                                                Normal Limits
+                                            </th>
+                                            <th>Tick</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.DevelopmentMilestones)
+                                        {
+                                            var milestone = Model.ChildDevelopmentMilestones.FirstOrDefault(i => i.DevelopmentMilestoneId == item.Id);
+
+                                            <tr>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Name)
+                                                </td>
+                                                <td width="30%">
+
+                                                    <input type="number" min="0" value="@(milestone == null ? " " : milestone.AgeAchieved.ToString())" name="ChildAges[]" placeholder="@item.LimitTag" class="form-control" disabled="disabled" />
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.NormalLimits)
+                                                </td>
+                                                <td>
+                                                    @if (milestone == null)
+                                                    {
+                                                        <input type="checkbox" class="chkAchieved" name="Ids[]" value="@item.Id" />
+                                                    }
+                                                    else
+                                                    {
+                                                        <input type="checkbox" class="chkAchieved" name="Ids[]" checked="checked" value="@item.Id" />
+                                                    }
+                                                </td>
+                                            </tr>
+
+                                        }
+                                    </tbody>
+                                </table>
+                                @if (Model.StatusId == 1)
+                                {
+                                    <div class="form-group col-md-12">
+                                        <button type="submit" class="btn btn-success pull-right">
+                                            <i class="glyphicon glyphicon-ok-sign"></i> Save
+                                        </button>
+                                    </div>
+                                }
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12  margin-bottom-10">
+        <div class="form-group">
+
+            <a asp-action="Index" class="btn btn-danger glyphicon glyphicon-step-backward pull-left"> Back</a>
+            <p>&nbsp;</p>
+        </div>
+    </div>
+</div>
+@if (Model.Children != null)
+{
+    <div class="row margin-top-25">
+        <div class="col-md-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Children</h2>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content optionb">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Name
+                                </th>
+                                <th>
+                                    Sex
+                                </th>
+                                <th>
+                                    DOB
+                                </th>
+                                <th>
+                                    Birth Order
+                                </th>
+                                <th>
+                                    Birth Weight
+                                </th>
+                                <th>
+                                    Birth Length
+                                </th>
+                                <th>Status</th>
+                                @if (Model.StatusId == 1)
+                                {
+                                    <th class="fit">Edit</th>
+                                }
+                            </tr>
+                            @foreach (var item in Model.Children)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Gender.Code)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DOB)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.BirthOrder)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.BirthWeight)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.BirthLength)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Status.Code)
+                                    </td>
+                                    @if (Model.StatusId == 1)
+                                    {
+                                        <td class="text-center">
+                                            <a asp-action="ChildHealthMonitoring" class="fa fa-pencil" asp-route-id="@Model.PregnancyId" asp-route-childId="@item.Id"></a>
+                                        </td>
+                                    }
+                                </tr>
+                            }
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@section scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#ChildId').on('change',
+                function(e) {
+                    var url = $('#ChangesRootUrl').attr('href') + '?childId=' + $(this).val();
+                    window.location = url;
+                });
+            var scope = angular.element(document.querySelector('body')).scope();
+            scope.$apply(function(filter) {
+                scope.OtherFoodIntroducedId = '@Model.OtherFoodIntroducedId';
+                scope.HealthFacilityId = '@Model.HealthFacilityId';
+
+            });
+
+            if ($("#BirthCertificateAvailable").prop("checked") === true) {
+                $('.birth-cert-field').show();
+            } else {
+                $('.birth-cert-field').hide();
+            }
+            $(".chkAchieved").on('click',
+                function(e) {
+                    if ($(this).prop("checked") === true) {
+                        $(this).parent().parent().find('input.form-control').prop("disabled", false);
+                    } else {
+                        $(this).parent().parent().find('input.form-control').prop('disabled', 'disabled');
+                    }
+                });
+
+            $("#BirthCertificateAvailable").on('click',
+                function(e) {
+                    if ($(this).prop("checked") === true) {
+                        $('.birth-cert-field').slideDown();
+                        $('.birth-cert-field input').rules('add', 'required');
+                        $('#BirthCertificateFile').rules('add', 'required');
+                        $('#RegistrationPlace').rules('add', 'required');
+                    } else {
+                        $('.birth-cert-field').slideUp();
+                        $('.birth-cert-field input').rules('remove', 'required');
+
+                        $('.birth-cert-field input').rules('remove', 'required');
+                        $('#BirthCertificateFile').rules('remove', 'required');
+                        $('#RegistrationPlace').rules('remove', 'required');
+                    }
+                });
+
+            $("#civil-registration-btn---").on('click',
+                function(e) {
+
+                    $("form").validate().element(".birth-cert-field input");
+                    alert('One');
+                });
+
+            //$('.nav-link').on('click',
+            //    function() {
+            //        $('form').valid();
+            //        if($('.validation-summary-errors ul').children().length>0) {
+            //            return false;
+            //        }
+
+            //    });
+        });
+        $('.continue').click(function(e) {
+            $("form").validate().element(".birth-cert-field input");
+            e.preventDefault();
+            var sectionValid = true,
+                section = $(this).closest('.panel-collapse.collapse');
+            // check if fields of this section are valid:
+            $.each(section.find('input, select, textarea'),
+                function() {
+                    if (!$(this).valid()) {
+                        sectionValid = false;
+                    }
+                });
+
+            if ($('#BirthCertificateFile').val().length !== 0 &&
+                $('#BirthCertificateFile').val().toLowerCase().indexOf(".pdf") < 0) {
+                $('.form-error').fadeIn();
+                sectionValid = false;
+            } else {
+                $('.form-error').fadeOut();
+            }
+            // toggle sections if fields are valid / show error if they're not:
+            if (sectionValid) {
+                // collapse current section:
+                section.collapse('toggle');
+                // find and uncollapse next section:
+                section.parents('.panel').next().find('.panel-collapse.collapse').collapse('toggle');
+            }
+        });
+    </script>
+}

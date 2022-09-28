@@ -1,0 +1,57 @@
+﻿@model MCHMIS.ViewModels.CutoffsViewModel
+
+@{
+    ViewData["Title"] = "Cut Offs";
+    int count = 0;
+}
+
+<form asp-action="Save" class="datatable-form">
+    <table id="table-filter" class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.LocationCutoff.SubCounty)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LocationCutoff.Ward)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LocationCutoff.SubLocation)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LocationCutoff.Value)
+                </th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.LocationCutoffs)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SubCounty)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ward)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SubLocation)
+                    </td>
+                    <td class="fit">
+                        <input type="hidden" value="@item.Id" name="IdValues[@count].Id" />
+                        <input type="text" name="IdValues[@count].Value" value="@item.Value" />
+                        <input type="hidden" name="IdValues[@count].OldValue" value="@item.Value" />
+                    </td>
+
+                </tr>
+                count++;
+            }
+        </tbody>
+    </table>
+    <div class="col-md-12 action-cont margin-top-10 ">
+       
+        <button type="submit" class="btn btn-success pull-right">
+            <i class="glyphicon glyphicon-ok-sign"></i> Save
+        </button>
+    </div>
+</form>

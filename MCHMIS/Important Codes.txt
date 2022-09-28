@@ -1,0 +1,5 @@
+<button type="submit" class="btn btn-success pull-right">
+		<i class="glyphicon glyphicon-ok-sign"></i> Save
+</button>
+
+<a asp-action="Index" class="btn btn-danger glyphicon glyphicon-step-backward pull-left"> Back</a>

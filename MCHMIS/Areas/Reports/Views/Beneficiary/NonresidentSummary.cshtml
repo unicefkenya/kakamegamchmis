@@ -1,0 +1,102 @@
+﻿@using MCHMIS.Areas.Reports.ViewModels
+@using X.PagedList.Mvc.Core
+@model MCHMIS.Areas.Reports.ViewModels.HouseholdsReportViewModel
+
+<form asp-action="Nonresident" class="form-paginated">
+    <div class="form-group col-md-2 col-xs-3 ">
+        <label asp-for="ReportTypeId" class="control-label"></label>
+        <select asp-for="ReportTypeId" class="form-control" asp-items="ViewBag.ReportTypeId"></select>
+    </div>
+
+    <div class="form-group col-md-2 col-xs-3 ">
+        <label asp-for="HealthFacilityId" class="control-label"></label>
+        <select asp-for="HealthFacilityId" class="form-control filter-list" asp-items="ViewBag.HealthFacilityId">
+            <option value="">All</option>
+        </select>
+    </div>
+
+    <div class="form-group col-md-4">
+        <div class="row">
+            <div class="col-md-6">
+                <label asp-for="StartDate" class="control-label"></label>
+                <div class='input-group date'>
+                    <input asp-for="StartDate" type="text" class="form-control no-typing reg-date" autocomplete="off" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="EndDate" class="control-label"></label>
+                <div class='input-group date'>
+                    <input asp-for="EndDate" type="text" class="form-control no-typing reg-date" autocomplete="off" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-2">
+        <button type="submit" class="btn btn-success pull-left btn-filter inline  btn-filter-report">
+            <i class="glyphicon glyphicon-search"></i> Filter
+        </button>
+
+        <button type="button" class="btn btn-default btn-reset pull-left btn-filter inline">
+            <i class="fa fa-eraser"></i> Clear
+        </button>
+
+        <input asp-for="Option" type="hidden" />
+        <input type="hidden" name="Page" id="pagination-page" value="1" />
+    </div>
+    <button type="submit" class="btn btn-success pull-left btn-export inline">
+        <i class="fa fa-file-pdf-o"></i> Export
+    </button>
+</form>
+<hr />
+
+@if (Model.Summaries != null)
+{
+    <table id="table-filter-sort" class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    County
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Summary.Beneficiaries)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Summaries)
+            {
+                <tr>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SubCounty)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Beneficiaries)
+                    </td>
+                </tr>
+            }
+        </tbody>
+        @if (Model.Summaries.Any())
+        {
+            <tfoot>
+                <tr>
+                    <td>
+                        <strong>Total</strong>
+                    </td>
+                    <td>
+                         <strong>@Model.Summaries.Sum(i => i.Beneficiaries).ToString("##,###")</strong>
+                    </td>
+                </tr>
+            </tfoot>
+        }
+    </table>
+
+}

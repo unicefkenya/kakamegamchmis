@@ -1,0 +1,170 @@
+﻿@model MCHMIS.ViewModels.CommunityValidationListViewModel
+@{
+    ViewData["Title"] = "Export";
+    Layout = "~/Views/Shared/_LayoutExport.cshtml";
+    var rootUrl = "https://localhost:44334/";
+}
+
+<div class="export-form">
+
+    @foreach (var item in Model.HouseholdRegs)
+    {
+        <table class="table targeting-form border-bottom-none">
+            <tr>
+                <td colspan="4">
+                    <div class="title-cont">
+                        <h3 class="text-center">Mother's Details</h3>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td width="25%">
+                    <table class="table">
+                        <tr>
+                            <td class="fit">Names</td>
+                            <td> <input value="@item.Mother.FullName" class="form-control-other" /></td>
+                        </tr>
+                    </table>
+                </td>
+                <td width="25%">
+                    <table class="table">
+                        <tr>
+                            <td class="fit">Phone Number</td>
+                            <td> <input value="@item.Phone" class="form-control-other" /></td>
+                        </tr>
+                    </table>
+                </td>
+                <td width="25%">
+                    <table class="table">
+                        <tr>
+                            <td class="fit">Next of Kin Name</td>
+                            <td>
+                                @{ var NOK = item.NOKFirstName + " " + item.NOKMiddleName + " " + item.NOKSurname;}
+                                <input value="@NOK" class="form-control-other" />
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td width="25%">
+                    <table class="table">
+                        <tr>
+                            <td class="fit">Next of Kin Phone Number</td>
+                            <td>
+                            <td>
+                                <input value="@item.NOKPhone" class="form-control-other" />
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+        <table class="table targeting-form border-top-none ">
+            <tr>
+                <td colspan="3">
+                    <div class="title-cont margin-top-15">
+                        <h3 class="text-center"> I. GEOGRAPHIC IDENTIFICATION (This section is not answered by the respondent)</h3>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td width="33%">
+                    <table class="table">
+                        <tr>
+                            <td class="fit"> (1.01) County</td>
+                            <td> <input value="@item.Village.Ward.Constituency.County.Name" class="form-control-other" /></td>
+                        </tr>
+                    </table>
+                </td>
+                <td width="33%">
+                    <table class="table">
+                        <tr>
+                            <td class="fit">(1.02) Sub-County</td>
+                            <td> <input value="@item.Village.Ward.Constituency.Name" class="form-control-other" /></td>
+                        </tr>
+                    </table>
+                </td>
+                <td width="33%">
+                    <table class="table">
+                        <tr>
+                            <td class="fit">(1.03) Constituency</td>
+                            <td> <input value="@item.Village.Ward.Constituency.Name" class="form-control-other" /></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <table class="table">
+                        <tr>
+                            <td class="fit">(1.04) Location</td>
+                            <td> <input value="@item.SubLocation.Location.Name" class="form-control-other" /></td>
+                        </tr>
+                    </table>
+                </td>
+                <td>
+                    <table class="table">
+                        <tr>
+                            <td class="fit">(1.05) Sub-Location</td>
+                            <td> <input value="@item.SubLocation.Name" class="form-control-other" /></td>
+                        </tr>
+                    </table>
+                </td>
+                <td>
+                    <table class="table">
+                        <tr>
+                            <td class="fit">(1.06) Village</td>
+                            <td> <input value="@item.Village" class="form-control-other" /></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <table class="table">
+                        <tr>
+                            <td class="fit">(1.06) PHYSICAL ADDRESS</td>
+                            <td> <input value="@item.PhysicalAddress" class="form-control-other" /></td>
+                        </tr>
+                    </table>
+                </td>
+                <td>
+                    <table class="table">
+                        <tr class="duration">
+                            <td class="fit">(1.07) DURATION OF RESIDENCE IN THIS PLACE</td>
+                            <td width="10"><input value="@item.ResidenceDurationYears" class="form-control-other" /></td>
+                            <td class="fit">YEARS and</td>
+                            <td width="10"><input value="@item.ResidenceDurationMonths" class="form-control-other" /></td>
+                            <td class="fit">MONTHS</td>
+                        </tr>
+                    </table>
+                </td>
+                <td>
+                    <table class="table">
+                        <tr>
+                            <td class="fit">(1.08) NEAREST CHURCH/MOSQUE </td>
+                            <td> <input value="@item.NearestReligiousBuilding" class="form-control-other" /></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <table class="table">
+                        <tr>
+                            <td class="fit">(1.09) NEAREST SCHOOL</td>
+                            <td> <input value="@item.NearestSchool" class="form-control-other" /></td>
+                        </tr>
+                    </table>
+                </td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+
+        <img class="part-one" src="@rootUrl/images/Targeting-Tool-Part-1.png" />
+        <img class="part-one" src="@rootUrl/images/Targeting-Tool-Part-2.png" />
+        <div style="page-break-before: always;"></div>
+
+    }
+</div>

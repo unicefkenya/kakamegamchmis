@@ -1,0 +1,225 @@
+﻿@{
+    var tasks = User.FindFirst("UserRoles").Value;
+}
+<div class="col-md-3 left_col">
+    <div class="left_col scroll-view">
+        <a href="~/" target="_blank" class="navbar nav_title" style="border: 0;">
+            <img class="nav-bar-img logo-symbol" src="~/images/logo.png" />
+        </a>
+        <div class="clearfix"></div>
+
+        <br />
+        <!-- sidebar menu -->
+        <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+            <div class="menu_section">
+                <ul class="nav side-menu">
+                    <li class="dashboard">
+                        <a href="~/dashboard/">
+                            <i class="fa fa-dashboard"></i> Dashboard
+                        </a>
+                    </li>
+                    @if (tasks.Contains("Registration:View registered mothers"))
+                    {
+                        <li class="registration">
+                            <a href="~/admin/registration/"><i class="fa fa-users"></i>Registration & Targeting </a>
+                        </li>
+                    }
+
+                    @if (tasks.Contains("Community Validation:"))
+                    {
+                        <li class="parent">
+                            <a><i class="fa fa-check-square"></i>Community Validation <span class="fa fa-chevron-down"></span></a>
+                            <ul class="nav child_menu bottom">
+                                @if (tasks.Contains("Community Validation:View CHV Lists"))
+                                {
+                                    <li><a href="~/admin/community-validation/">Community Volunteer Validation</a></li>
+                                }
+                                @if (tasks.Contains("Community Validation:View M&E Validation Lists"))
+                                {
+                                    <li>
+                                        <a asp-action="MonitoringEvaluation" asp-controller="CommunityValidation" asp-area="Admin">
+                                            Monitoring Team Validation
+                                        </a>
+                                    </li>
+                                }
+                            </ul>
+                        </li>
+                    }
+                    @if (tasks.Contains("Enrolment:View Enrolled Mothers"))
+                    {
+
+                        <li class="enrolment">
+                            <a href="~/admin/enrolment/"><i class="fa fa-file-text-o"></i>Enrolment </a>
+                        </li>
+                    }
+                    @*<li class="parent payments">
+                            <a><i class="fa fa-book"></i>Case Management <span class="fa fa-chevron-down"></span></a>
+                            <ul class="nav child_menu bottom">
+                                <li>
+                                    <a asp-action="Index" asp-controller="ANCVisits" asp-area="Admin">
+                                        ANC Visits
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>*@
+                    @if (tasks.Contains("Case Management:View Cases"))
+                    {
+                        <li class="casemanagement">
+                            <a href="~/admin/casemanagement/"><i class="fa fa-briefcase"></i>Case Management</a>
+                        </li>
+                    }
+                    @if (tasks.Contains("Pre-Payroll Checks") || tasks.Contains("Fund Request") || tasks.Contains("Payroll"))
+                    {
+                        <li class="parent payments">
+                            <a><i class="fa fa-money"></i>Payments <span class="fa fa-chevron-down"></span></a>
+                            <ul class="nav child_menu bottom">
+                                @if (tasks.Contains("View Pre-Payroll Checks"))
+                                {
+                                    <li>
+                                        <a asp-action="Index" asp-controller="PrePayrollChecks" asp-area="Admin">
+                                            Pre-Payroll Checks
+                                        </a>
+                                    </li>
+                                }
+                                @if (tasks.Contains("View Fund Request"))
+                                {
+                                    <li>
+                                        <a asp-action="Index" asp-controller="FundRequests" asp-area="Admin">
+                                            Fund Request
+                                        </a>
+                                    </li>
+                                }
+                                @if (tasks.Contains("View Payroll"))
+                                {
+                                    <li>
+                                        <a asp-action="Index" asp-controller="Payrolls" asp-area="Admin">
+                                            Payrolls
+                                        </a>
+                                    </li>
+                                }
+                            </ul>
+                        </li>
+                    }
+                    @if (tasks.Contains("Complaints:View Complaints"))
+                    {
+                        <li class="complaints">
+                            <a href="~/admin/complaints/"><i class="fa fa-book"></i>Complaints</a>
+                        </li>
+                    }
+                    @if (tasks.Contains("Updates:View Updates"))
+                    {
+                        <li class="changes">
+                            <a href="~/admin/changes/"><i class="fa fa-book"></i>Updates</a>
+                        </li>
+                    }
+                    @if (tasks.Contains("Reports:View Reports"))
+                    {
+                        <li class="area-reports">
+                            <a href="~/reports/">
+                                <i class="fa fa-bar-chart"></i>Reports
+                            </a>
+                        </li>
+                    }
+                    @if (tasks.Contains("Legacy Data:View"))
+                    {
+                        <li class="area-legacy">
+                            <a href="~/legacy/">
+                                <i class="fa fa-bath"></i>Legacy Data
+                            </a>
+                        </li>
+                    }
+                    @if (tasks.Contains("Settings:View Settings"))
+                    {
+                        <li class="parent">
+                            <a><i class="glyphicon glyphicon-cog"></i>Settings <span class="fa fa-chevron-down"></span></a>
+                            <ul class="nav child_menu bottom">
+                                @if (tasks.Contains("Settings:Health Facilities"))
+                                {
+                                    <li><a href="~/admin/healthfacilities">Health Facilities</a></li>
+                                }
+                                @if (tasks.Contains("Settings:Payment Cycles"))
+                                {
+                                    <li><a href="~/admin/paymentcycles">Payment Cycles</a></li>
+                                }
+                                @if (tasks.Contains("Settings:Payment Points"))
+                                {
+                                    <li><a href="~/admin/paymentpoints">Payment Points</a></li>
+                                }
+                                @if (tasks.Contains("Settings:Clinic Visits"))
+                                {
+                                    <li><a href="~/admin/clinicvisits">Clinic Visits</a></li>
+                                }
+                                @if (tasks.Contains("Settings:Complaint Types"))
+                                {
+                                    <li><a href="~/admin/complainttypes">Complaint Types</a></li>
+                                }
+                                @if (tasks.Contains("Settings:System Codes"))
+                                {
+                                    <li><a href="~/admin/systemcodes">System Codes</a></li>
+                                }
+                                @if (tasks.Contains("Settings:System Code Details"))
+                                {
+                                    <li><a href="~/admin/systemcodedetails">System Code Details</a></li>
+                                }
+                                @if (tasks.Contains("Settings:System Settings"))
+                                {
+                                    <li><a href="~/admin/SystemSettings">System Settings</a></li>
+                                }
+                                @if (tasks.Contains("Settings:Cut Offs"))
+                                {
+                                    <li><a href="~/admin/cutoffs">Cut Offs</a></li>
+                                }
+                                @if (tasks.Contains("Settings:SMS"))
+                                {
+                                    <li><a href="~/admin/sms">SMS</a></li>
+                                }
+                                @if (tasks.Contains("Settings:Geo Locations"))
+                                {
+                                    <li><a href="~/admin/subcounties">Geo Locations</a></li>
+                                }
+                                @if (tasks.Contains("Settings:Status"))
+                                {
+                                    <li><a href="~/admin/status">Status</a></li>
+                                }
+                            </ul>
+                        </li>
+                    }
+                    @if (tasks.Contains("Security:Manage Security"))
+                    {
+                        <li class="parent">
+                            <a><i class="glyphicon glyphicon-lock"></i>Security <span class="fa fa-chevron-down"></span></a>
+                            <ul class="nav child_menu bottom">
+
+                                <li><a href="~/admin/roles/">Roles</a></li>
+
+                                <li><a href="~/admin/profiles">Profiles</a></li>
+
+                                <li><a href="~/admin/systemtasks">System Tasks</a></li>
+
+                                <li><a href="~/admin/users">Users</a></li>
+                                <li>
+                                    <a asp-action="Index" asp-controller="Enumerators" asp-area="Admin">
+                                        Enumerators
+                                    </a>
+                                </li>
+
+                                @*<li><a href="~/admin/installationsetup">Installation Setup</a></li>*@
+                                <li><a href="~/admin/audit-trail">Audit Trail</a></li>
+                                <li><a href="~/admin/backups/">Database Backups</a></li>
+                            </ul>
+                        </li>
+                    }
+                    @if (tasks.Contains("Community Validation:View CHVs"))
+                    {
+                        <li class="chvs">
+                            <a href="~/admin/enumerators/">
+                                <i class="fa fa-users"></i>CHVs
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+        <!-- /sidebar menu -->
+    </div>
+</div>

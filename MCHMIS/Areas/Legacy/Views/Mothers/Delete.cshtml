@@ -1,0 +1,267 @@
+﻿@model MCHMIS.Areas.Legacy.Models.Mother
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Mother</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.M_Names)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.M_Names)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.M_IDNo)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.M_IDNo)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.M_DOB)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.M_DOB)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.M_County)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.M_County)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.M_Ward)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.M_Ward)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.M_Phoneno)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.M_Phoneno)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.M_Photo)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.M_Photo)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.M_Address)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.M_Address)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.M_Occupation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.M_Occupation)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.M_Income)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.M_Income)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.M_Flag)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.M_Flag)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.F_Names)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.F_Names)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.F_IDNo)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.F_IDNo)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.F_DOB)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.F_DOB)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.F_County)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.F_County)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.F_Ward)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.F_Ward)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.F_Phoneno)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.F_Phoneno)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.F_Photo)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.F_Photo)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.F_Address)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.F_Address)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.F_Occupation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.F_Occupation)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.F_Income)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.F_Income)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.F_Flag)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.F_Flag)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.G_Names)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.G_Names)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.G_IDNo)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.G_IDNo)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.G_DOB)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.G_DOB)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.G_County)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.G_County)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.G_Ward)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.G_Ward)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.G_Phoneno)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.G_Phoneno)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.G_Photo)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.G_Photo)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.G_Address)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.G_Address)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.G_Occupation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.G_Occupation)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.G_Income)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.G_Income)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.G_Relationship)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.G_Relationship)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Other_income)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Other_income)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.facilityid)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.facilityid)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.p_flag)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.p_flag)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CareOf)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CareOf)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.unqualified_reason)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.unqualified_reason)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.date)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.date)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.db)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.db)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DirtyId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DirtyId)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Motherid" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

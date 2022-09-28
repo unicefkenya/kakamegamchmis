@@ -1,0 +1,35 @@
+﻿<div class="modal-dialog wider" role="document">
+    <div class="modal-content">
+        <div class="modal-header bg-success">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModal-label">@ViewBag.Title</h4>
+        </div>
+        <div class="modal-body">
+
+            @RenderBody()
+        </div>
+        @if (ViewBag.ShowFooter != null)
+        {
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        }
+    </div>
+</div>
+@RenderSection("footer", required: false)
+<!-- jQuery -->
+<script src="~/admin/vendors/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="~/admin/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+
+<script src="~/admin/vendors/moment/min/moment.min.js"></script>
+
+<!-- bootstrap-datetimepicker -->
+<script src="~/js/bootstrap-datetimepicker.min.js"></script>
+
+<script src="~/js/date.format.js"></script>
+<script src="~/js/select2.min.js"></script>
+<script src="~/js/main.popup.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+@RenderSection("scripts", required: false)

@@ -1,0 +1,104 @@
+﻿@using Newtonsoft.Json
+@model MCHMIS.Areas.Reports.ViewModels.HouseholdsReportViewModel
+
+<form asp-action="NotEnrolled">
+
+    <div class="form-group col-md-3 col-xs-6">
+        <label asp-for="ReportTypeId" class="control-label"></label>
+        <select asp-for="ReportTypeId" class="form-control" asp-items="ViewBag.ReportTypeId"></select>
+    </div>
+
+    <div class="form-group col-md-3 col-xs-6">
+        <label asp-for="HealthFacilityId" class="control-label"></label>
+        <select asp-for="HealthFacilityId" class="form-control filter-list" asp-items="ViewBag.HealthFacilityId">
+            <option value="">All</option>
+        </select>
+    </div>
+    <div class="form-group col-md-2 col-xs-3 ">
+        <label asp-for="SubCountyId" class="control-label"></label>
+        <select asp-for="SubCountyId" class="form-control filter-list" ng-model="SubCountyId" asp-items="ViewBag.SubCountyId">
+            <option value="">All</option>
+        </select>
+    </div>
+    <div class="form-group col-md-2 col-xs-3 ">
+        <label asp-for="WardId" class="control-label"></label>
+        <select asp-for="WardId" class="form-control filter-list" ng-model="WardId">
+            <option value="">All</option>
+            <option ng-repeat="item in wards | filter: {SubCountyId: SubCountyId}" value="{{item.Id}}">
+                {{item.Name}}
+            </option>
+        </select>
+    </div>
+    <div class="col-md-2">
+        <button type="submit" class="btn btn-success pull-left btn-filter inline btn-filter-report">
+            <i class="glyphicon glyphicon-search"></i> Filter
+        </button>
+        <button type="button" class="btn btn-default btn-reset pull-left btn-filter inline">
+            <i class="fa fa-eraser"></i> Clear
+        </button>
+        <button type="submit" class="btn btn-success pull-left btn-export inline">
+            <i class="fa fa-file-pdf-o"></i> Export
+        </button>
+        <input asp-for="Option" type="hidden" />
+    </div>
+</form>
+<hr />
+
+@if (Model.Summaries != null)
+{
+    <table id="table-filter-sort" class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Summary.Facility)
+                </th>
+                <th class="fit">
+                    @Html.DisplayNameFor(model => model.Summary.Beneficiaries)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Summaries)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Facility)
+                    </td>
+                    <td class="text-center">
+                        @Html.DisplayFor(modelItem => item.Beneficiaries)
+                    </td>
+                </tr>
+            }
+        </tbody>
+        @if (Model.Summaries.Any())
+        {
+            <tfoot>
+                <tr>
+                    <td>
+                        <strong>Total</strong>
+                    </td>
+                    <td class="text-center">
+                         <strong>@Model.Summaries.Sum(i => i.Beneficiaries).ToString("##,###")</strong>
+                    </td>
+                </tr>
+            </tfoot>
+        }
+    </table>
+
+}
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var scope = angular.element(document.querySelector('body')).scope();
+            scope.$apply(function (filter) {
+                scope.wards = @Html.Raw(JsonConvert.SerializeObject(Model.Wards));
+                scope.SubCountyId ='@Model.SubCountyId';
+                scope.WardId = '@Model.WardId';
+                scope.HealthFacilityID = '@Model.HealthFacilityId';
+                setTimeout(function() {
+                    $('#WardId').val('@Model.WardId');
+                },100);
+            });
+        });
+    </script>
+}

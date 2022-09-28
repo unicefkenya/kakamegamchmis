@@ -1,0 +1,254 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:MCHMIS.Mobile.Controls;assembly=MCHMIS.Mobile"
+    xmlns:dataGrid="clr-namespace:Xamarin.Forms.DataGrid;assembly=Xamarin.Forms.DataGrid"
+    xmlns:views="clr-namespace:SuaveControls.Views;assembly=SuaveControls.FloatingActionButton"
+    Title="Community Validation"
+     x:Class="MCHMIS.Mobile.Pages.RegistrationDetailPage">
+    <TabbedPage.Resources>
+        <StyleSheet  Source="Styles.css" />
+    </TabbedPage.Resources>
+    <ContentPage Title="GEOGRAPHICAL IDENTIFICATION, DWELLING AND HOUSEHOLD ">
+        <ScrollView>
+            <StackLayout StyleClass="body">
+                <StackLayout StyleClass="CardSpacing, CardPadding, container">
+                    <StackLayout StyleClass="StandardSpacing, StandardPadding, full">
+                        <Label Text="I. HOUSEHOLD SUMMARY AND GEOGRAPHIC IDENTIFICATION" StyleClass="SubTitle" />
+                        <Label x:Name="UniqueId" Text="{Binding Registration.FormNo}"  StyleClass="SubTitleDesc" />
+                        <FlexLayout StyleClass="container" Direction="Row"  Wrap="Wrap">
+
+                            <Label Text="Name:" StyleClass="boldLabel,half,medium" />
+                            <Label Text="{Binding Registration.MothersFullName}" StyleClass="liteLabel,half,small" />
+
+                            <Label Text="WARD:" StyleClass="boldLabel,half,medium" />
+                            <Label x:Name="Ward" Text="{Binding Registration.WardName}" StyleClass="liteLabel,half,small" />
+
+                            <Label Text="VILLAGE UNIT:"  StyleClass="boldLabel,half,medium" />
+                            <Label x:Name="Village" Text="{Binding Registration.VillageName}" StyleClass="liteLabel,half,small" />
+
+                            <!--<Label Text="COMMUNITY AREA:"  StyleClass="boldLabel,half,medium" />
+              <Label x:Name="SubLocation" Text="{Binding Registration.CommunityAreaName}" StyleClass="liteLabel,half,small" />-->
+
+                            <Label Text="DURATION IN RESIDENCE :" StyleClass="boldLabel,half,medium" />
+                            <Label x:Name="DurationDisplay"  Text="{Binding Registration.DurationDisplay}" StyleClass="liteLabel,half,small" />
+
+                            <Label Text="PHYSICAL ADDRESS:" StyleClass="boldLabel,half,medium" />
+                            <Label x:Name="PhysicalAddress" Text="{Binding Registration.PhysicalAddress}" StyleClass="liteLabel,half,small" />
+
+                            <Label Text="NEAREST CHURCH/MOSQUE" StyleClass="boldLabel,half,medium" />
+                            <Label x:Name="NearestReligiousBuilding"   Text="{Binding Registration.NearestReligiousBuilding}" StyleClass="liteLabel,half,small" />
+
+                            <Label Text="NEAREST SCHOOL"  StyleClass="boldLabel,half,medium" />
+                            <Label x:Name="NearestSchool"  Text="{Binding Registration.NearestSchool}" StyleClass="liteLabel,half,small" />
+                        </FlexLayout>
+                    </StackLayout>
+                </StackLayout>
+                <StackLayout StyleClass="CardSpacing, CardPadding, container">
+                    <StackLayout StyleClass="StandardSpacing, StandardPadding">
+                        <FlexLayout StyleClass="container" Direction="Row"  Wrap="Wrap">
+
+                            <Label Text="TOTAL HOUSEHOLD MEMBERS:" StyleClass="boldLabel,half,medium" />
+                            <Label x:Name="HouseholdMembers"  Text="{Binding Registration.HouseholdMembers}"  StyleClass="liteLabel,half,small" />
+
+                            <Label Text="Geo Position:" StyleClass="boldLabel,half,medium" />
+                            <Label x:Name="GeoPosition"  Text="{Binding Registration.GeoPosition}"  StyleClass="liteLabel,half,small" />
+
+                            <Label Text="Download Date:" StyleClass="boldLabel,half,medium" />
+                            <Label x:Name="DownloadDate"  Text="{Binding Registration.DownloadDate}"  StyleClass="liteLabel,half,small" />
+
+                            <Label Text="Registration Date:" StyleClass="boldLabel,half,medium" />
+                            <Label x:Name="RegistrationDate"  Text="{Binding Registration.RegistrationDate}"  StyleClass="liteLabel,half,small" />
+
+                            <Label Text="Interview Date 1:" StyleClass="boldLabel,half,medium" />
+                            <Label x:Name="InterviewDate1"  Text="{Binding Registration.InterviewDate1}"  StyleClass="liteLabel,half,small" />
+
+                            <Label Text="Interview Date 2:" StyleClass="boldLabel,half,medium" />
+                            <Label x:Name="InterviewDate2"  Text="{Binding Registration.InterviewDate2}"  StyleClass="liteLabel,half,small" />
+
+                            <Label Text="Interview Date 3:" StyleClass="boldLabel,half,medium" />
+                            <Label x:Name="InterviewDate3"  Text="{Binding Registration.InterviewDate3}"  StyleClass="liteLabel,half,small" />
+                        </FlexLayout>
+                    </StackLayout>
+                </StackLayout>
+                <StackLayout StyleClass="CardSpacing, CardPadding, container">
+                    <StackLayout StyleClass="StandardSpacing, StandardPadding">
+                        <FlexLayout Direction="Row"  Wrap="Wrap">
+                            <Label StyleClass="boldLabel,full,medium"  Text="(2.01) How many habitable ROOMS does this dwelling unit contain?" />
+                            <Label StyleClass="liteLabel,full,medium" x:Name="HabitableRooms" Text="{Binding Registration.HabitableRooms}" />
+                            <Label StyleClass="boldLabel,half,medium,multiline"  HorizontalTextAlignment="Start"  Text="(2.02 a) Is it Owner Occupied ?" />
+                            <Label StyleClass="liteLabel,half,small"  x:Name="IsOwnerOccupied"  Text="{Binding Registration.IsOwned.Description}" />
+                            <Label StyleClass="boldLabel,full,medium,multiline" Text="(2.02 b) TENURE status of the dwelling unit and/or surrounding terrain/land" />
+                            <Label StyleClass="liteLabel,full,small" x:Name="TenureStatus"  Text="{Binding Registration.TenureStatus.Description}" />
+                            <Label StyleClass="boldLabel,full,medium,SauBlue" Text="Dominant construction material of the main Dwelling unit " />
+                            <Label StyleClass="boldLabel,half,medium"  Text="(2.03) ROOF ?" />
+                            <Label StyleClass="liteLabel,half,small" x:Name="RoofConstructionMaterial"  Text="{Binding Registration.RoofConstructionMaterial.Description}" />
+                            <Label StyleClass="boldLabel,half,medium"  Text="(2.04) WALL ?" />
+                            <Label StyleClass="liteLabel,half,small"  x:Name="WallConstructionMaterial"  Text="{Binding Registration.WallConstructionMaterial.Description}" />
+                            <Label StyleClass="boldLabel,half,medium" Text="(2.05) FLOOR ?" />
+                            <Label StyleClass="liteLabel,half,small" x:Name="FloorConstructionMaterial"  Text="{Binding Registration.FloorConstructionMaterial.Description}" />
+                            <Label StyleClass="boldLabel,full,medium"  Text="(2.06)The dwelling unit is at RISK of:?" />
+                            <Label StyleClass="liteLabel,full,small" x:Name="DwellingUnitRisk" Text="{Binding Registration.DwellingUnitRisk.Description}" />
+                            <Label StyleClass="boldLabel,full,medium"  Text="(2.07)Main source of WATER?" />
+                            <Label  StyleClass="liteLabel,full,medium"  x:Name="WaterSource"    Text="{Binding Registration.WaterSource.Description}" />
+                            <Label StyleClass="boldLabel,full,medium"  Text="(2.08) Main mode of HUMAN WASTE DISPOSAL?" />
+                            <Label  StyleClass="liteLabel,full,medium"  x:Name="WasteDisposalMode" Text="{Binding Registration.WasteDisposalMode.Description}" />
+                            <Label  StyleClass="boldLabel,full,medium"  Text="(2.09) Main type of COOKING FUEL" />
+                            <Label StyleClass="liteLabel,full,medium"  x:Name="CookingFuelType" Text="{Binding Registration.CookingFuelType.Description}" />
+                            <Label StyleClass="boldLabel,full,medium"  Text="(2.10) Main type of LIGHTING FUEL:" />
+                            <Label StyleClass="liteLabel,full,medium"  x:Name="LightingFuelType" Text="{Binding Registration.LightingFuelType.Description}" />
+                            <Label StyleClass="boldLabel,full,medium,SauBlue"   Text="Does the household OWN any of the following items?" />
+                            <Label StyleClass="boldLabel,half,medium"    Text="(2.11) Television" FontSize="Medium" />
+                            <Label  StyleClass="liteLabel,half,medium"  x:Name="IsTelevision" Text="{Binding Registration.IsTelevision.Description}" />
+                            <Label StyleClass="boldLabel,half,medium"    Text="(2.12) Motorcycle" FontSize="Medium" />
+                            <Label  StyleClass="liteLabel,half,medium" x:Name="IsMotorcycle" Text="{Binding Registration.IsMotorcycle.Description}" />
+                            <Label StyleClass="boldLabel,half,medium"    Text="(2.13) Tuk-Tuk" FontSize="Medium" />
+                            <Label  StyleClass="liteLabel,half,medium" x:Name="IsTukTuk" Text="{Binding Registration.IsTukTuk.Description}" />
+                            <Label StyleClass="boldLabel,half,medium"    Text="(2.14) Refrigerator" FontSize="Medium" />
+                            <Label StyleClass="liteLabel,half,medium" x:Name="IsRefrigerator" Text="{Binding Registration.IsRefrigerator.Description}" />
+                            <Label StyleClass="boldLabel,half,medium"    Text="(2.15) Car" FontSize="Medium" />
+                            <Label  StyleClass="liteLabel,half,medium" x:Name="IsCar" Text="{Binding Registration.IsCar.Description}" />
+                            <Label StyleClass="boldLabel,half,medium"    Text="(2.16) Mobile phone" FontSize="Medium" />
+                            <Label   StyleClass="liteLabel,half,medium" x:Name="IsMobilePhone" Text="{Binding Registration.IsMobilePhone.Description}" />
+                            <Label StyleClass="boldLabel,half,medium"    Text="(2.17) Bicycle" FontSize="Medium" />
+                            <Label StyleClass="liteLabel,half,medium" x:Name="IsBicycle" Text="{Binding Registration.IsBicycle.Description}" />
+                            <Label StyleClass="boldLabel,full,medium,SauBlue"  Text="How many of each of the following livestock are currently owned" />
+                            <Label StyleClass="boldLabel,half,medium"     Text="(2.18) Exotic cattle" />
+                            <Label StyleClass="liteLabel,half,small"  x:Name="ExoticCattle" Text="{Binding Registration.ExoticCattle}" />
+                            <Label StyleClass="boldLabel,half,medium"    Text="(2.19)	Indigenous cattle" />
+                            <Label StyleClass="liteLabel,half,small"  x:Name="IndigenousCattle" Text="{Binding Registration.IndigenousCattle}" />
+                            <Label StyleClass="boldLabel,half,medium"     Text="(2.20) Sheep" />
+                            <Label StyleClass="liteLabel,half,small"  x:Name="Sheep" Text="{Binding Registration.Sheep}" />
+                            <Label StyleClass="boldLabel,half,medium"     Text="(2.21)	Goats" />
+                            <Label StyleClass="liteLabel,half,small"  x:Name="Goats" Text="{Binding Registration.Goats}" />
+                            <Label StyleClass="boldLabel,half,medium"     Text="(2.22)	Camels" />
+                            <Label StyleClass="liteLabel,half,small"  x:Name="Camels" Text="{Binding Registration.Camels}" />
+                            <Label StyleClass="boldLabel,half,medium"     Text="(2.23)	Donkeys" />
+                            <Label StyleClass="liteLabel,half,small"  x:Name="Donkeys" Text="{Binding Registration.Donkeys}" />
+                            <Label StyleClass="boldLabel,half,medium"     Text="(2.24)	Pigs" />
+                            <Label StyleClass="liteLabel,half,small"  x:Name="Pigs" Text="{Binding Registration.Pigs}" />
+                            <Label StyleClass="boldLabel,half,medium"     Text="(2.25)	Chicken" />
+                            <Label StyleClass="liteLabel,half,small"  x:Name="Chicken" Text="{Binding Registration.Chicken}" />
+                            <Label StyleClass="boldLabel,full,medium,multiline"  Text="(2.26)	How many LIVE BIRTHS occurred in this household in the last 12 months?" />
+                            <Label StyleClass="liteLabel,full,small"  x:Name="LiveBirths" Text="{Binding Registration.LiveBirths}" />
+                            <Label StyleClass="boldLabel,full,medium,multiline"  Text="(2.27)	How many DEATHS occurred in this household in the last 12 months?" />
+                            <Label StyleClass="liteLabel,full,small"  x:Name="Deaths" Text="{Binding Registration.Deaths}" />
+                            <Label StyleClass="boldLabel,full,medium,multiline"  Text="(2.28) Currently, the CONDITIONS of your household are ?" />
+                            <Label StyleClass="liteLabel,full,small"  x:Name="HouseHoldConditionId" Text="{Binding Registration.HouseHoldCondition.Description}" />
+                            <Label StyleClass="boldLabel,full,medium,multiline"  Text="(2.29) In the past 7 days, did anyone in this household cut the size of the meals or skip meals because of the lack of enough money?" />
+                            <Label StyleClass="liteLabel,full,small"  x:Name="IsSkippedMeal" Text="{Binding Registration.IsSkippedMeal.Description}" />
+                            <Label StyleClass="boldLabel,full,medium,multiline,SauBlue"  Text="BENEFITS FROM SOCIAL ASSISTANCE PROGRAMMES" />
+                            <Label StyleClass="boldLabel,full,medium,multiline"  Text="(2.30) Is anyone in this household receiving benefits from any of the following National Safety Net Programmes?" />
+                            <Label StyleClass="liteLabel,full,small"  x:Name="OtherProgrammesId" Text="{Binding Registration.OtherProgrammes.Description}" />
+                            <ListView x:Name="NsNpProgs" StyleClass="full" ItemsSource="{Binding LoadedProgrammes}">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <ViewCell>
+                                            <FlexLayout Wrap="Wrap" StyleClass="full"  HeightRequest="0"  Margin="0">
+                                                <Switch StyleClass="tenth,SauBlue,pull-left" IsToggled="{Binding IsSelected}" IsEnabled="False" />
+                                                <Label  StyleClass="SauBlue,half,medium,pull=left" Margin="0"  Text="{Binding  Item.Description}" />
+                                            </FlexLayout>
+                                        </ViewCell>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                            <Label StyleClass="boldLabel,full,medium,multiline"  Text ="(2.31) Is anyone in this household receiving benefits from any other Social Assistance Programme or any other external support?" />
+                            <Label StyleClass="liteLabel,full,small"  x:Name="IsReceivingSocialId" Text="{Binding Registration.IsReceivingSocial.Description}" />
+                            <Label StyleClass="boldLabel,full,medium"  Text="(2.32) Other Programmes(Names) If Any" />
+                            <Label StyleClass="liteLabel,full,small"  x:Name="OtherProgrammeNames" Text="{Binding Registration.OtherProgrammeNames}" />
+
+                            <Label StyleClass="boldLabel,full,medium" Text="(2.33)	What type of BENEFIT do you receive?" />
+                            <Label StyleClass="liteLabel,full,small"  x:Name="BenefitTypeId" Text="{Binding Registration.BenefitType.Description}" />
+                            <Label StyleClass="boldLabel,full,medium,multiline"  Text="(2.34)	How MUCH was the benefit in the last receipt? (KSHs)" />
+                            <Label StyleClass="liteLabel,full,small"  x:Name="LastReceiptAmount" Text="{Binding Registration.LastReceiptAmount}" />
+                            <Label StyleClass="boldLabel,full,medium,multiline"  Text="(2.35)	Specify IN-KIND of benefit:" />
+                            <Label StyleClass="liteLabel,full,small"  x:Name="InKindBenefitId" Text="{Binding Registration.InKindBenefit.Description}" />
+
+                            <Label StyleClass="boldLabel,full,medium,multiline"  Text ="(2.36) Do you receive  any support from relatives or friends?" />
+                            <Label StyleClass="liteLabel,full,small"  x:Name="IsReceivingFamilyId" Text="{Binding Registration.IsReceivingFamily.Description}" />
+
+                            <Label StyleClass="boldLabel,full,medium" Text="(2.36b)	What type of BENEFIT do you receive from relatives or friends?" />
+                            <Label StyleClass="liteLabel,full,small"  x:Name="FamilyBenefitTypeId" Text="{Binding Registration.FamilyBenefitType.Description}" />
+
+                            <Label StyleClass="boldLabel,full,medium,multiline,SauBlue"  Text="(2.10) INTERVIEW RESULTS" />
+
+                            <Label StyleClass="boldLabel,half,medium"     Text=" Interview Status" />
+                            <Label StyleClass="boldLabel,half,medium"  x:Name="InterviewStatusId" Text="{Binding Registration.InterviewStatus.Description}" />
+
+                            <Label StyleClass="boldLabel,half,medium"     Text=" Interview Result" />
+                            <Label StyleClass="boldLabel,half,medium"  x:Name="InterviewResultId" Text="{Binding Registration.InterviewResult.Description}" />
+                        </FlexLayout>
+
+                        <FlexLayout StyleClass="container" Direction="Row"  Wrap="Wrap" IsVisible="{Binding IsNotComplete}">
+                            <Button  Text="Fill Household Survey Form" Command="{Binding EditHouseholdCommand}" StyleClass="btn-success, full,BgKenyaGreen,White" />
+                            <Label StyleClass="full"></Label>
+                        </FlexLayout>
+                        <FlexLayout StyleClass="container" Direction="Row"  Wrap="Wrap" IsVisible="{Binding IsPending}">
+                            <Button  Text="No One at Home " Command="{Binding EmptyHouseholdCommand}" StyleClass="btn-success, full,BgSauBlue,White" />
+                            <Label StyleClass="full"></Label>
+                        </FlexLayout>
+                        <FlexLayout StyleClass="container" Direction="Row"  Wrap="Wrap" IsVisible="{Binding IsPending}">
+                            <Button  Text="Cannot find household" Command="{Binding LocateHouseholdCommand}" StyleClass="btn-danger, full ,BgKenyaRed,White" />
+                            <Label StyleClass="full"></Label>
+                        </FlexLayout>
+                        <FlexLayout StyleClass="container" Direction="Row"  Wrap="Wrap" IsVisible="{Binding IsOngoing}">
+                            <Button  Text="Complete Form" Command="{Binding CompleteHouseholdCommand}" StyleClass="btn-danger, full,BgKenyaGreen,White" />
+                            <Label StyleClass="full"></Label>
+                        </FlexLayout>
+                    </StackLayout>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage>
+    <ContentPage Title="HOUSEHOLD DEMOGRAPHICS">
+        <ScrollView>
+            <StackLayout StyleClass="body">
+                <StackLayout StyleClass="CardSpacing, CardPadding, container">
+                    <StackLayout StyleClass="StandardSpacing, StandardPadding, full">
+                        <StackLayout StyleClass="LargePadding, full, BgWhite">
+                            <Label  Text="(List members of the household by nuclear family; starting with the head and his wife and children, beginning with the eldest and working down to the youngest)" />
+                            <Label Text="(Head of the household: the most responsible/respectable member of the household who makes key decisions of the household on a day to day basis and whose authority is recognized by all members of the household)"></Label>
+                        </StackLayout>
+                    </StackLayout>
+                </StackLayout>
+                <SearchBar Text="{Binding Filter, Mode=TwoWay}"
+ Placeholder="Search  Households Members"
+SearchCommand="{Binding FilterHouseholdMembersCommand}" ></SearchBar>
+
+                <dataGrid:DataGrid  VerticalOptions="FillAndExpand"  x:Name="MembersGrid"
+   ItemsSource="{Binding  HouseholdMembers, Mode=TwoWay}"
+   SelectionEnabled="True"
+   RowHeight="70"
+   HeaderHeight="50"
+   BorderColor="#CCCCCC"
+   HeaderBackground="{DynamicResource KenyaGreen}"
+   IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
+   SelectedItem="{Binding SelectedMember}"
+   ActiveRowColor="#8899AA">
+                    <x:Arguments>
+                        <ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>
+                    </x:Arguments>
+                    <dataGrid:DataGrid.HeaderLabelStyle>
+                        <OnPlatform x:TypeArguments="Style"></OnPlatform>
+                    </dataGrid:DataGrid.HeaderLabelStyle>
+                    <dataGrid:DataGrid.Columns>
+                        <dataGrid:DataGridColumn Title="ID" PropertyName="Id" Width="0.75*" />
+                        <dataGrid:DataGridColumn Title="Full Name" PropertyName="FullName" Width="0.75*" />
+                        <dataGrid:DataGridColumn Title="ID No." PropertyName="IdentificationNumber" Width="0.75*" />
+                        <!--<dataGrid:DataGridColumn Title="Date Of Birth" PropertyName="DateOfBirth"  StringFormat="{}{0:yyyy/MM/dd}" Width="0.75*" />-->
+                    </dataGrid:DataGrid.Columns>
+                    <dataGrid:DataGrid.RowsBackgroundColorPalette>
+                        <dataGrid:PaletteCollection>
+                            <Color>#FEFEFE</Color>
+                            <Color>#FFFFFF</Color>
+                        </dataGrid:PaletteCollection>
+                    </dataGrid:DataGrid.RowsBackgroundColorPalette>
+                    <dataGrid:DataGrid.Resources></dataGrid:DataGrid.Resources>
+                </dataGrid:DataGrid>
+
+                <views:FloatingActionButton IsVisible="{Binding IsOngoing}" x:Name="FloatingAction" HorizontalOptions="EndAndExpand"   VerticalOptions="EndAndExpand"  Margin="0" WidthRequest="80" HeightRequest="90"  Image="ic_add_white.png"   Command="{Binding NewHouseholdMemberCommand}" />
+            </StackLayout>
+        </ScrollView>
+    </ContentPage>
+</TabbedPage>

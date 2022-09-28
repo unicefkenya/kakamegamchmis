@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:MCHMIS.Mobile.Controls;assembly=MCHMIS.Mobile"
+             Title="Up Down Data Transfer with Central MCHMIS System"
+             x:Class="MCHMIS.Mobile.Pages.SyncPage">
+  <ContentPage.Resources>
+    <StyleSheet Source="Styles.css" />
+  </ContentPage.Resources>
+  <ContentPage.Content>
+    <ScrollView>
+      <StackLayout StyleClass="body">
+        <StackLayout StyleClass="CardSpacing, CardPadding, container">
+          <StackLayout  StyleClass="full, LargeSpacing, LargePadding" IsVisible="{Binding IsBusy}"
+                        VerticalOptions="Center"
+                        Orientation="Horizontal"
+                        HorizontalOptions="Center">
+            <ActivityIndicator IsRunning="{Binding IsBusy}">
+            </ActivityIndicator>
+            <Label StyleClass="Accent" Text="{Binding MessageRegistration}" VerticalOptions="Center"  HorizontalOptions="Center" />
+          </StackLayout>
+          <StackLayout  StyleClass="full, LargeSpacing, LargePadding">
+            <Label StyleClass="syncheader, SauGreen" Text="Download Latest Mothers' Data from the Server"
+                   HorizontalOptions="Center" />
+          </StackLayout>
+          <StackLayout  StyleClass="full, LargeSpacing, LargePadding">
+            <Button    Text="{Binding SyncDownRegistrationText}"
+                         StyleClass="BgKenyaGreen, White"
+                        IsEnabled="{Binding IsNotBusy}"
+                        Command="{Binding SyncDownRegistrationCommand}" />
+          </StackLayout>
+          <StackLayout  StyleClass="full, LargeSpacing, LargePadding">
+            <Label StyleClass="syncheader, SauGreen"  Text="Upload Captured Household Data to the Server.  "
+                    HorizontalOptions="Center" />
+          </StackLayout>
+          <StackLayout  StyleClass="full, LargeSpacing, LargePadding">
+            <Button  IsEnabled="{Binding IsNotBusy}"
+                         Text="{Binding SyncUpRegistrationText}"
+                     StyleClass="BgSauMaroon, White"
+                         Command="{Binding SyncUpRegistrationCommand}" />
+          </StackLayout>
+        </StackLayout>
+      </StackLayout>
+    </ScrollView>
+  </ContentPage.Content>
+</ContentPage>

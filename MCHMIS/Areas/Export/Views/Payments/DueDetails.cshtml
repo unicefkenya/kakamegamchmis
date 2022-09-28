@@ -1,0 +1,104 @@
+﻿@using Newtonsoft.Json
+
+@model MCHMIS.Areas.Reports.ViewModels.PaymentsViewModel
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Payment.Beneficiary.UniqueId)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Payment.BeneficiaryName)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Payment.RecipientName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Payment.RecipientPhone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Payment.HealthFacilityId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Payment.SubCountyId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Payment.Ward)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Payment.Beneficiary.Village.Name)
+            </th>
+            <th>
+                Payment Stage
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Payment.Amount)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.BeneficiaryPaymentPoints)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Household.UniqueId)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Household.Mother.FullName)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Household.RecipientNames)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Household.Phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Household.HealthFacility.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Household.Village.Ward.SubCounty.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Household.Village.Ward.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Household.Village.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PaymentPoint.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PaymentPoint.Amount)
+                </td>
+            </tr>
+        }
+        @if (!Model.BeneficiaryPaymentPoints.Any())
+        {
+            <tr>
+                <td class="dataTables_empty" colspan="10">
+                    No data found.
+                </td>
+            </tr>
+        }
+    </tbody>
+    @if (Model.BeneficiaryPaymentPoints.Any())
+    {
+        <tfoot>
+            <tr>
+                <td colspan="9">
+                    <strong>Total</strong>
+                </td>
+                <td>
+                    <strong>
+                        @Html.DisplayFor(modelItem => Model.Total)
+                    </strong>
+                </td>
+            </tr>
+        </tfoot>
+    }
+</table>

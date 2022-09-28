@@ -1,0 +1,42 @@
+﻿@model MCHMIS.Models.SMS
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="row">
+    <div class="col-md-6 col-xs-12">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="ClinicVisitId" class="control-label"></label>
+                <select asp-for="ClinicVisitId" class="form-control" asp-items="ViewBag.ClinicVisitId">
+                    <option value="">Select</option>
+                </select>
+                <span asp-validation-for="ClinicVisitId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TriggerEvent" class="control-label"></label>
+                <input asp-for="TriggerEvent" class="form-control" />
+                <span asp-validation-for="TriggerEvent" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Message" class="control-label"></label>
+                <textarea asp-for="Message" class="form-control"></textarea>
+                <span asp-validation-for="Message" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Order" class="control-label"></label>
+                <input asp-for="Order" class="form-control" />
+                <span asp-validation-for="Order" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <a asp-action="Index" class="btn btn-danger glyphicon glyphicon-step-backward pull-left"> Back</a>
+                <button type="submit" class="btn btn-success pull-right">
+                    <i class="glyphicon glyphicon-ok-sign"></i> Save
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

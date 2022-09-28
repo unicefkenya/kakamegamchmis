@@ -1,0 +1,130 @@
+﻿@model MCHMIS.ViewModels.ProfilesViewModel
+@{
+    ViewBag.Title = "Profiles";
+}
+
+<div class=" profiles">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+       
+                @using (Html.BeginForm("Save", "Profiles", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form" }))
+
+                {
+                    @Html.AntiForgeryToken()
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                   
+                    <div class="row">
+
+                        <div class="form-group col-md-12">
+                            <label asp-for="RoleId" class="control-label"></label>
+                          
+                                <select asp-for="RoleId" class="form-control onchange" asp-items="ViewBag.RoleId">
+                                  
+                                </select>
+                                <a class="CurrentRootUrl" href="~/admin/profiles/"></a>
+                                
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="tree">
+                                <ul id="treeData" style="display: block">
+                                    @foreach (var item in Model.SystemTasks)
+                                    {
+                                        <li id="@item.Id" class="folder">
+                                            <i class="fa fa-caret-right"></i>
+                                            @if (Model.RoleProfileIds.Contains(item.Id))
+                                            {
+                                                <input class="parent" rel="@item.Id" value="@item.Id" name="Ids[]" type="checkbox" checked="checked" />
+                                            }
+                                            else
+                                            {
+                                                <input class="parent" rel="@item.Id" value="@item.Id" name="Ids[]" type="checkbox" />
+                                            }
+                                            <span>@item.Name @*- @item.Id*@</span>
+                                            <ul>
+                                                @foreach (var child in item.Children.OrderBy(c => c.Order))
+                                                {
+
+                                                    <li id="3">
+
+                                                        @if (Model.RoleProfileIds.Contains(child.Id))
+                                                        {
+                                                            <input value="@child.Id" name="Ids[]" type="checkbox" checked="checked" />
+                                                        }
+                                                        else
+                                                        {
+                                                            <input value="@child.Id" name="Ids[]" type="checkbox" />
+                                                        }
+                                                        @child.Name @*- @child.Id*@
+                                                    </li>
+
+                                                }
+                                            </ul>
+                                        </li>
+                                    }
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p>&nbsp;</p>
+                            <button type="submit" class="btn btn-success pull-right">
+                                <i class="glyphicon glyphicon-ok-sign"></i> Save
+                            </button>
+                        </div>
+                    </div>
+                }
+         
+    </div>      
+</div>
+@section scripts{
+    <script>
+        $(function () {
+            $('.onchange').on('change', function () {
+                window.location = $('.CurrentRootUrl').attr('href') + $(".onchange option:selected").val();
+            });
+            // Activate a node, on button click
+            $("#button1").click(function(){
+                var tree = $("#tree").fancytree("getTree"),
+                    node2 = tree.getNodeByKey("id2");
+                node2.toggleSelected();
+            });
+            $('#treeData input.parent').change(function () {
+
+                $(this).parents('li')
+                    .find("input[type='checkbox']")
+                    .prop('checked', this.checked);
+            });
+            $('body').on('click', '#treeData input', function () {
+
+                $(this).parents('li').parents('li')
+                    .find(".parent")
+                    .prop('checked',false);
+            });
+            $(".profiles i.fa").click(function() {
+                $(this).parent().find('ul').slideToggle();
+                if ($(this).hasClass('fa-caret-right')) {
+                    $(this).addClass('fa-caret-down');
+                    $(this).removeClass('fa-caret-right');
+                } else {
+                    $(this).addClass('fa-caret-right');
+                    $(this).removeClass('fa-caret-down');
+                }
+            });
+            $(".profiles li.folder span").click(function () {
+                $(this).parent().find('ul').slideToggle();
+                if ($(this).parent().find('i.fa').hasClass('fa-caret-right')) {
+                    $(this).parent().find('i.fa').addClass('fa-caret-down');
+                    $(this).parent().find('i.fa').removeClass('fa-caret-right');
+                } else {
+                    $(this).parent().find('i.fa').addClass('fa-caret-right');
+                    $(this).parent().find('i.fa').removeClass('fa-caret-down');
+                }
+            });
+
+        });
+    </script>
+}

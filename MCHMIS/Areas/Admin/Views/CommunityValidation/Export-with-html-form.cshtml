@@ -1,0 +1,380 @@
+﻿@model MCHMIS.ViewModels.HouseholdDwellingViewModel
+@{
+    ViewData["Title"] = "Export";
+    Layout = "~/Views/Shared/_LayoutExport.cshtml";
+    var rootUrl = "https://localhost:44334/";
+}
+<div class="row">
+    <div class="col-md-12">
+        <div class="export-form">
+            <div class="title-cont">
+                <h3 class="text-center"> I. GEOGRAPHIC IDENTIFICATION (This section is not answered by the respondent)</h3>
+            </div>
+
+            <table class="table">
+                <tr>
+                    <td width="33%">
+                        <table class="table">
+                            <tr>
+                                <td class="fit"> (1.01) County</td>
+                                <td> <input class="form-control-other" /></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td width="33%">
+                        <table class="table">
+                            <tr>
+                                <td class="fit">(1.02) Sub-County</td>
+                                <td> <input class="form-control-other" /></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td width="33%">
+                        <table class="table">
+                            <tr>
+                                <td class="fit">(1.03) Constituency</td>
+                                <td> <input class="form-control-other" /></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <table class="table">
+                            <tr>
+                                <td class="fit">(1.04) Location</td>
+                                <td> <input class="form-control-other" /></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                        <table class="table">
+                            <tr>
+                                <td class="fit">(1.05) Sub-Location</td>
+                                <td> <input class="form-control-other" /></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                        <table class="table">
+                            <tr>
+                                <td class="fit">(1.06) Village Constituency</td>
+                                <td> <input class="form-control-other" /></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <table class="table">
+                            <tr>
+                                <td class="fit">(1.06) PHYSICAL ADDRESS</td>
+                                <td> <input class="form-control-other" /></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                        <table class="table">
+                            <tr>
+                                <td class="fit">(1.07) Duration of residence in this place: Years </td>
+                                <td> <input class="form-control-other" /></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                        <table class="table">
+                            <tr>
+                                <td class="fit">(1.08) NEAREST CHURCH/MOSQUE </td>
+                                <td> <input class="form-control-other" /></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <table class="table">
+                            <tr>
+                                <td class="fit">(1.09) NEAREST SCHOOL</td>
+                                <td> <input class="form-control-other" /></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+            <p>&nbsp;</p>
+            <div class="title-cont">
+                <h3 class="text-center">II. DWELLING AND HOUSEHOLD</h3>
+            </div>
+            <img class="part-one" src="@rootUrl/images/Targeting-Tool-Part-1.png" />
+            <img class="part-one" src="@rootUrl/images/Targeting-Tool-Part-2.png" />
+            @*<form asp-action="Create" class="registration-form export-form">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="col-md-3">
+
+                        <div class="form-group">
+                            <label class="control-label">(2.01) How many habitable ROOMS does this dwelling unit contain?</label>
+                            <input asp-for="RoomsNo" class="form-control" />
+                            <span asp-validation-for="RoomsNo" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">(2.02) TENURE status of the dwelling unit and/or surrounding terrain/land <br />If owner occupied, state whether:</label>
+                            <ul>
+                                @foreach (var item in Model.SystemCodes.Single(s => s.Code == "Tenure Status").SystemCodeDetails)
+                                {
+                                <li>
+                                    <input name="@Model.TenureStatusId" value="@item.Id" type="radio" />
+                                    @item.Code
+                                    @if (item.Code.Equals("Other"))
+                                    {
+                                    <input name="@Model.TenureStatusOther" class="form-control-other" />
+                                    }
+                                </li>
+                                }
+                            </ul>
+                        </div>
+                        <div class="form-group border-bottom">
+                            <label class="control-label">Dominant CONSTRUCTION MATERIAL of the main Dwelling unit</label>
+                            <table>
+                                <tr>
+                                    <td class="border-right border-bottom">
+                                        <label>(2.03) ROOF</label>
+                                        <ul>
+                                            @foreach (var item in Model.SystemCodes.Single(s => s.Code == "Roof Material").SystemCodeDetails)
+                                            {
+                                            <li>
+                                                <input name="@Model.RoofMaterialId" value="@item.Id" type="radio" /> @item.Code
+                                                @if (item.Code.Equals("Other"))
+                                                {
+                                                <input name="@Model.RoofMaterialOther" class="form-control-other" />
+                                                }
+                                            </li>
+
+                                            }
+                                        </ul>
+                                    </td>
+                                    <td class="border-bottom">
+                                        <label>(2.04) WALL</label>
+                                        <ul>
+                                            @foreach (var item in Model.SystemCodes.Single(s => s.Code == "Wall Material").SystemCodeDetails)
+                                            {
+                                            <li>
+                                                <input name="@Model.WallMaterialId" value="@item.Id" type="radio" /> @item.Code
+                                                @if (item.Code.Equals("Other"))
+                                                {
+                                                <input name="@Model.WallMaterialOther" class="form-control-other" />
+                                                }
+                                            </li>
+                                            }
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="border-right">
+                                        <label>(2.05) FLOOR</label>
+                                        <ul>
+                                            @foreach (var item in Model.SystemCodes.Single(s => s.Code == "Floor Material").SystemCodeDetails)
+                                            {
+                                            <li>
+                                                <input name="@Model.FloorMaterialId" value="@item.Id" type="radio" /> @item.Code
+                                                @if (item.Code.Equals("Other"))
+                                                {
+                                                <input name="@Model.FloorMaterialOther" class="form-control-other" />
+                                                }
+                                            </li>
+                                            }
+                                        </ul>
+                                    </td>
+                                    <td>
+                                        <label>(2.06) The dwelling unit is at</label>
+                                        <ul>
+                                            @foreach (var item in Model.SystemCodes.Single(s => s.Code == "Dwelling Unit Risk").SystemCodeDetails)
+                                            {
+                                            <li>
+                                                <input name="@Model.UnitRiskId" value="@item.Id" type="radio" /> @item.Code
+                                                @if (item.Code.Equals("Other"))
+                                                {
+                                                <input name="@Model.UnitRiskOther" class="form-control-other" />
+                                                }
+                                            </li>
+                                            }
+                                        </ul>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">(2.07) Main source of WATER:</label>
+                            @{ var count = 0;}
+                            <ul class="float-left">
+                                @foreach (var item in Model.SystemCodes.Single(s => s.Code == "Water Source").SystemCodeDetails.Where(i => i.Code != "Other"))
+                                {
+                                <li><input name="@Model.WaterSourceId" value="@item.Id" type="radio" /> @item.Code</li>
+                                if (count == 6)
+                                {
+                                @Html.Raw("
+                            </ul><ul class='float-left'>
+                                ")
+                                }
+                                count++;
+                                }
+                            </ul>
+                            <ul class="float-left">
+                                <li>
+                                    <input name="@Model.WaterSourceId" value="" type="radio"> Other
+                                    <input name="@Model.WallMaterialOther" class="form-control-other" />
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">(2.08) Main mode of HUMAN WASTE DISPOSAL:</label>
+                            <ul>
+                                @foreach (var item in Model.SystemCodes.Single(s => s.Code == "Toilet Type").SystemCodeDetails)
+                                {
+                                <li>
+                                    <input name="@Model.ToiletTypeId" value="@item.Id" type="radio" /> @item.Code
+                                    @if (item.Code.Equals("Other"))
+                                    {
+                                    <input name="@Model.ToiletTypeOther" class="form-control-other" />
+                                    }
+                                </li>
+                                }
+                            </ul>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">(2.09) Main type of COOKING FUEL:</label>
+                            <ul>
+                                @foreach (var item in Model.SystemCodes.Single(s => s.Code == "Cooking Fuel").SystemCodeDetails)
+                                {
+                                <li>
+                                    <input name="@Model.CookingFuelSourceId" value="@item.Id" type="radio" /> @item.Code  @if (item.Code.Equals("Other"))
+                                    {
+                                    <input name="@Model.CookingFuelSourceOther" class="form-control-other" />
+                                    }
+                                </li>
+                                }
+                            </ul>
+                        </div>
+                        <div class="form-group border-bottom">
+                            <label class="control-label">(2.10) Main type of LIGHTING FUEL::</label>
+                            <ul>
+                                @foreach (var item in Model.SystemCodes.Single(s => s.Code == "Lighting Source").SystemCodeDetails)
+                                {
+                                <li>
+                                    <input name="@Model.LightingSourceId" value="@item.Id" type="radio" /> @item.Code  @if (item.Code.Equals("Other"))
+                                    {
+                                    <input name="@Model.LightingSourceOther" class="form-control-other" />
+                                    }
+                                </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">Does the household OWN any of the following items?</label>
+                            <ul>
+                                @foreach (var item in Model.SystemCodes.Single(s => s.Code == "Household Assets").SystemCodeDetails)
+                                {
+                                <li><input name="HouseholdAssets[]" value="@item.Id" type="checkbox" /> @item.Code</li>
+                                }
+                            </ul>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Does the household OWN any of the following items?</label>
+                            <ul>
+                                @foreach (var item in Model.SystemCodes.Single(s => s.Code == "Household Livestock").SystemCodeDetails)
+                                {
+                                <li><input name="HouseholdLivestock[]" value="@item.Id" type="checkbox" /> @item.Code</li>
+                                }
+                            </ul>
+                        </div>
+                        <div class="form-group border-bottom">
+                            <label class="control-label">(2.26) How many LIVE BIRTHS occurred in this household in the last 12 months?</label>
+                            <input asp-for="LiveBirths" class="form-control" />
+                            <span asp-validation-for="LiveBirths" class="text-danger"></span>
+                            <p>&nbsp;</p>
+                            <label class="control-label">(2.27) How many DEATHS occurred in this household in the last 12 months?</label>
+                            <input asp-for="Deaths" class="form-control" />
+                            <span asp-validation-for="Deaths" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">(2.28) Currently, the CONDITIONS of your household are:</label>
+                            <ul>
+                                @foreach (var item in Model.SystemCodes.Single(s => s.Code == "Household Conditions").SystemCodeDetails)
+                                {
+                                <li><input name="@Model.HouseholdConditionId" value="@item.Id" type="radio" /> @item.Code</li>
+                                }
+                            </ul>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">(2.29) In the past 7 days, did anyone in this household cut the size of the meals or skip meals because of the lack of enough money?</label>
+                            <ul>
+                                @foreach (var item in Model.SystemCodes.Single(s => s.Code == "Boolean Options").SystemCodeDetails)
+                                {
+                                <li><input name="@Model.HasSkippedMeal" value="@item.Id" type="radio" /> @item.Code</li>
+                                }
+                            </ul>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label text-center">BENEFITS FROM SOCIAL ASSISTANCE PROGRAMMES</label>
+                            <label>(2.30) Is anyone in this household receiving benefits from any of the following National Safety Net Programmes?</label>
+                            <ul>
+                                @foreach (var item in Model.SystemCodes.Single(s => s.Code == "Other SP Programme").SystemCodeDetails)
+                                {
+                                <li><input name="@Model.IsReceivingOtherBenefit" value="@item.Id" type="radio" /> @item.Code</li>
+                                }
+                            </ul>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">(2.31) Is anyone in this household receiving benefits from any other Social Assistance Programme or any other external support?</label>
+                            <ul>
+                                @foreach (var item in Model.SystemCodes.Single(s => s.Code == "Boolean Options").SystemCodeDetails)
+                                {
+                                <li><input name="@Model.IsRecievingNSNPBenefit" value="@item.Id" type="radio" /> @item.Code</li>
+                                }
+                            </ul>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">(2.32) Name of the PROGRAMME(s):</label>
+                            <input asp-for="OtherProgrammes" class="form-control" />
+                            <span asp-validation-for="OtherProgrammes" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">(2.33) What type of BENEFIT do you receive?</label>
+                            <ul>
+                                @foreach (var item in Model.SystemCodes.Single(s => s.Code == "SP Benefit Type").SystemCodeDetails)
+                                {
+                                <li>
+                                    <input name="HouseholdAssets" type="checkbox" /> @item.Code  @if (item.Code.Equals("Other"))
+                                    {
+                                    <input name="@Model.OtherProgrammesBenefitTypeId" class="form-control-other" />
+                                    }
+                                </li>
+                                }
+                            </ul>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">(2.34) How MUCH was the benefit in the last receipt?</label>
+                            <input asp-for="OtherProgrammesBenefitAmount" placeholder="Ksh" class="form-control" />
+                            <span asp-validation-for="OtherProgrammesBenefitAmount" class="text-danger"></span>
+                        </div>
+                        <div class="form-group border-bottom">
+                            <label class="control-label">(2.35) Specify IN-KIND of benefit:</label>
+                            <input asp-for="OtherProgrammesInKindBenefit" class="form-control" />
+                            <span asp-validation-for="OtherProgrammesInKindBenefit" class="text-danger"></span>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="title-cont">
+                    <h2>III. HOUSEHOLD DEMOGRAPHICS</h2>
+                </div>*@
+        </div>
+    </div>
+</div>

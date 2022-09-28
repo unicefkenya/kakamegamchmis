@@ -1,0 +1,72 @@
+﻿@using Newtonsoft.Json
+@model MCHMIS.ViewModels.TopupsViewModel
+@{
+    ViewBag.Title = "Generate Top-up List?";
+
+    Layout = "~/Views/Shared/_LayoutPopup.cshtml";
+}
+
+<form asp-action="topupsave" class="community-validation">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="col-md-12">
+        <div class="col-md-12">
+            <table class="table table-bordered">
+                <tr>
+                    <td> <label asp-for="Eligible" class="control-label"></label></td>
+                    <td>@Html.DisplayFor(modelItem => Model.Eligible)</td>
+                </tr>
+                <tr>
+                    <td> <label asp-for="InCommunityValidation" class="control-label"></label></td>
+                    <td>@Html.DisplayFor(modelItem => Model.InCommunityValidation)</td>
+                </tr>
+                <tr>
+                    <td><label asp-for="RecommendedForME" class="control-label"></label></td>
+                    <td>@Html.DisplayFor(modelItem => Model.RecommendedForME)</td>
+                </tr>
+                <tr>
+                    <td> <label asp-for="ReadyForEnrolment" class="control-label"></label></td>
+                    <td>@Html.DisplayFor(modelItem => Model.ReadyForEnrolment)</td>
+                </tr>
+                <tr>
+                    <td><strong>Total</strong></td>
+                    <td>@Html.DisplayFor(modelItem => Model.Total)</td>
+                </tr>
+                <tr>
+                    <td><strong><label asp-for="Ineligible" class="control-label"></label></strong></td>
+                    <td>@Html.DisplayFor(modelItem => Model.Ineligible)</td>
+                </tr>
+            </table>
+            @if (Model.Ineligible > 0)
+            {
+
+                <div class="form-group">
+                    <label asp-for="NoToGenerate" class="control-label"></label>
+                    <input asp-for="NoToGenerate" class="form-control" />
+                    <span asp-validation-for="NoToGenerate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Notes" class="control-label"></label>
+                    <input asp-for="Notes" class="form-control" />
+                    <span asp-validation-for="Notes" class="text-danger"></span>
+                </div>
+
+            }
+            else
+            {
+                <p class="text-danger">No Ineligible mothers found for top-up</p>
+            }
+        </div>
+    </div>
+    <div class="col-md-12">
+        <hr />
+        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+        @if (Model.Ineligible > 0)
+        {
+            <button type="submit" class="btn btn-success pull-right">
+                <i class="glyphicon glyphicon-ok-sign"></i> Generate
+            </button>
+        }
+        
+    </div>
+</form>

@@ -1,0 +1,26 @@
+﻿@using Newtonsoft.Json
+@model MCHMIS.ViewModels.GeneratePayrollViewModel
+@{
+    Layout = "~/Views/Shared/_LayoutPopup.cshtml";
+    ViewBag.Title = "Create Payroll";
+
+}
+
+@using (Html.BeginForm("Create", "Payrolls", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-vertical filter", role = "form" }))
+
+{
+    <div class="form-vertical">
+        <div class="form-group col-md-12">
+            <label asp-for="FundRequestId" class="control-label"></label>
+            @Html.DropDownList("FundRequestId", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.FundRequestId, "", new { @class = "text-danger" })
+        </div>
+        <hr />
+
+        <div class="form-group ">
+            <button type="submit" class="btn btn-success pull-right">
+                <i class="glyphicon glyphicon-ok-sign"></i> Generate
+            </button>
+        </div>
+    </div>
+}
